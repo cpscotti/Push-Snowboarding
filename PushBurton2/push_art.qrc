@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/">
+        <file>buttons/connect_bt.png</file>
+        <file>buttons/report_bt.png</file>
+        <file>buttons/run_logger_bt.png</file>
+        <file>buttons/settings_bt.png</file>
+        <file>images/push_splash.png</file>
+        <file>images/status_inner.png</file>
+        <file>buttons/home_bt.png</file>
+        <file>buttons/kit_1.png</file>
+        <file>buttons/kit_2.png</file>
+        <file>buttons/kit_3.png</file>
+        <file>buttons/search_bt.png</file>
+        <file>buttons/stop_bt.png</file>
+        <file>buttons/run_start_bt.png</file>
+        <file>buttons/run_stop_bt.png</file>
+        <file>buttons/kit_sim.png</file>
+        <file>buttons/r_airTimeOff.png</file>
+        <file>buttons/r_airTimeOn.png</file>
+        <file>buttons/r_altitudeOff.png</file>
+        <file>buttons/r_altitudeOn.png</file>
+        <file>buttons/r_heartOff.png</file>
+        <file>buttons/r_heartOn.png</file>
+        <file>buttons/r_rushOff.png</file>
+        <file>buttons/r_rushOn.png</file>
+        <file>buttons/r_speedOff.png</file>
+        <file>buttons/r_speedOn.png</file>
+    </qresource>
+    <qresource prefix="/main_menu/icon">
+        <file>images/offline.png</file>
+        <file>images/online.png</file>
+    </qresource>
+</RCC>
