@@ -3,9 +3,9 @@
 NPushGpsTick::NPushGpsTick(const QGeoPositionInfo &info)
 {
     tick = info;
-    QDateTime correctedTstamp;
-    correctedTstamp = tick.timestamp().addSecs(3600);
-    tick.setTimestamp(correctedTstamp);
+//    QDateTime correctedTstamp;
+//    correctedTstamp = tick.timestamp().addSecs(3600);
+//    tick.setTimestamp(correctedTstamp);
 }
 
 NPushGpsTick::~NPushGpsTick()

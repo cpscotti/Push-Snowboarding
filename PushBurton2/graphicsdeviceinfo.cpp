@@ -74,13 +74,14 @@ void GraphicsDeviceInfo::paint(QPainter *painter, const QStyleOptionGraphicsItem
         painter->setBrush(Qt::green);
     else
         painter->setBrush(Qt::red);
-    painter->drawEllipse(QRectF(112, 316, 15, 15));
+    painter->drawEllipse(QRectF(167, 316, 15, 15));
 
     if(rightBootOn || (rightBootBlink > 0))
         painter->setBrush(Qt::green);
     else
         painter->setBrush(Qt::red);
-    painter->drawEllipse(QRectF(167, 316, 15, 15));
+    painter->drawEllipse(QRectF(112, 316, 15, 15));
+
 }
 
 void GraphicsDeviceInfo::mousePressEvent(QGraphicsSceneMouseEvent *)

@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QWidget>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -11,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     this->setWindowTitle("Push Snowboarding");
+    QWidget::setWindowFlags(Qt::WindowSoftkeysVisibleHint);
 
     scene = new QGraphicsScene(this);
     scene->setSceneRect(0, 0, 360, 480);
@@ -48,6 +51,15 @@ MainWindow::MainWindow(QWidget *parent) :
     fillMainMenuProperties();
 
     startStateMachine();
+
+    QMenuBar * menuBar = new QMenuBar(this);
+
+
+    QAction * takeScreenshotAc = new QAction("Screenshot", menuBar);
+    takeScreenshotAc->setSoftKeyRole(QAction::SelectSoftKey);
+    connect(takeScreenshotAc, SIGNAL(triggered()), this, SLOT(scheduleSshot()));
+    menuBar->addAction(takeScreenshotAc);
+    setMenuBar(menuBar);
 }
 
 void MainWindow::fillStatesProperties()
@@ -188,4 +200,21 @@ MainWindow::~MainWindow()
 {
     rootState->deleteLater();
     delete ui;
+}
+
+void MainWindow::scheduleSshot()
+{
+    sshotTimer = new QTimer(this);
+    sshotTimer->start(100);
+    sshotTimer->setSingleShot(true);
+    connect(sshotTimer, SIGNAL(timeout()), this, SLOT(takeScreenShot()));
+}
+
+void MainWindow::takeScreenShot()
+{
+    QPixmap sshot;
+    sshot = QPixmap::grabWindow(QApplication::desktop()->winId());
+    sshot.save(QString("E:/sshot%1.png").arg(QString::number(QDateTime::currentDateTime().toUTC().toTime_t())), "PNG");
+
+    sshotTimer->deleteLater();
 }

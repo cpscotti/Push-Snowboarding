@@ -3,10 +3,15 @@
 
 #include <qmobilityglobal.h>
 #include <QGeoPositionInfoSource>
+#include <QDateTime>
 
 #include "npushgpstick.h"
 
 #include "pushburtongenericdevice.h"
+
+#include <tz.h>
+#include <TzLocalizer.h>
+#include <TzLocalizationDataTypes.h>
 
 QTM_BEGIN_NAMESPACE
 class QGeoPositionInfo;
@@ -33,8 +38,12 @@ public slots:
     void positionUpdated(QGeoPositionInfo);
 
 private:
+
+    void computeUTCOffset();
+
     QGeoPositionInfoSource * gpsSource;
     bool gpsOnline;
+    int UTCOffset;
 
 protected:
     void timerEvent(QTimerEvent *);

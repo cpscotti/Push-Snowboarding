@@ -23,27 +23,24 @@ PushN8BtDevice::PushN8BtDevice(QBtDevice a_device, QObject *parent) :
 
 void PushN8BtDevice::disconnect_from_backend()
 {
-    qDebug() << "Disconnecting device from backend";
+    qDebug() << "Disconnecting device from (bt) backend";
     if(SPPClient) {
-        SPPClient->disconnect();
+        if(SPPClient->isConnected()) {
+            SPPClient->disconnect();
+        }
+//        SPPClient->deleteLater();
+//        SPPClient = 0;
     }
+    qDebug() << "Disconnected device from (bt) backend";
 }
 
 PushN8BtDevice::~PushN8BtDevice()
 {
-    if(SPPClient)
-    {
-        qDebug() << "Disconnecting connected device";
-        if(SPPClient->isConnected())
-            SPPClient->disconnect();
-
-        SPPClient->deleteLater();
-//        delete SPPClient;
-    }
+    disconnect_from_backend();
+    SPPClient->deleteLater();
     if(serviceDisc)
     {
         serviceDisc->deleteLater();
-//        delete serviceDisc;
     }
 }
 
@@ -89,7 +86,7 @@ void PushN8BtDevice::serviceFound(QBtDevice dev, QBtService a_deviceService)
              this, SLOT(gotError(QBtSerialPortClient::ErrorCode)));
 
 
-    connect(SPPClient, SIGNAL(connectionResetByPeer()), this, SLOT(gotDisconnected()));
+    connect(SPPClient, SIGNAL(connectionResetByPeer()), this, SLOT(connectionResetByPeer()));
     connect(SPPClient, SIGNAL(disconnectedFromServer()), this, SLOT(gotDisconnected()));
 
 }
@@ -101,7 +98,9 @@ void PushN8BtDevice::gotDisconnected()
 
 void PushN8BtDevice::connectionResetByPeer()
 {
-    qDebug() << "Connection Reset by peer";
+    qDebug() << "Connection Reset by peer at " << this;
+    this->stop_readings();
+//    disconnect_from_backend();
 }
 
 void PushN8BtDevice::gotDataReceived(QString data)
@@ -124,8 +123,8 @@ void PushN8BtDevice::gotDataReceived(QString data)
 
 void PushN8BtDevice::gotError(QBtSerialPortClient::ErrorCode error)
 {
-    SPPClient->disconnect();
     this->stop_readings();
+    disconnect_from_backend();
     qDebug() << "Error received: " << error;
 }
 

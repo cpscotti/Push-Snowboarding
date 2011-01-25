@@ -2,6 +2,7 @@
 
 PushN8PhoneGPS::PushN8PhoneGPS(QObject * parent)
 {
+    computeUTCOffset();
     gpsSource = QGeoPositionInfoSource::createDefaultSource(0);
 
     connect(gpsSource, SIGNAL(positionUpdated(QGeoPositionInfo)),
@@ -13,6 +14,8 @@ PushN8PhoneGPS::PushN8PhoneGPS(QObject * parent)
     gpsOnline = false;
 
     timerId = -1;//disable any periodic events
+
+
 }
 
 PushN8PhoneGPS::~PushN8PhoneGPS()
@@ -54,6 +57,11 @@ void PushN8PhoneGPS::positionUpdated(QGeoPositionInfo info)
             emit connected();
 
         gpsOnline = true;
+
+        QDateTime correctedTstamp;
+        correctedTstamp = info.timestamp().addSecs(UTCOffset);//ugly localisation!
+        info.setTimestamp(correctedTstamp);
+
         NPushGpsTick * newGPSTick = new NPushGpsTick(info);
 
         if(receivers(SIGNAL(reading_ready(NPushLogTick*))) > 0)
@@ -65,4 +73,33 @@ void PushN8PhoneGPS::positionUpdated(QGeoPositionInfo info)
         }
     }
 
+}
+
+void PushN8PhoneGPS::computeUTCOffset()
+{
+    RTz tzServer;
+    CTzId* timeZoneID;
+
+    User::LeaveIfError(tzServer.Connect());
+
+    CleanupClosePushL(tzServer);
+
+    timeZoneID = tzServer.GetTimeZoneIdL();
+
+    RArray<TInt> tzid;
+    RArray<TInt> utcOffsets;
+
+    tzid.Append(timeZoneID->TimeZoneNumericID());
+    tzServer.GetOffsetsForTimeZoneIdsL(tzid, utcOffsets);
+
+    UTCOffset = utcOffsets[0]*60;
+
+    qDebug() << "Local Offset to UTC" << UTCOffset;
+
+    tzid.Close();
+    utcOffsets.Close();
+
+    CleanupStack::PushL(timeZoneID);
+    CleanupStack::PopAndDestroy(timeZoneID);
+    CleanupStack::PopAndDestroy(1);
 }

@@ -131,7 +131,7 @@ NPushGpsTick * PushN8SimulationDevice::readGpsTick()
     fakeCoord.setLatitude(xml.attributes().value("latitude").toString().toDouble());
     fakeCoord.setLongitude(xml.attributes().value("longitude").toString().toDouble());
 
-    tstamp = QDateTime::fromTime_t(floor(xml.attributes().value("tstamp").toString().toDouble()-3600.0));
+    tstamp = QDateTime::fromTime_t(floor(xml.attributes().value("tstamp").toString().toDouble()));//-3600.0));
 
     fake.setTimestamp(tstamp);
     fake.setCoordinate(fakeCoord);

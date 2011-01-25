@@ -133,7 +133,8 @@ symbian {
         -lavkon \
         -leikcore \
         -leiksrv \
-        -lcone
+        -lcone \
+        -ltzclient
 
     TARGET.CAPABILITY = \
         LocalServices \

@@ -3,6 +3,12 @@
 
 #include <QMainWindow>
 
+#include <QMenuBar>
+#include <QAction>
+#include <QPixmap>
+#include <QDesktopWidget>
+#include <QDateTime>
+
 #include <QGraphicsScene>
 #include "pushburtonanimation.h"
 
@@ -76,8 +82,13 @@ private:
     void fillMainMenuProperties();
     void startStateMachine();
 
+    QTimer * sshotTimer;
+
 public slots:
     void drawMainScreen();
+
+    void scheduleSshot();
+    void takeScreenShot();
 };
 
 #endif // MAINWINDOW_H
