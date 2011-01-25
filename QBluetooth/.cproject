@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?>
+
+<cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+<storageModule buildFromInf="true" buildingTestComps="true" cleanLevel="0" concurrentBuildJobs="4" defaultMMPChangedAction="0" extraSBSv2Args="" infBuildComponents="" infFileLocation="bld.inf" macrosFile="" makeEngineToUse="make" manageDependencies="true" moduleId="com.nokia.carbide.cdt.builder.carbideCPPBuilder" overrideMakeEngine="false" overrideWorkspaceSettings="false" promptForMMPChangedAction="true" useConcurrentBuilding="true" useDebugMode="false" useIncrementalBuilder="false" useKeepGoing="false" useMMPMacros="true"/>
+<storageModule moduleId="org.eclipse.cdt.core.settings">
+<cconfiguration id="Emulator Debug (WINSCW) [Nokia_Symbian3_SDK_v0.9]">
+<storageModule buildSystemId="com.nokia.carbide.cdt.builder.CarbideConfigurationDataProvider" id="Emulator Debug (WINSCW) [Nokia_Symbian3_SDK_v0.9]" moduleId="org.eclipse.cdt.core.settings" name="Emulator Debug (WINSCW) [Nokia_Symbian3_SDK_v0.9]">
+<externalSettings/>
+<extensions>
+<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="com.nokia.cdt.debug.cw.symbian.SymbianE32" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="com.nokia.carbide.cdt.builder.MakmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.CarbideMakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.SBSv2ErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.MWLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.RCOMPErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.MWCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.MakeDefErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+</extensions>
+</storageModule>
+<storageModule moduleId="CarbideConfigurationDataProvider">
+<ENV_VAR_DATA_ID/>
+<ARGUMENTS_DATA_ID ABLDFREEZEARGSSTORAGE="-r"/>
+<ROM_BUILDER_DATA_ID ROMBUILDWORKINGDIRECTORYSTORAGE="C:\Nokia\devices\Nokia_Symbian3_SDK_v0.9\epoc32\rom\"/>
+</storageModule>
+<storageModule filesCache="C:\QBluetooth\bld.inf;C:\QBluetooth\QBluetooth_0x9003328D.mmp;" includesCache="C:/QBluetooth[LOCAL];C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/mw/qtcore;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/mw/qtgui;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/mw;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/sf/mw/qt/mkspecs/common/symbian;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/sf/mw/qt/mkspecs/common/symbian/tmp;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/stdapis;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/stdapis/sys;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/QBluetooth;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/stdapis/stlportv5;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/mw;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/loc;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/mw/loc;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/loc/sc;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/mw/loc/sc;C:/QBluetooth;C:/QBluetooth/tmp;C:/QBluetooth/DeviceDiscoverer;C:/QBluetooth/DeviceDiscoverer/tmp;C:/QBluetooth/BTTypes;C:/QBluetooth/BTTypes/tmp;C:/QBluetooth/ServiceDiscoverer;C:/QBluetooth/ServiceDiscoverer/tmp;C:/QBluetooth/ServiceAdvertiser;C:/QBluetooth/ServiceAdvertiser/tmp;C:/QBluetooth/Connection/SerialPort/Server;C:/QBluetooth/Connection/SerialPort/Server/tmp;C:/QBluetooth/Connection/SerialPort/Client;C:/QBluetooth/Connection/SerialPort/Client/tmp;C:/QBluetooth/Connection/ObjectExchange/Client;C:/QBluetooth/Connection/ObjectExchange/Client/tmp;C:/QBluetooth/LocalDevice;C:/QBluetooth/LocalDevice/tmp;C:/QBluetooth/Connection/ObjectExchange/Server;C:/QBluetooth/Connection/ObjectExchange/Server/tmp;C:/QBluetooth/Connection/ObjectExchange/Server/Impl;C:/QBluetooth/Connection/ObjectExchange/Server/Impl/tmp;C:/QBluetooth/LocalDevice/Impl;C:/QBluetooth/LocalDevice/Impl/tmp;C:/QBluetooth/Connection/ObjectExchange/Client/Impl;C:/QBluetooth/Connection/ObjectExchange/Client/Impl/tmp;C:/QBluetooth/Connection/SerialPort/Client/Impl;C:/QBluetooth/Connection/SerialPort/Client/Impl/tmp;C:/QBluetooth/Connection/SerialPort/Server/Impl;C:/QBluetooth/Connection/SerialPort/Server/Impl/tmp;C:/QBluetooth/ServiceAdvertiser/Impl;C:/QBluetooth/ServiceAdvertiser/Impl/tmp;C:/QBluetooth/BTTypes/Impl;C:/QBluetooth/BTTypes/Impl/tmp;C:/QBluetooth/ServiceDiscoverer/Impl;C:/QBluetooth/ServiceDiscoverer/Impl/tmp;C:/QBluetooth/DeviceDiscoverer/Impl;C:/QBluetooth/DeviceDiscoverer/Impl/tmp;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/oem;" macrosCache="QT_CORE_LIB;_UNICODE;__DLL__;__SUPPORT_CPP_EXCEPTIONS__;__SYMBIAN_STDCPP_SUPPORT__;__WINSCW__;BLUETOOTH_LIB;__SYMBIAN32__;QT_KEYPAD_NAVIGATION;QT_USE_MATH_H_FLOATS;__CW32__;__WINS__;QT_GUI_LIB;UNICODE;QT_SOFTKEYS_ENABLED;_DEBUG;" moduleId="configDataCache" sourcesCache="" timestampCache="1288062117076" useMmpMacrosCache="true"/>
+<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+</cconfiguration>
+<cconfiguration id="Phone Debug (ARMV5) [Nokia_Symbian3_SDK_v0.9]">
+<storageModule buildSystemId="com.nokia.carbide.cdt.builder.CarbideConfigurationDataProvider" id="Phone Debug (ARMV5) [Nokia_Symbian3_SDK_v0.9]" moduleId="org.eclipse.cdt.core.settings" name="Phone Debug (ARMV5) [Nokia_Symbian3_SDK_v0.9]">
+<externalSettings/>
+<extensions>
+<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="com.nokia.cdt.debug.cw.symbian.SymbianE32" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="com.nokia.carbide.cdt.builder.MakmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.RVCTLinkerErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.CarbideMakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.SBSv2ErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.Elf2E32ErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.RCOMPErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.MakeDefErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.RVCTCompilerErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+</extensions>
+</storageModule>
+<storageModule moduleId="CarbideConfigurationDataProvider">
+<SIS_BUILDER_DATA_ID CREATESTUBSTORAGE="false" ENABLEDSTORAGE="true" PARTIALUPGRADESTORAGE="false" PKGFILESTORAGE="C:\QBluetooth\QBluetooth_template.pkg" SIGNINGTYPESTORAGE="1"/>
+<ENV_VAR_DATA_ID/>
+<ARGUMENTS_DATA_ID ABLDFREEZEARGSSTORAGE="-r"/>
+<ROM_BUILDER_DATA_ID ROMBUILDWORKINGDIRECTORYSTORAGE="C:\Nokia\devices\Nokia_Symbian3_SDK_v0.9\epoc32\rom\"/>
+</storageModule>
+<storageModule filesCache="C:\QBluetooth\bld.inf;C:\QBluetooth\QBluetooth_0x9003328D.mmp;" includesCache="C:/QBluetooth[LOCAL];C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/mw/qtcore;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/mw/qtgui;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/mw;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/sf/mw/qt/mkspecs/common/symbian;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/sf/mw/qt/mkspecs/common/symbian/tmp;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/stdapis;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/stdapis/sys;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/QBluetooth;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/stdapis/stlportv5;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/mw;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/loc;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/mw/loc;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/loc/sc;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/mw/loc/sc;C:/QBluetooth;C:/QBluetooth/tmp;C:/QBluetooth/DeviceDiscoverer;C:/QBluetooth/DeviceDiscoverer/tmp;C:/QBluetooth/BTTypes;C:/QBluetooth/BTTypes/tmp;C:/QBluetooth/ServiceDiscoverer;C:/QBluetooth/ServiceDiscoverer/tmp;C:/QBluetooth/ServiceAdvertiser;C:/QBluetooth/ServiceAdvertiser/tmp;C:/QBluetooth/Connection/SerialPort/Server;C:/QBluetooth/Connection/SerialPort/Server/tmp;C:/QBluetooth/Connection/SerialPort/Client;C:/QBluetooth/Connection/SerialPort/Client/tmp;C:/QBluetooth/Connection/ObjectExchange/Client;C:/QBluetooth/Connection/ObjectExchange/Client/tmp;C:/QBluetooth/LocalDevice;C:/QBluetooth/LocalDevice/tmp;C:/QBluetooth/Connection/ObjectExchange/Server;C:/QBluetooth/Connection/ObjectExchange/Server/tmp;C:/QBluetooth/Connection/ObjectExchange/Server/Impl;C:/QBluetooth/Connection/ObjectExchange/Server/Impl/tmp;C:/QBluetooth/LocalDevice/Impl;C:/QBluetooth/LocalDevice/Impl/tmp;C:/QBluetooth/Connection/ObjectExchange/Client/Impl;C:/QBluetooth/Connection/ObjectExchange/Client/Impl/tmp;C:/QBluetooth/Connection/SerialPort/Client/Impl;C:/QBluetooth/Connection/SerialPort/Client/Impl/tmp;C:/QBluetooth/Connection/SerialPort/Server/Impl;C:/QBluetooth/Connection/SerialPort/Server/Impl/tmp;C:/QBluetooth/ServiceAdvertiser/Impl;C:/QBluetooth/ServiceAdvertiser/Impl/tmp;C:/QBluetooth/BTTypes/Impl;C:/QBluetooth/BTTypes/Impl/tmp;C:/QBluetooth/ServiceDiscoverer/Impl;C:/QBluetooth/ServiceDiscoverer/Impl/tmp;C:/QBluetooth/DeviceDiscoverer/Impl;C:/QBluetooth/DeviceDiscoverer/Impl/tmp;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/oem;" macrosCache="QT_CORE_LIB;__DLL__;_UNICODE;__SUPPORT_CPP_EXCEPTIONS__;__MARM_ARMV5__;__SYMBIAN_STDCPP_SUPPORT__;__ARMCC__;BLUETOOTH_LIB;__ARMCC_2_2__;__SYMBIAN32__;QT_KEYPAD_NAVIGATION;__MARM__;QT_USE_MATH_H_FLOATS;__ARMCC_2__;__EPOC32__;__GENERIC_MARM__;QT_GUI_LIB;UNICODE;QT_SOFTKEYS_ENABLED;__EABI__;_DEBUG;" moduleId="configDataCache" sourcesCache="" timestampCache="1288062117092" useMmpMacrosCache="true"/>
+<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+</cconfiguration>
+<cconfiguration id="Phone Release (ARMV5) [Nokia_Symbian3_SDK_v0.9]">
+<storageModule buildSystemId="com.nokia.carbide.cdt.builder.CarbideConfigurationDataProvider" id="Phone Release (ARMV5) [Nokia_Symbian3_SDK_v0.9]" moduleId="org.eclipse.cdt.core.settings" name="Phone Release (ARMV5) [Nokia_Symbian3_SDK_v0.9]">
+<externalSettings/>
+<extensions>
+<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="com.nokia.cdt.debug.cw.symbian.SymbianE32" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="com.nokia.carbide.cdt.builder.MakmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.RVCTLinkerErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.CarbideMakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.SBSv2ErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.Elf2E32ErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.RCOMPErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.MakeDefErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.RVCTCompilerErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+</extensions>
+</storageModule>
+<storageModule moduleId="CarbideConfigurationDataProvider">
+<SIS_BUILDER_DATA_ID CREATESTUBSTORAGE="false" ENABLEDSTORAGE="true" PARTIALUPGRADESTORAGE="false" PKGFILESTORAGE="C:\QBluetooth\QBluetooth_template.pkg" SIGNINGTYPESTORAGE="1"/>
+<ENV_VAR_DATA_ID/>
+<ARGUMENTS_DATA_ID ABLDFREEZEARGSSTORAGE="-r"/>
+<ROM_BUILDER_DATA_ID ROMBUILDWORKINGDIRECTORYSTORAGE="C:\Nokia\devices\Nokia_Symbian3_SDK_v0.9\epoc32\rom\"/>
+</storageModule>
+<storageModule filesCache="C:\QBluetooth\bld.inf;C:\QBluetooth\QBluetooth_0x9003328D.mmp;" includesCache="C:/QBluetooth[LOCAL];C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/mw/qtcore;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/mw/qtgui;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/mw;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/sf/mw/qt/mkspecs/common/symbian;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/sf/mw/qt/mkspecs/common/symbian/tmp;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/stdapis;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/stdapis/sys;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/QBluetooth;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/stdapis/stlportv5;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/mw;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/loc;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/mw/loc;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/loc/sc;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/mw/loc/sc;C:/QBluetooth;C:/QBluetooth/tmp;C:/QBluetooth/DeviceDiscoverer;C:/QBluetooth/DeviceDiscoverer/tmp;C:/QBluetooth/BTTypes;C:/QBluetooth/BTTypes/tmp;C:/QBluetooth/ServiceDiscoverer;C:/QBluetooth/ServiceDiscoverer/tmp;C:/QBluetooth/ServiceAdvertiser;C:/QBluetooth/ServiceAdvertiser/tmp;C:/QBluetooth/Connection/SerialPort/Server;C:/QBluetooth/Connection/SerialPort/Server/tmp;C:/QBluetooth/Connection/SerialPort/Client;C:/QBluetooth/Connection/SerialPort/Client/tmp;C:/QBluetooth/Connection/ObjectExchange/Client;C:/QBluetooth/Connection/ObjectExchange/Client/tmp;C:/QBluetooth/LocalDevice;C:/QBluetooth/LocalDevice/tmp;C:/QBluetooth/Connection/ObjectExchange/Server;C:/QBluetooth/Connection/ObjectExchange/Server/tmp;C:/QBluetooth/Connection/ObjectExchange/Server/Impl;C:/QBluetooth/Connection/ObjectExchange/Server/Impl/tmp;C:/QBluetooth/LocalDevice/Impl;C:/QBluetooth/LocalDevice/Impl/tmp;C:/QBluetooth/Connection/ObjectExchange/Client/Impl;C:/QBluetooth/Connection/ObjectExchange/Client/Impl/tmp;C:/QBluetooth/Connection/SerialPort/Client/Impl;C:/QBluetooth/Connection/SerialPort/Client/Impl/tmp;C:/QBluetooth/Connection/SerialPort/Server/Impl;C:/QBluetooth/Connection/SerialPort/Server/Impl/tmp;C:/QBluetooth/ServiceAdvertiser/Impl;C:/QBluetooth/ServiceAdvertiser/Impl/tmp;C:/QBluetooth/BTTypes/Impl;C:/QBluetooth/BTTypes/Impl/tmp;C:/QBluetooth/ServiceDiscoverer/Impl;C:/QBluetooth/ServiceDiscoverer/Impl/tmp;C:/QBluetooth/DeviceDiscoverer/Impl;C:/QBluetooth/DeviceDiscoverer/Impl/tmp;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/oem;" macrosCache="QT_CORE_LIB;__DLL__;_UNICODE;__SUPPORT_CPP_EXCEPTIONS__;__MARM_ARMV5__;NDEBUG;__SYMBIAN_STDCPP_SUPPORT__;__ARMCC__;BLUETOOTH_LIB;__ARMCC_2_2__;__SYMBIAN32__;QT_KEYPAD_NAVIGATION;__MARM__;QT_USE_MATH_H_FLOATS;__ARMCC_2__;__EPOC32__;__GENERIC_MARM__;QT_GUI_LIB;UNICODE;QT_SOFTKEYS_ENABLED;__EABI__;" moduleId="configDataCache" sourcesCache="" timestampCache="1288062117123" useMmpMacrosCache="true"/>
+<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+</cconfiguration>
+<cconfiguration id="Phone Debug (GCCE) [Nokia_Symbian3_SDK_v0.9]">
+<storageModule buildSystemId="com.nokia.carbide.cdt.builder.CarbideConfigurationDataProvider" id="Phone Debug (GCCE) [Nokia_Symbian3_SDK_v0.9]" moduleId="org.eclipse.cdt.core.settings" name="Phone Debug (GCCE) [Nokia_Symbian3_SDK_v0.9]">
+<externalSettings/>
+<extensions>
+<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="com.nokia.cdt.debug.cw.symbian.SymbianE32" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="com.nokia.carbide.cdt.builder.MakmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.CarbideMakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.SBSv2ErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.Elf2E32ErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.RCOMPErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.GCCECompilerErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.MakeDefErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.GCCEAssemblerErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.GCCELinkerErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+</extensions>
+</storageModule>
+<storageModule moduleId="CarbideConfigurationDataProvider">
+<SIS_BUILDER_DATA_ID CREATESTUBSTORAGE="false" ENABLEDSTORAGE="true" PARTIALUPGRADESTORAGE="false" PKGFILESTORAGE="C:\QBluetooth\QBluetooth_template.pkg" SIGNINGTYPESTORAGE="1"/>
+<ENV_VAR_DATA_ID/>
+<ARGUMENTS_DATA_ID ABLDFREEZEARGSSTORAGE="-r"/>
+<ROM_BUILDER_DATA_ID ROMBUILDWORKINGDIRECTORYSTORAGE="C:\Nokia\devices\Nokia_Symbian3_SDK_v0.9\epoc32\rom\"/>
+</storageModule>
+<storageModule filesCache="C:\QBluetooth\bld.inf;C:\QBluetooth\QBluetooth_0x9003328D.mmp;" includesCache="C:/QBluetooth[LOCAL];C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/mw/qtcore;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/mw/qtgui;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/mw;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/sf/mw/qt/mkspecs/common/symbian;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/sf/mw/qt/mkspecs/common/symbian/tmp;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/stdapis;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/stdapis/sys;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/QBluetooth;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/stdapis/stlportv5;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/mw;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/loc;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/mw/loc;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/loc/sc;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/mw/loc/sc;C:/QBluetooth;C:/QBluetooth/tmp;C:/QBluetooth/DeviceDiscoverer;C:/QBluetooth/DeviceDiscoverer/tmp;C:/QBluetooth/BTTypes;C:/QBluetooth/BTTypes/tmp;C:/QBluetooth/ServiceDiscoverer;C:/QBluetooth/ServiceDiscoverer/tmp;C:/QBluetooth/ServiceAdvertiser;C:/QBluetooth/ServiceAdvertiser/tmp;C:/QBluetooth/Connection/SerialPort/Server;C:/QBluetooth/Connection/SerialPort/Server/tmp;C:/QBluetooth/Connection/SerialPort/Client;C:/QBluetooth/Connection/SerialPort/Client/tmp;C:/QBluetooth/Connection/ObjectExchange/Client;C:/QBluetooth/Connection/ObjectExchange/Client/tmp;C:/QBluetooth/LocalDevice;C:/QBluetooth/LocalDevice/tmp;C:/QBluetooth/Connection/ObjectExchange/Server;C:/QBluetooth/Connection/ObjectExchange/Server/tmp;C:/QBluetooth/Connection/ObjectExchange/Server/Impl;C:/QBluetooth/Connection/ObjectExchange/Server/Impl/tmp;C:/QBluetooth/LocalDevice/Impl;C:/QBluetooth/LocalDevice/Impl/tmp;C:/QBluetooth/Connection/ObjectExchange/Client/Impl;C:/QBluetooth/Connection/ObjectExchange/Client/Impl/tmp;C:/QBluetooth/Connection/SerialPort/Client/Impl;C:/QBluetooth/Connection/SerialPort/Client/Impl/tmp;C:/QBluetooth/Connection/SerialPort/Server/Impl;C:/QBluetooth/Connection/SerialPort/Server/Impl/tmp;C:/QBluetooth/ServiceAdvertiser/Impl;C:/QBluetooth/ServiceAdvertiser/Impl/tmp;C:/QBluetooth/BTTypes/Impl;C:/QBluetooth/BTTypes/Impl/tmp;C:/QBluetooth/ServiceDiscoverer/Impl;C:/QBluetooth/ServiceDiscoverer/Impl/tmp;C:/QBluetooth/DeviceDiscoverer/Impl;C:/QBluetooth/DeviceDiscoverer/Impl/tmp;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/oem;" macrosCache="QT_CORE_LIB;_UNICODE;__DLL__;__SUPPORT_CPP_EXCEPTIONS__;__MARM_ARMV5__;__SYMBIAN_STDCPP_SUPPORT__;BLUETOOTH_LIB;__SYMBIAN32__;QT_KEYPAD_NAVIGATION;__GCCE__;__MARM__;QT_USE_MATH_H_FLOATS;__EPOC32__;__GENERIC_MARM__;QT_GUI_LIB;UNICODE;QT_SOFTKEYS_ENABLED;__EABI__;_DEBUG;" moduleId="configDataCache" sourcesCache="" timestampCache="1288062117138" useMmpMacrosCache="true"/>
+<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+</cconfiguration>
+<cconfiguration id="Phone Release (GCCE) [Nokia_Symbian3_SDK_v0.9]">
+<storageModule buildSystemId="com.nokia.carbide.cdt.builder.CarbideConfigurationDataProvider" id="Phone Release (GCCE) [Nokia_Symbian3_SDK_v0.9]" moduleId="org.eclipse.cdt.core.settings" name="Phone Release (GCCE) [Nokia_Symbian3_SDK_v0.9]">
+<externalSettings/>
+<extensions>
+<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="com.nokia.cdt.debug.cw.symbian.SymbianE32" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="com.nokia.carbide.cdt.builder.MakmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.CarbideMakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.SBSv2ErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.Elf2E32ErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.RCOMPErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.GCCECompilerErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.MakeDefErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.GCCEAssemblerErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="com.nokia.carbide.cdt.builder.GCCELinkerErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+</extensions>
+</storageModule>
+<storageModule moduleId="CarbideConfigurationDataProvider">
+<SIS_BUILDER_DATA_ID CREATESTUBSTORAGE="false" ENABLEDSTORAGE="true" PARTIALUPGRADESTORAGE="false" PKGFILESTORAGE="C:\QBluetooth\QBluetooth_template.pkg" SIGNINGTYPESTORAGE="1"/>
+<ENV_VAR_DATA_ID/>
+<ARGUMENTS_DATA_ID ABLDFREEZEARGSSTORAGE="-r"/>
+<ROM_BUILDER_DATA_ID ROMBUILDWORKINGDIRECTORYSTORAGE="C:\Nokia\devices\Nokia_Symbian3_SDK_v0.9\epoc32\rom\"/>
+</storageModule>
+<storageModule filesCache="C:\QBluetooth\bld.inf;C:\QBluetooth\QBluetooth_0x9003328D.mmp;" includesCache="C:/QBluetooth[LOCAL];C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/mw/qtcore;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/mw/qtgui;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/mw;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/sf/mw/qt/mkspecs/common/symbian;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/sf/mw/qt/mkspecs/common/symbian/tmp;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/stdapis;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/stdapis/sys;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/QBluetooth;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/stdapis/stlportv5;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/mw;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/loc;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/mw/loc;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/loc/sc;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/platform/mw/loc/sc;C:/QBluetooth;C:/QBluetooth/tmp;C:/QBluetooth/DeviceDiscoverer;C:/QBluetooth/DeviceDiscoverer/tmp;C:/QBluetooth/BTTypes;C:/QBluetooth/BTTypes/tmp;C:/QBluetooth/ServiceDiscoverer;C:/QBluetooth/ServiceDiscoverer/tmp;C:/QBluetooth/ServiceAdvertiser;C:/QBluetooth/ServiceAdvertiser/tmp;C:/QBluetooth/Connection/SerialPort/Server;C:/QBluetooth/Connection/SerialPort/Server/tmp;C:/QBluetooth/Connection/SerialPort/Client;C:/QBluetooth/Connection/SerialPort/Client/tmp;C:/QBluetooth/Connection/ObjectExchange/Client;C:/QBluetooth/Connection/ObjectExchange/Client/tmp;C:/QBluetooth/LocalDevice;C:/QBluetooth/LocalDevice/tmp;C:/QBluetooth/Connection/ObjectExchange/Server;C:/QBluetooth/Connection/ObjectExchange/Server/tmp;C:/QBluetooth/Connection/ObjectExchange/Server/Impl;C:/QBluetooth/Connection/ObjectExchange/Server/Impl/tmp;C:/QBluetooth/LocalDevice/Impl;C:/QBluetooth/LocalDevice/Impl/tmp;C:/QBluetooth/Connection/ObjectExchange/Client/Impl;C:/QBluetooth/Connection/ObjectExchange/Client/Impl/tmp;C:/QBluetooth/Connection/SerialPort/Client/Impl;C:/QBluetooth/Connection/SerialPort/Client/Impl/tmp;C:/QBluetooth/Connection/SerialPort/Server/Impl;C:/QBluetooth/Connection/SerialPort/Server/Impl/tmp;C:/QBluetooth/ServiceAdvertiser/Impl;C:/QBluetooth/ServiceAdvertiser/Impl/tmp;C:/QBluetooth/BTTypes/Impl;C:/QBluetooth/BTTypes/Impl/tmp;C:/QBluetooth/ServiceDiscoverer/Impl;C:/QBluetooth/ServiceDiscoverer/Impl/tmp;C:/QBluetooth/DeviceDiscoverer/Impl;C:/QBluetooth/DeviceDiscoverer/Impl/tmp;C:/Nokia/devices/Nokia_Symbian3_SDK_v0.9/epoc32/include/oem;" macrosCache="QT_CORE_LIB;_UNICODE;__DLL__;__SUPPORT_CPP_EXCEPTIONS__;__MARM_ARMV5__;NDEBUG;__SYMBIAN_STDCPP_SUPPORT__;BLUETOOTH_LIB;__SYMBIAN32__;QT_KEYPAD_NAVIGATION;__GCCE__;__MARM__;QT_USE_MATH_H_FLOATS;__EPOC32__;__GENERIC_MARM__;QT_GUI_LIB;UNICODE;QT_SOFTKEYS_ENABLED;__EABI__;" moduleId="configDataCache" sourcesCache="" timestampCache="1288062117154" useMmpMacrosCache="true"/>
+<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+</cconfiguration>
+</storageModule>
+</cproject>
