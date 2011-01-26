@@ -133,6 +133,8 @@ TBool QBtSerialPortClientPrivate::ConnectL (const QBtDevice& remoteDevice, const
     
     
     iState = EConnecting;
+
+    //Initializing QOS vars
     connFailureCnt = 0;
     pipeDepth = 0;
     
@@ -340,10 +342,17 @@ void QBtSerialPortClientPrivate::SendData (const QString& data)
 void QBtSerialPortClientPrivate:: SendData (const QByteArray& data)
 {
 
+    //QOS pipeDepth Check. pipeDepth tells the number of sent messages waiting to "get through".
+    //When this becomes bigger than a certain threshold, we assume the bt connection was lost.
     if(pipeDepth > maxPipeDepth) {
         connFailureCnt++;
-        qDebug() << this << " detected \'connection reset by peer\', full pipe! (" << pipeDepth << ")";
-        QT_TRYCATCH_LEAVING (emit p_ptr->connectionResetByPeer())
+        qDebug() << this << "Signal lost (Full pipe)! (" << pipeDepth << ")";
+//        QT_TRYCATCH_LEAVING (emit p_ptr->connectionResetByPeer())
+        QT_TRYCATCH_LEAVING(emit p_ptr->lost_signal())
+
+        //Note that this won't for disconnection of the device, it will just signal the app to stop trying
+        //to get messages through otherwise the send buffer would get too big and we would get locked:
+        //DoCancel gets blocked on ESending
         return;
     }
 
@@ -361,24 +370,15 @@ void QBtSerialPortClientPrivate:: SendData (const QByteArray& data)
 
     if (IsActive())
     {
-//        if(iState != ESending) {
-
-//        }
         Cancel();
-
-//        else {
-//            connFailureCnt++;
-//            qDebug() << this << "detected \'connection reset by peer\', " << connFailureCnt;
-//            QT_TRYCATCH_LEAVING (emit p_ptr->connectionResetByPeer())
-//            return;
-//        }
     }
     
     // send message
     iState = ESending;    
 
+    //QOS pipeDepth increment, will send new message.
+    //pipeDepth will be decremented when message gets through
     pipeDepth++;
-    qDebug() << this << "Wrote (" << pipeDepth << ")";
 
     iSock.Write (*iMessage, iStatus);
     SetActive();
@@ -391,13 +391,9 @@ void QBtSerialPortClientPrivate::DoCancel()
     case EWaiting:
         break;
     case ESending:
-        //This wont ever be executed from sendData's Cancel!!!
+        //Should never be executed from sendData's Cancel!!!
         qDebug() << "(DoCancel:ESending)";
         iSock.CancelSend();
-//        iStatus = KErrDisconnected;
-//        QT_TRYCATCH_LEAVING (emit p_ptr->error (QBtSerialPortClient::ErrorConnectionTimeout));
-        qDebug() << "(DoCancel:ESending) Broken Pipe(!)? " << iState << "this == " << this << " pipeDepth = " << pipeDepth;
-
         break;
 
         //ENone when exit, can't call iSock.CancelAll or so will panic
@@ -509,9 +505,21 @@ void QBtSerialPortClientPrivate::RunL()
         
         case EWaiting:
         {
+            //QOS pipeDepth check. When a msg gets through, BtState goes back to waiting.
+            //If no messages get through for a long time, pipeDepth will overflow
             if(pipeDepth > 0) {
                 pipeDepth--;
-                qDebug() << this << " got through(" << pipeDepth << ")";
+
+                //Pipe empty again, issue signal_is_back
+                if(pipeDepth == 0 && connFailureCnt > 0) {
+                    QT_TRYCATCH_LEAVING (emit p_ptr->signal_is_back() )
+                    qDebug() << this << "Signal is back!";
+                    connFailureCnt = 0;
+                }
+            }
+
+            if(connFailureCnt > 0) {
+                qDebug() << "We got a waiting after full pipe!";
             }
 
             // we got incoming data!

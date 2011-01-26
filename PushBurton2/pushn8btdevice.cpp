@@ -48,23 +48,10 @@ PushN8BtDevice::PushN8BtDevice(QBtDevice a_device, QObject *parent) :
     packetLen = 4;
 }
 
-void PushN8BtDevice::disconnect_from_backend()
-{
-    qDebug() << "Disconnecting device from (bt) backend";
-    if(SPPClient) {
-        if(SPPClient->isConnected()) {
-            SPPClient->disconnect();
-        }
-//        SPPClient->deleteLater();
-//        SPPClient = 0;
-    }
-    qDebug() << "Disconnected device from (bt) backend";
-}
-
 PushN8BtDevice::~PushN8BtDevice()
 {
     disconnect_from_backend();
-    SPPClient->deleteLater();
+
     if(serviceDisc)
     {
         serviceDisc->deleteLater();
@@ -87,12 +74,9 @@ void PushN8BtDevice::timerEvent(QTimerEvent * event)
     {
         if(SPPClient->isConnected())
         {
-//            qDebug() << "Before sending data";
             SPPClient->sendData(QString("A"));
-//            qDebug() << "After sending data";
         }
     }
-//    qDebug() << "(!) Emitting bt device reading for " << this->get_description();
 }
 
 void PushN8BtDevice::serviceFound(QBtDevice dev, QBtService a_deviceService)
@@ -114,13 +98,52 @@ void PushN8BtDevice::serviceFound(QBtDevice dev, QBtService a_deviceService)
 
 
     connect(SPPClient, SIGNAL(connectionResetByPeer()), this, SLOT(connectionResetByPeer()));
+
+    connect(SPPClient, SIGNAL(lost_signal()), this, SLOT(lost_signal()));
+    connect(SPPClient, SIGNAL(signal_is_back()), this, SLOT(regained_signal()));
+
     connect(SPPClient, SIGNAL(disconnectedFromServer()), this, SLOT(gotDisconnected()));
 
 }
 
+/*
+ * This method will always be re-implemented by children
+ *
+ */
+void PushN8BtDevice::gotDataReceived(QString data)
+{
+//    QStringList params = data.split(",");
+//    if(params.count() == 4) {
+//        if(params[0] == "SNRS1") {
+//            NPushAccTick * newAccTick = new NPushAccTick(accSensor->reading());
+//            if(receivers(SIGNAL(reading_ready(NPushLogTick*))) > 0)
+//            {
+//                emit reading_ready(newAccTick);
+//            } else {
+//                delete newAccTick;
+//            }
+//        }
+//    }
+    qDebug() << "(uninmplemented gotDataReceived): Data received: " << data;
+}
+
 void PushN8BtDevice::gotDisconnected()
 {
-    qDebug() << "Disconnected from server";
+    qDebug() << "Successful disconnection to device";
+    SPPClient->deleteLater();
+    SPPClient = 0;
+}
+
+void PushN8BtDevice::lost_signal()
+{
+    this->stop_readings();
+    emit disconnected();
+}
+
+void PushN8BtDevice::regained_signal()
+{
+    this->start_readings();
+    emit connected();
 }
 
 void PushN8BtDevice::connectionResetByPeer()
@@ -128,32 +151,24 @@ void PushN8BtDevice::connectionResetByPeer()
     qDebug() << "Connection Reset by peer at " << this;
     this->stop_readings();
     emit disconnected();
-//    disconnect_from_backend();
-}
-
-void PushN8BtDevice::gotDataReceived(QString data)
-{
-    QStringList params = data.split(",");
-    if(params.count() == 4) {
-        if(params[0] == "SNRS1") {
-//            NPushAccTick * newAccTick = new NPushAccTick(accSensor->reading());
-            if(receivers(SIGNAL(reading_ready(NPushLogTick*))) > 0)
-            {
-                //anyone listening to us
-//                emit reading_ready(newAccTick);
-            } else {
-//                delete newAccTick;
-            }
-        }
-    }
-//    qDebug() << "Data received: " << data;
 }
 
 void PushN8BtDevice::gotError(QBtSerialPortClient::ErrorCode error)
 {
     this->stop_readings();
-    disconnect_from_backend();
     qDebug() << "Error received: " << error;
+    disconnect_from_backend();
+}
+
+void PushN8BtDevice::disconnect_from_backend()
+{
+    if(SPPClient) {
+        qDebug() << "Disconnecting device from (bt) backend";
+        if(SPPClient->isConnected()) {
+            SPPClient->disconnect();
+        }
+        qDebug() << "Disconnected device from (bt) backend";
+    }
 }
 
 bool PushN8BtDevice::is_online()
@@ -168,7 +183,6 @@ QString PushN8BtDevice::getDetails()
 {
     QString ret;
     ret.append("\tName: " + device.getName() + "\n");
-//    ret.append("\tAddress: " + device.getAddress() + "\n");
     ret.append("\tFound SSP: " + QString((SPPClient)?"YES":"NO") + "\n");
     return ret;
 }

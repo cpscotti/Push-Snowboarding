@@ -55,9 +55,9 @@ bool QBtSerialPortClient::isConnected()
 void QBtSerialPortClient::connect(const QBtDevice& remoteDevice, const QBtService& remoteService)
 {
 #ifdef Q_OS_SYMBIAN
-	QT_TRAP_THROWING(_implPtr->ConnectL(remoteDevice, remoteService) );
+        QT_TRAP_THROWING(_implPtr->ConnectL(remoteDevice, remoteService));
 #else
-	_implPtr->Connect (remoteDevice, remoteService);
+        _implPtr->Connect (remoteDevice, remoteService);
 #endif    
 	
 }

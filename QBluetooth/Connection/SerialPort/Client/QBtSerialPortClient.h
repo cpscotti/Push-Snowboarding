@@ -158,6 +158,16 @@ signals:
      */
     void error(QBtSerialPortClient::ErrorCode error);
 
+    /**
+     * Emitted when output pipe gets full/temporary signal loss
+     */
+    void lost_signal();
+
+    /**
+     * Emitted when signal goes back to normal
+     */
+    void signal_is_back();
+
 private:
     friend class QBtSerialPortClientPrivate;
     QBtSerialPortClientPrivate* _implPtr;

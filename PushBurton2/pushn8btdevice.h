@@ -93,6 +93,8 @@ public slots:
 
     void gotDisconnected();
     void connectionResetByPeer();
+    void lost_signal();
+    void regained_signal();
 
 };
 
