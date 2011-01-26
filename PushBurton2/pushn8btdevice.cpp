@@ -127,6 +127,7 @@ void PushN8BtDevice::connectionResetByPeer()
 {
     qDebug() << "Connection Reset by peer at " << this;
     this->stop_readings();
+    emit disconnected();
 //    disconnect_from_backend();
 }
 

@@ -120,6 +120,71 @@ void GraphicsDeviceInfo::mouseReleaseEvent(QGraphicsSceneMouseEvent *)
 {
 }
 
+void GraphicsDeviceInfo::device_connecting(const QString& devName)
+{
+    if(devName == "Heart") {
+        heartBlink = 1;
+    } else if(devName == "Arm") {
+        armBlink = 1;
+    } else if(devName == "Board") {
+        snowbBlink = 1;
+    } else if(devName == "RBoot") {
+        rightBootBlink = 1;
+    } else if(devName == "LBoot") {
+        leftBootBlink = 1;
+    } else if(devName == "Location") {
+        locationBlink = 1;
+    }
+}
+
+void GraphicsDeviceInfo::device_connected(const QString& devName)
+{
+    if(devName == "Heart") {
+        heartOn = true;
+        heartBlink = 0;
+    } else if(devName == "Arm") {
+        armOn = true;
+        armBlink = 0;
+    } else if(devName == "Board") {
+        snowbOn = true;
+        snowbBlink = 0;
+    } else if(devName == "RBoot") {
+        rightBootOn = true;
+        rightBootBlink = 0;
+    } else if(devName == "LBoot") {
+        leftBootOn = true;
+        leftBootBlink = 0;
+    } else if(devName == "Location") {
+        locationOn = true;
+        locationBlink = 0;
+    }
+    this->update();
+}
+
+void GraphicsDeviceInfo::device_disconnected(const QString& devName)
+{
+    if(devName == "Heart") {
+        heartOn = false;
+        heartBlink = 0;
+    } else if(devName == "Arm") {
+        armOn = false;
+        armBlink = 0;
+    } else if(devName == "Board") {
+        snowbOn = false;
+        snowbBlink = 0;
+    } else if(devName == "RBoot") {
+        rightBootOn = false;
+        rightBootBlink = 0;
+    } else if(devName == "LBoot") {
+        leftBootOn = false;
+        leftBootBlink = 0;
+    } else if(devName == "Location") {
+        locationOn = false;
+        locationBlink = 0;
+    }
+    this->update();
+}
+
 void GraphicsDeviceInfo::location_online()
 {
     locationOn = true;
@@ -204,5 +269,14 @@ void GraphicsDeviceInfo::timerEvent(QTimerEvent * event)
         {
             this->update();
         }
+
+//        else if(! (leftBootOn &&
+//              rightBootOn &&
+//              armOn &&
+//              heartOn &&
+//              snowbOn) )
+//        {
+//            this->update();
+//        }
     }
 }

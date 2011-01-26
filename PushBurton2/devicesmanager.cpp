@@ -38,6 +38,9 @@ DevicesManager::DevicesManager(PushDevicesHolder * aDevHolder, QObject *parent) 
 
     simulating = false;
 
+    connect(&connectedMapper, SIGNAL(mapped(const QString&)), this, SIGNAL(device_connected(const QString&)));
+    connect(&disconnectedMapper, SIGNAL(mapped(const QString&)), this, SIGNAL(device_disconnected(const QString&)));
+
     SetupPhoneDevices();
     SetupAbstractDevices();
 }
@@ -109,11 +112,19 @@ bool DevicesManager::SetupDevice(QBtDevice thisDev)
 
             if(newN8Device->get_side() == 'L')
             {
-                emit foot_l_connecting();
-                connect(newN8Device, SIGNAL(connected()), this, SIGNAL(foot_l_connected()));
+                emit device_connecting(QString("LBoot"));
+
+                connect(newN8Device, SIGNAL(connected()), &connectedMapper, SLOT(map()));
+                connectedMapper.setMapping(newN8Device, QString("LBoot"));
+                connect(newN8Device, SIGNAL(disconnected()), &disconnectedMapper, SLOT(map()));
+                disconnectedMapper.setMapping(newN8Device, QString("LBoot"));
             } else {
-                emit foot_r_connecting();
-                connect(newN8Device, SIGNAL(connected()), this, SIGNAL(foot_r_connected()));
+                emit device_connecting(QString("RBoot"));
+
+                connect(newN8Device, SIGNAL(connected()), &connectedMapper, SLOT(map()));
+                connectedMapper.setMapping(newN8Device, QString("RBoot"));
+                connect(newN8Device, SIGNAL(disconnected()), &disconnectedMapper, SLOT(map()));
+                disconnectedMapper.setMapping(newN8Device, QString("RBoot"));
             }
         } else if(thisDev.getName().count("PUSHN8_GSR") > 0)
         {
@@ -121,24 +132,38 @@ bool DevicesManager::SetupDevice(QBtDevice thisDev)
             PushN8GSRDevice * newN8Device = new PushN8GSRDevice(thisDev);
             configuredDevices->push_back(newN8Device);
 
-            emit gsr_connecting();
-            connect(newN8Device, SIGNAL(connected()), this, SIGNAL(gsr_connected()));
+            emit device_connecting(QString("Arm"));
+
+            connect(newN8Device, SIGNAL(connected()), &connectedMapper, SLOT(map()));
+            connectedMapper.setMapping(newN8Device, QString("Arm"));
+            connect(newN8Device, SIGNAL(disconnected()), &disconnectedMapper, SLOT(map()));
+            disconnectedMapper.setMapping(newN8Device, QString("Arm"));
+
         } else if(thisDev.getName().count("PUSHN8_MOTION") > 0)
         {
             //Adding to configuredDevices
             PushN8IMUDevice * newN8Device = new PushN8IMUDevice(thisDev);
             configuredDevices->push_back(newN8Device);
 
-            emit motion_box_connecting();
-            connect(newN8Device, SIGNAL(connected()), this, SIGNAL(motion_box_connected()));
+            emit device_connecting(QString("Board"));
+
+            connect(newN8Device, SIGNAL(connected()), &connectedMapper, SLOT(map()));
+            connectedMapper.setMapping(newN8Device, QString("Board"));
+            connect(newN8Device, SIGNAL(disconnected()), &disconnectedMapper, SLOT(map()));
+            disconnectedMapper.setMapping(newN8Device, QString("Board"));
+
         } else if(thisDev.getName().count("PUSHN8_HEART") > 0)
         {
             //Adding to configuredDevices
             PushN8HeartDevice * newN8Device = new PushN8HeartDevice(thisDev);
             configuredDevices->push_back(newN8Device);
 
-            emit heart_connecting();
-            connect(newN8Device, SIGNAL(connected()), this, SIGNAL(heart_connected()));
+            emit device_connecting(QString("Heart"));
+
+            connect(newN8Device, SIGNAL(connected()), &connectedMapper, SLOT(map()));
+            connectedMapper.setMapping(newN8Device, QString("Heart"));
+            connect(newN8Device, SIGNAL(disconnected()), &disconnectedMapper, SLOT(map()));
+            disconnectedMapper.setMapping(newN8Device, QString("Heart"));
         } else {
             return false;
         }

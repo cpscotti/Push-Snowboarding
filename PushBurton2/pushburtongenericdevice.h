@@ -75,6 +75,7 @@ signals:
     void report_ready(NPushGenReport *);
 
     void connected();
+    void disconnected();
 };
 
 #endif // PUSHBURTONGENERICDEVICE_H

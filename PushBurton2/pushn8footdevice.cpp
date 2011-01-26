@@ -66,8 +66,6 @@ void PushN8FootDevice::gotDataReceived(QString data)
 
         NPushFootTick * newFootTick = new NPushFootTick(side, ntoes, nheel);
 
-        qDebug() << "Foot data received: " << ntoes << ", " << nheel;
-
         if(receivers(SIGNAL(reading_ready(NPushLogTick*))) > 0)
         {
             //anyone listening to us

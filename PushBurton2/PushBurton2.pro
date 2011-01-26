@@ -169,6 +169,8 @@ symbian {
     addFiles.sources = $(EPOCROOT)Epoc32/release/$(PLATFORM)/$(CFG)/QBluetooth.dll
     addFiles.path = /sys/bin
     DEPLOYMENT += addFiles
+
+    isEmpty(ICON):ICON = images/burton_logo.svg
 }
 
 RESOURCES += \

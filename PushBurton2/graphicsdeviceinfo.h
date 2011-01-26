@@ -56,6 +56,11 @@ protected:
     void timerEvent(QTimerEvent *);
 
 public slots:
+
+    void device_connecting(const QString&);
+    void device_connected(const QString&);
+    void device_disconnected(const QString&);
+
     void location_online();
     void snowb_online();
     void heart_online();

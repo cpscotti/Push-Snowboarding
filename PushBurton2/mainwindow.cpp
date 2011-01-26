@@ -101,18 +101,11 @@ void MainWindow::fillStatesProperties()
     homeUsrState->assignProperty(devInfo, "y", 5);
     connectUsrState->assignProperty(devInfo, "y", 65);
     machine.addDefaultAnimation(new PushBurtonAnimation(devInfo, "y", devInfo));
-    connect(&devicesManager, SIGNAL(foot_l_connecting()), devInfo, SLOT(boot_l_conn()));
-    connect(&devicesManager, SIGNAL(foot_l_connected()), devInfo, SLOT(boot_l_online()));
-    connect(&devicesManager, SIGNAL(foot_r_connecting()), devInfo, SLOT(boot_r_conn()));
-    connect(&devicesManager, SIGNAL(foot_r_connected()), devInfo, SLOT(boot_r_online()));
-    connect(&devicesManager, SIGNAL(gsr_connecting()), devInfo, SLOT(arm_conn()));
-    connect(&devicesManager, SIGNAL(gsr_connected()), devInfo, SLOT(arm_online()));
-    connect(&devicesManager, SIGNAL(heart_connected()), devInfo, SLOT(heart_online()));
-    connect(&devicesManager, SIGNAL(heart_connecting()), devInfo, SLOT(heart_conn()));
-    connect(&devicesManager, SIGNAL(motion_box_connected()), devInfo, SLOT(snowb_online()));
-    connect(&devicesManager, SIGNAL(motion_box_connecting()), devInfo, SLOT(snowb_conn()));
-    connect(&devicesManager, SIGNAL(phone_gps_connected()), devInfo, SLOT(location_online()));
-    connect(&devicesManager, SIGNAL(phone_gps_connecting()), devInfo, SLOT(location_conn()));
+
+    connect(&devicesManager, SIGNAL(device_connecting(QString)), devInfo, SLOT(device_connecting(QString)));
+    connect(&devicesManager, SIGNAL(device_connected(QString)), devInfo, SLOT(device_connected(QString)));
+    connect(&devicesManager, SIGNAL(device_disconnected(QString)), devInfo, SLOT(device_disconnected(QString)));
+
     homeUsrState->addTransition(devInfo, SIGNAL(activated()), connectUsrState);
 
     //Splash Screen

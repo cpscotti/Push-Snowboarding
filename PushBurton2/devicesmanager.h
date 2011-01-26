@@ -40,6 +40,8 @@
 #include <QBluetooth/QBtSerialPortClient.h>
 #include <QBluetooth/QBtLocalDevice.h>
 
+#include <QSignalMapper>
+
 #include "pushdevicesholder.h"
 #include "pushn8btdevice.h"
 #include "pushn8footdevice.h"
@@ -67,6 +69,10 @@ public:
 
 signals:
     void deviceConnected(QString description);
+
+    void device_connecting(const QString&);
+    void device_connected(const QString&);
+    void device_disconnected(const QString&);
 
     //This may seem abusive at first look
     //  but makes complete sense since they are just routed from
@@ -111,6 +117,9 @@ private:
 
     bool simulating;
 
+
+    QSignalMapper connectedMapper;
+    QSignalMapper disconnectedMapper;
 
     QVector<QBtDevice> unknownFoundDevices;
     QBtDeviceDiscoverer * deviceDiscoverer;
