@@ -36,6 +36,7 @@
 class GraphicPixmapBt : public QGraphicsObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool altImgToggle READ getAltImg WRITE toggleAltImg)
 
 public:
     GraphicPixmapBt(QString, QGraphicsItem* parent = 0);
@@ -49,6 +50,8 @@ public:
         clickable = a;
     }
 
+    void setAltImage(const QString&);
+
 signals:
     void activated();
     void released();
@@ -60,8 +63,13 @@ protected:
 private:
     bool toggled;
     bool clickable;
-    QPixmap px;
 
+    void toggleAltImg(bool);
+    bool getAltImg();
+
+    bool altImgActivated;
+    QPixmap px;
+    QPixmap * altPx;
 
 };
 

@@ -45,14 +45,19 @@ GraphicsReportView::GraphicsReportView(QObject *parent=0) :
     qDebug() << "before creating reports bts";
 
     speedLink = new GraphicPixmapBt(":/buttons/r_speedOff.png", this);
+    speedLink->setAltImage(QString(":/buttons/r_speedOn.png"));
     speedLink->setPos(10+0*8+0*58,62);
     heartLink = new GraphicPixmapBt(":/buttons/r_heartOff.png", this);
+    heartLink->setAltImage(QString(":/buttons/r_heartOn.png"));
     heartLink->setPos(10+1*8+1*58,62);
     airTimeLink = new GraphicPixmapBt(":/buttons/r_airTimeOff.png", this);
+    airTimeLink->setAltImage(QString(":/buttons/r_airTimeOn.png"));
     airTimeLink->setPos(10+2*8+2*58,62);
     rushLink = new GraphicPixmapBt(":/buttons/r_rushOff.png", this);
+    rushLink->setAltImage(QString(":/buttons/r_rushOn.png"));
     rushLink->setPos(10+3*8+3*58,62);
     altitudeLink = new GraphicPixmapBt(":/buttons/r_altitudeOff.png", this);
+    altitudeLink->setAltImage(QString(":/buttons/r_altitudeOn.png"));
     altitudeLink->setPos(10+4*8+4*58,62);
 
     speedPlot.setY(124);
@@ -110,9 +115,16 @@ void GraphicsReportView::refresh_dirs_graphs()
     load_avDirectories_directories();
     for(int i=0;i<avDirectories.count();i++)
     {
-        dirName = "E:/";
-        dirName.append(avDirectories[i]);
-        slidingDownBts->addBt(run_name_from_utime(avDirectories[i]), dirName);
+        if(avDirectories[i].length() == 16) // old format
+        {
+            dirName = "E:/";
+            dirName.append(avDirectories[i]);
+            slidingDownBts->addBt(name_from_old_format(avDirectories[i]), dirName);
+        } else {
+            dirName = "E:/";
+            dirName.append(avDirectories[i]);
+            slidingDownBts->addBt(name_from_new_format(avDirectories[i]), dirName);
+        }
     }
     slidingDownBts->construction_finished();
     connect(slidingDownBts, SIGNAL(bt_selected(QString)), this, SLOT(file_selected(QString)));
@@ -172,6 +184,15 @@ void GraphicsReportView::init_state_machine()
     rootState->addTransition(&altitudePlot, SIGNAL(swipeLeft()), altitudeViewState);
     rootState->addTransition(&altitudePlot, SIGNAL(bounceBack()), altitudeViewState);
 
+    qDebug() << "Before assigning all properties";
+
+
+    setup_link_alt_bts(speedViewState, speedLink);
+    setup_link_alt_bts(heartViewState, heartLink);
+    setup_link_alt_bts(airTimeViewState, airTimeLink);
+    setup_link_alt_bts(rushViewState, rushLink);
+    setup_link_alt_bts(altitudeViewState, altitudeLink);
+
     setup_rolling_plot_properties(speedViewState, 0);
     setup_rolling_plot_properties(heartViewState, 1);
     setup_rolling_plot_properties(airTimeViewState, 2);
@@ -214,15 +235,19 @@ void GraphicsReportView::load_graphs(QString dir)
     speedPlot.setVerticalRange(0.0, speedReport.Speed_max*1.1);
     speedPlot.setGraphPoints(&(speedReport.graphPoints));
     speedPlot.clearStatBoxes();
-    speedPlot.addStatBox(QString::number(speedReport.Speed_max*2.25, 'f',1), "MAX");
-    speedPlot.addStatBox(QString::number(speedReport.Speed_avg*2.25, 'f',1), "AVERAGE");
+    if(speedReport.graphPoints.count() > 0) {
+        speedPlot.addStatBox(QString::number(speedReport.Speed_max*2.25, 'f',1), "MAX");
+        speedPlot.addStatBox(QString::number(speedReport.Speed_avg*2.25, 'f',1), "AVERAGE");
+    }
 
     heartReport.load_from_dir(dir);
     heartPlot.setVerticalRange(50.0, (float)heartReport.Heart_max*1.1);
     heartPlot.setGraphPoints(&(heartReport.graphPoints));
     heartPlot.clearStatBoxes();
-    heartPlot.addStatBox(QString::number(heartReport.Heart_max), "MAX");
-    heartPlot.addStatBox(QString::number(heartReport.Heart_avg), "AVERAGE");
+    if(heartReport.graphPoints.count() > 0) {
+        heartPlot.addStatBox(QString::number(heartReport.Heart_max), "MAX");
+        heartPlot.addStatBox(QString::number(heartReport.Heart_avg), "AVERAGE");
+    }
 
     airTimeReport.load_from_dir(dir);
     airTimePlot.setPlotType(GraphicVarPlot::Bars);
@@ -230,23 +255,33 @@ void GraphicsReportView::load_graphs(QString dir)
     airTimePlot.setHorizontalRange(airTimeReport.tRunStart, airTimeReport.tRunEnd);
     airTimePlot.setGraphPoints(&(airTimeReport.tstamps),&(airTimeReport.air_times));
     airTimePlot.clearStatBoxes();
-    airTimePlot.addStatBox(QString::number(airTimeReport.longest_air_time, 'f', 1), "MAX");
-    airTimePlot.addStatBox(QString::number(airTimeReport.total_air_time, 'f', 1), "TOTAL");
+    if(airTimeReport.tstamps.count() > 0) {
+        airTimePlot.addStatBox(QString::number(airTimeReport.longest_air_time, 'f', 1), "MAX");
+        airTimePlot.addStatBox(QString::number(airTimeReport.total_air_time, 'f', 1), "TOTAL");
+    }
 
     rushReport.load_from_dir(dir);
     rushPlot.setVerticalRange(0.2*(float)rushReport.GSR_avg, (float)rushReport.GSR_max*1.1);
     rushPlot.setGraphPoints(&(rushReport.graphPoints));
     rushPlot.clearStatBoxes();
-    rushPlot.addStatBox(QString::number(rushReport.GSR_max), "MAX");
-    rushPlot.addStatBox(QString::number(rushReport.GSR_avg), "AVERAGE");
+    if(rushReport.graphPoints.count()> 0) {
+        rushPlot.addStatBox(QString::number(rushReport.GSR_max), "MAX");
+        rushPlot.addStatBox(QString::number(rushReport.GSR_avg), "AVERAGE");
+    }
 
     altitudeReport.load_from_dir(dir);
-    altitudePlot.setVerticalRange(altitudeReport.Altitude_min, altitudeReport.Altitude_max);
+    if(altitudeReport.Altitude_max > altitudeReport.Altitude_min) {
+        altitudePlot.setVerticalRange(altitudeReport.Altitude_min, altitudeReport.Altitude_max);
+    } else {
+        altitudePlot.setVerticalRange(0.0, 10000.0);
+    }
     altitudePlot.setGraphPoints(&(altitudeReport.graphPoints));
     altitudePlot.clearStatBoxes();
-    altitudePlot.addStatBox(QString::number(altitudeReport.Altitude_max, 'f', 0), "MAX");
-    altitudePlot.addStatBox(QString::number(altitudeReport.Altitude_max-altitudeReport.Altitude_min, 'f', 0), "SPAN");
-    altitudePlot.addStatBox(QString::number(altitudeReport.Altitude_min, 'f', 0), "MIN");
+    if(altitudeReport.graphPoints.count() > 0) {
+        altitudePlot.addStatBox(QString::number(altitudeReport.Altitude_max, 'f', 0), "MAX");
+        altitudePlot.addStatBox(QString::number(altitudeReport.Altitude_max-altitudeReport.Altitude_min, 'f', 0), "SPAN");
+        altitudePlot.addStatBox(QString::number(altitudeReport.Altitude_min, 'f', 0), "MIN");
+    }
 }
 
 void GraphicsReportView::load_avDirectories_directories()
@@ -271,8 +306,24 @@ void GraphicsReportView::file_selected(QString dir)
     load_graphs(dir);
 }
 
-QString GraphicsReportView::run_name_from_utime(const QString& inStr)
+QString GraphicsReportView::name_from_old_format(const QString& inStr)
 {
     uint utime = inStr.right(10).toUInt();
-    return QDateTime::fromTime_t(utime).toLocalTime().toString("hh:mm, ddd, d/M/yy");
+    return QDateTime::fromTime_t(utime).toString("hh:mm, ddd, d/M/yy");
+}
+
+QString GraphicsReportView::name_from_new_format(const QString& inStr)
+{
+    uint utime = inStr.left(16).right(10).toUInt();
+    return QDateTime::fromTime_t(utime).toString("hh:mm, ddd, d/M/yy");
+}
+
+void GraphicsReportView::setup_link_alt_bts(QState * state, QObject * bt)
+{
+
+    state->assignProperty(speedLink, "altImgToggle", (bt==speedLink));
+    state->assignProperty(heartLink, "altImgToggle", (bt==heartLink));
+    state->assignProperty(airTimeLink, "altImgToggle", (bt==airTimeLink));
+    state->assignProperty(rushLink, "altImgToggle", (bt==rushLink));
+    state->assignProperty(altitudeLink, "altImgToggle", (bt==altitudeLink));
 }

@@ -105,7 +105,7 @@ void RunControlDialog::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     painter->setBrush(QColor(130,222,63));
     painter->drawRect(QRect(5,65+118+5,330,90));
 
-    uint timeNow = QDateTime::currentDateTime().toUTC().toTime_t();
+    uint timeNow = QDateTime::currentDateTime().toTime_t();
     QDateTime elapsedTime = QDateTime::fromTime_t(timeNow - runStart);
 
 
@@ -113,7 +113,7 @@ void RunControlDialog::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     uint msecs;
     double dmsecs;
     msecs = QTime::currentTime().msec();
-    uint aft = QDateTime::currentDateTime().toUTC().toTime_t();
+    uint aft = QDateTime::currentDateTime().toTime_t();
 
     //ugly work around, will be fized with msecsToEpoc from Qt 4.7
     if(aft != timeNow)//on a second slip
@@ -147,7 +147,7 @@ void RunControlDialog::paint(QPainter *painter, const QStyleOptionGraphicsItem *
 
 void RunControlDialog::logging_start()
 {
-    runStart = QDateTime::currentDateTime().toUTC().toTime_t();
+    runStart = QDateTime::currentDateTime().toTime_t();
     run_active = true;
 }
 

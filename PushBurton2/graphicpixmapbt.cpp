@@ -33,13 +33,16 @@ GraphicPixmapBt::GraphicPixmapBt(
         QGraphicsObject(parent)
 {
     px = QPixmap(filename);
+    altPx = 0;
     toggled = false;
     clickable = true;
+    altImgActivated = false;
 }
 
 GraphicPixmapBt::~GraphicPixmapBt()
 {
-
+    if(altPx)
+        delete altPx;
 }
 
 QRectF GraphicPixmapBt::boundingRect() const
@@ -57,10 +60,13 @@ QPainterPath GraphicPixmapBt::shape() const
 
 void GraphicPixmapBt::paint(QPainter *painter, const QStyleOptionGraphicsItem *,QWidget *)
 {
+    QPixmap * p_px = (altImgActivated && altPx)? altPx : &px;
+
     if(!toggled)
-        painter->drawPixmap(QRect(0,0,px.width(),px.height()), px);
+        painter->drawPixmap(QRect(0,0,p_px->width(),p_px->height()), *p_px);
     else
-        painter->drawPixmap(QRect(0.1*px.width(),0.1*px.height(),0.8*px.width(),0.8*px.height()), px);
+        painter->drawPixmap(QRect(0.1*p_px->width(),0.1*p_px->height(),0.8*p_px->width(),0.8*p_px->height()), *p_px);
+
 }
 
 void GraphicPixmapBt::mousePressEvent(QGraphicsSceneMouseEvent *)
@@ -79,4 +85,28 @@ void GraphicPixmapBt::mouseReleaseEvent(QGraphicsSceneMouseEvent *)
         toggled = false;
         this->update();
     }
+}
+
+void GraphicPixmapBt::setAltImage(const QString& filename)
+{
+    altImgActivated = false;
+
+    altPx = new QPixmap;
+
+    if(!altPx->load(filename))
+    {
+        qDebug() << "Could not load pixmap at " << filename;
+        delete altPx;
+    }
+}
+
+void GraphicPixmapBt::toggleAltImg(bool a)
+{
+    altImgActivated = a;
+    this->update();
+}
+
+bool GraphicPixmapBt::getAltImg()
+{
+    return altImgActivated;
 }

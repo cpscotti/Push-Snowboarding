@@ -34,9 +34,9 @@ NPushGSRTick::NPushGSRTick(int a_reading)
     uint secs_to_epoch;
     uint msecs;
 
-    secs_to_epoch = QDateTime::currentDateTime().toUTC().toTime_t();
+    secs_to_epoch = QDateTime::currentDateTime().toTime_t();
     msecs = QTime::currentTime().msec();
-    uint aft = QDateTime::currentDateTime().toUTC().toTime_t();
+    uint aft = QDateTime::currentDateTime().toTime_t();
 
     //ugly work around, will be fized with msecsToEpoc from Qt 4.7
     if(aft != secs_to_epoch)//on a second slip

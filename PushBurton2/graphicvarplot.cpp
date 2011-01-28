@@ -150,6 +150,8 @@ void GraphicVarPlot::setGraphPoints(QList<double> * points)
 //        qDebug() << "Max = " << vertMax << ", vertMin, " << vertMin  << "vertTransform = " << vertTransform;
         generate_graph_path();
     } else {
+        delete path;
+        path = 0;
         qDebug() << "Input graph has less than 2 points, impossible to walk on this mud";
     }
     this->update();
@@ -169,6 +171,8 @@ void GraphicVarPlot::setGraphPoints(QList<double> * abscissa, QList<double> * po
         generate_bar_graph_path();
 
     } else {
+        delete path;
+        path = 0;
         qDebug() << "Input lists empty or corrupted, impossible to walk on this mud";
     }
     this->update();

@@ -85,6 +85,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QAction * takeScreenshotAc = new QAction("Screenshot", menuBar);
     takeScreenshotAc->setSoftKeyRole(QAction::SelectSoftKey);
     connect(takeScreenshotAc, SIGNAL(triggered()), this, SLOT(scheduleSshot()));
+
+//    connect(homeUsrState, SIGNAL(entered()), this, SLOT(scheduleSshot()));
     menuBar->addAction(takeScreenshotAc);
     setMenuBar(menuBar);
 }
@@ -225,7 +227,7 @@ MainWindow::~MainWindow()
 void MainWindow::scheduleSshot()
 {
     sshotTimer = new QTimer(this);
-    sshotTimer->start(100);
+    sshotTimer->start(300);
     sshotTimer->setSingleShot(true);
     connect(sshotTimer, SIGNAL(timeout()), this, SLOT(takeScreenShot()));
 }
@@ -234,7 +236,7 @@ void MainWindow::takeScreenShot()
 {
     QPixmap sshot;
     sshot = QPixmap::grabWindow(QApplication::desktop()->winId());
-    sshot.save(QString("E:/sshot%1.png").arg(QString::number(QDateTime::currentDateTime().toUTC().toTime_t())), "PNG");
+    sshot.save(QString("E:/sshot%1.png").arg(QString::number(QDateTime::currentDateTime().toTime_t())), "PNG");
 
     sshotTimer->deleteLater();
 }

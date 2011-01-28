@@ -43,7 +43,7 @@ void RunManager::start_logging()
     if(logging)
         return;
     logging = true;
-    uint startTime = QDateTime::currentDateTime().toUTC().toTime_t();
+    uint startTime = QDateTime::currentDateTime().toTime_t();
 
     ubiqSaver = new UbiqLogSaver(startTime);
 

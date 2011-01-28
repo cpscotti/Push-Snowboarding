@@ -116,6 +116,7 @@ void UbiqLogSaver::CreateRunDir()
 {
     dirName = "E:/NPBRun";
     dirName += QString::number(start_time);
+    dirName += QDateTime::fromTime_t(start_time).toString("_hhmm");
     QFSFileEngine fse;
     fse.mkdir(dirName, false);
 }

@@ -103,10 +103,12 @@ private:
     void load_avDirectories_directories();
     QStringList avDirectories;
 
+    void setup_link_alt_bts(QState *, QObject *);
     void setup_rolling_plot_properties(QState *,int);
     int get_plot_pos(int pid, int sel);
 
-    QString run_name_from_utime(const QString&);
+    QString name_from_old_format(const QString&);
+    QString name_from_new_format(const QString&);
 
 signals:
     void home_bt_clicked();

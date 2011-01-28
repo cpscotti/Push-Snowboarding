@@ -48,6 +48,7 @@ int main(int argc, char *argv[])
     if(appUi) {
         TRAP_IGNORE(appUi->SetOrientationL((CAknAppUi::TAppUiOrientation)CAknAppUi::EAppOrientationPortrait);)
     }
+
 #endif
 
     MainWindow w;
@@ -57,6 +58,8 @@ int main(int argc, char *argv[])
 #else
     w.show();
 #endif
+
+
 
     return a.exec();
 }
