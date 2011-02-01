@@ -36,6 +36,7 @@
 
 class PushN8IMUDevice : public PushN8BtDevice
 {
+#ifdef Q_OS_SYMBIAN
     Q_OBJECT
 public:
     PushN8IMUDevice(QBtDevice a_device, QObject *parent = 0);
@@ -45,7 +46,7 @@ public:
 public slots:
     void gotDataReceived(QString);
 
-
+#endif
 };
 
 #endif // PUSHN8IMUDEVICE_H

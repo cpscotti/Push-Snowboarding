@@ -28,6 +28,8 @@
 #ifndef PUSHN8SIMPLEREPORTSGENERATOR_H
 #define PUSHN8SIMPLEREPORTSGENERATOR_H
 
+#include <typeinfo>
+
 #include "pushburtongenericdevice.h"
 
 //Subscribes to

@@ -28,6 +28,8 @@
 #ifndef NPUSHREPORTAIRTIME_H
 #define NPUSHREPORTAIRTIME_H
 
+#include "FilesystemConventions.h"
+
 #include "npushgenreport.h"
 #include <QList>
 #include <QObject>

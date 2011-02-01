@@ -28,6 +28,8 @@
 #ifndef NPUSHREPORTGSR_H
 #define NPUSHREPORTGSR_H
 
+#include "FilesystemConventions.h"
+
 #include "npushgenreport.h"
 #include <QVector>
 #include <QObject>

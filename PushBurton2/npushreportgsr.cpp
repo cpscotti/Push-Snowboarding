@@ -92,7 +92,7 @@ void NPushReportGSR::append_new_reading(int reading)
 bool NPushReportGSR::save_to_dir(QString &dirName)
 {
 
-    QString reportFilename = dirName + "/Rush.xml";
+    QString reportFilename = (dirName + FSC_FSYS_SLASH) + "Rush.xml";
     QFile reportFile(reportFilename);
 
     reportFile.open(QFile::WriteOnly | QFile::Text);
@@ -142,7 +142,9 @@ bool NPushReportGSR::save_to_dir(QString &dirName)
 
 bool NPushReportGSR::load_from_dir(QString &dirName)
 {
-    QString data_in_filename = dirName + "/Rush.xml";
+
+    QString data_in_filename = (dirName + FSC_FSYS_SLASH) + "Rush.xml";
+
     QFile data_input(data_in_filename);
     data_input.open(QFile::ReadOnly | QFile::Text);
 

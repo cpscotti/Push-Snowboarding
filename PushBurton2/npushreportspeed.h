@@ -28,6 +28,8 @@
 #ifndef NPUSHREPORTSPEED_H
 #define NPUSHREPORTSPEED_H
 
+#include "FilesystemConventions.h"
+
 #include "npushgenreport.h"
 #include <QVector>
 #include <QObject>

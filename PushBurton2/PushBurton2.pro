@@ -55,11 +55,6 @@ SOURCES += main.cpp\
     npushairtimetick.cpp \
     npushacctick.cpp \
     npushgenreport.cpp \
-    pushn8btdevice.cpp \
-    pushn8imudevice.cpp \
-    pushn8heartdevice.cpp \
-    pushn8gsrdevice.cpp \
-    pushn8footdevice.cpp \
     pushn8phonemag.cpp \
     pushn8phonegps.cpp \
     pushn8phoneacc.cpp \
@@ -105,11 +100,6 @@ HEADERS  += mainwindow.h \
     npushacctick.h \
     AbsNormFeetTypes.h \
     npushgenreport.h \
-    pushn8btdevice.h \
-    pushn8imudevice.h \
-    pushn8heartdevice.h \
-    pushn8gsrdevice.h \
-    pushn8footdevice.h \
     pushn8phonemag.h \
     pushn8phonegps.h \
     pushn8phoneacc.h \
@@ -132,7 +122,8 @@ HEADERS  += mainwindow.h \
     graphicslidingdownbts.h \
     graphicslidingdownbts.h \
     liveview.h \
-    graphicssettings.h
+    graphicssettings.h \
+    FilesystemConventions.h
 
 FORMS    += mainwindow.ui \
     liveview.ui
@@ -140,7 +131,7 @@ FORMS    += mainwindow.ui \
 CONFIG   += mobility
 MOBILITY = location sensors
 
-LIBS += -lQBluetooth
+#LIBS += -lQBluetooth
 
 symbian {
     TARGET.UID3 = 0xece639d4
@@ -166,6 +157,20 @@ symbian {
         WriteUserData \
         Location
 
+    HEADERS  += \
+        pushn8btdevice.h \
+        pushn8imudevice.h \
+        pushn8heartdevice.h \
+        pushn8gsrdevice.h \
+        pushn8footdevice.h
+
+    SOURCES  += \
+        pushn8btdevice.cpp \
+        pushn8imudevice.cpp \
+        pushn8heartdevice.cpp \
+        pushn8gsrdevice.cpp \
+        pushn8footdevice.cpp
+
     addFiles.sources = $(EPOCROOT)Epoc32/release/$(PLATFORM)/$(CFG)/QBluetooth.dll
     addFiles.path = /sys/bin
     DEPLOYMENT += addFiles
@@ -175,3 +180,6 @@ symbian {
 
 RESOURCES += \
     push_art.qrc
+
+#OTHER_FILES += \
+#    ClassDiagram.txt

@@ -30,6 +30,8 @@
 
 #include <QObject>
 #include <QDebug>
+
+#ifdef Q_OS_SYMBIAN
 #include <QBluetooth/QBtDevice.h>
 #include <QBluetooth/QBtService.h>
 #include <QBluetooth/QBtConstants.h>
@@ -38,6 +40,7 @@
 #include <QBluetooth/QBtServiceDiscoverer.h>
 #include <QBluetooth/QBtSerialPortClient.h>
 #include <QBluetooth/QBtLocalDevice.h>
+#endif
 
 #include <QRegExp>
 
@@ -46,6 +49,7 @@
 
 class PushN8BtDevice : public PushBurtonGenericDevice
 {
+#ifdef Q_OS_SYMBIAN
     Q_OBJECT
 public:
     explicit PushN8BtDevice(QBtDevice a_device, QObject *parent = 0);
@@ -96,6 +100,7 @@ public slots:
     void lost_signal();
     void regained_signal();
 
+#endif
 };
 
 #endif // PUSHN8BTDEVICE_H

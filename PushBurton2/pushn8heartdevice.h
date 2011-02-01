@@ -37,6 +37,7 @@
 
 class PushN8HeartDevice : public PushN8BtDevice
 {
+#ifdef Q_OS_SYMBIAN
     Q_OBJECT
 public:
     PushN8HeartDevice(QBtDevice a_device, QObject *parent = 0);
@@ -45,6 +46,7 @@ public:
 
 public slots:
     void gotDataReceived(QString);
+#endif
 };
 
 #endif // PUSHN8HEARTDEVICE_H

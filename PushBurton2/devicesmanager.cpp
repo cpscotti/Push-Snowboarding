@@ -30,7 +30,11 @@
 DevicesManager::DevicesManager(PushDevicesHolder * aDevHolder, QObject *parent) :
     QObject(parent), configuredDevices(aDevHolder)
 {
+
+#ifdef Q_OS_SYMBIAN
     deviceDiscoverer = 0;
+#endif
+
     searching = false;
 
     auto_connect = true;
@@ -47,14 +51,16 @@ DevicesManager::DevicesManager(PushDevicesHolder * aDevHolder, QObject *parent) 
 
 DevicesManager::~DevicesManager()
 {
+#ifdef Q_OS_SYMBIAN
     if(deviceDiscoverer)
         delete deviceDiscoverer;
-
     unknownFoundDevices.clear();
+#endif
 }
 
 void DevicesManager::start_bt_search()
 {
+#ifdef Q_OS_SYMBIAN
     if(!searching)
     {
         searching = true;
@@ -68,8 +74,10 @@ void DevicesManager::start_bt_search()
         deviceDiscoverer->startDiscovery();
         qDebug() << "Bluetooth Discovery started";
     }
+#endif
 }
 
+#ifdef Q_OS_SYMBIAN
 void DevicesManager::deviceFound(QBtDevice newDevice)
 {
     QString devName = newDevice.getName();
@@ -185,17 +193,20 @@ bool DevicesManager::IsDeviceNovell(QBtDevice dev)
                 return false;
         }
     }
-
     return true;
 }
 
+#endif
+
 void DevicesManager::stop_bt_search()
 {
+#ifdef Q_OS_SYMBIAN
     if(searching)
     {
         searching = false;
         deviceDiscoverer->stopDiscovery();
     }
+#endif
 }
 
 void DevicesManager::switch_to_simulation_device()

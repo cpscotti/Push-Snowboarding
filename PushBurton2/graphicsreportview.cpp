@@ -115,13 +115,14 @@ void GraphicsReportView::refresh_dirs_graphs()
     load_avDirectories_directories();
     for(int i=0;i<avDirectories.count();i++)
     {
+
+        dirName = FSC_RUNS_FOLDERS_ROOT;
+
         if(avDirectories[i].length() == 16) // old format
         {
-            dirName = "E:/";
             dirName.append(avDirectories[i]);
             slidingDownBts->addBt(name_from_old_format(avDirectories[i]), dirName);
         } else {
-            dirName = "E:/";
             dirName.append(avDirectories[i]);
             slidingDownBts->addBt(name_from_new_format(avDirectories[i]), dirName);
         }
@@ -286,10 +287,10 @@ void GraphicsReportView::load_graphs(QString dir)
 
 void GraphicsReportView::load_avDirectories_directories()
 {
-    QDir dirIf("E:/");
+    QDir dirIf(FSC_RUNS_FOLDERS_ROOT);
 
     QStringList fileFilter;
-    fileFilter << "NPBRun*";
+    fileFilter << FSC_RUNS_FILTER;
 
     dirIf.setNameFilters(fileFilter);
 

@@ -236,7 +236,7 @@ void MainWindow::takeScreenShot()
 {
     QPixmap sshot;
     sshot = QPixmap::grabWindow(QApplication::desktop()->winId());
-    sshot.save(QString("E:/sshot%1.png").arg(QString::number(QDateTime::currentDateTime().toTime_t())), "PNG");
+    sshot.save(QString(FSC_RUNS_FOLDERS_ROOT) + QString("sshot%1.png").arg(QString::number(QDateTime::currentDateTime().toTime_t())), "PNG");
 
     sshotTimer->deleteLater();
 }

@@ -31,6 +31,8 @@
 #include <QObject>
 #include <QDebug>
 
+//Headers only necessary when bluetooth is available/on symbian device
+#ifdef Q_OS_SYMBIAN
 #include <QBluetooth/QBtDevice.h>
 #include <QBluetooth/QBtService.h>
 #include <QBluetooth/QBtConstants.h>
@@ -39,15 +41,19 @@
 #include <QBluetooth/QBtServiceDiscoverer.h>
 #include <QBluetooth/QBtSerialPortClient.h>
 #include <QBluetooth/QBtLocalDevice.h>
+#endif
 
 #include <QSignalMapper>
 
 #include "pushdevicesholder.h"
+
+#ifdef Q_OS_SYMBIAN
 #include "pushn8btdevice.h"
 #include "pushn8footdevice.h"
 #include "pushn8gsrdevice.h"
 #include "pushn8imudevice.h"
 #include "pushn8heartdevice.h"
+#endif
 
 #include "pushn8phoneacc.h"
 #include "pushn8phonegps.h"
@@ -99,7 +105,9 @@ signals:
 public slots:
 
     //inner mechanisms
+#ifdef Q_OS_SYMBIAN
     void deviceFound(QBtDevice);
+#endif
 
     //comm with user app
     void start_bt_search();
@@ -121,11 +129,13 @@ private:
     QSignalMapper connectedMapper;
     QSignalMapper disconnectedMapper;
 
+#ifdef Q_OS_SYMBIAN
     QVector<QBtDevice> unknownFoundDevices;
     QBtDeviceDiscoverer * deviceDiscoverer;
 
     bool SetupDevice(QBtDevice);
     bool IsDeviceNovell(QBtDevice);
+#endif
 
     void SetupPhoneDevices();
     void SetupAbstractDevices();

@@ -37,6 +37,8 @@
 #include <QFSFileEngine>
 #include <QXmlStreamWriter>
 
+#include "FilesystemConventions.h"
+
 #include "npushlogtick.h"
 #include "npushgenreport.h"
 

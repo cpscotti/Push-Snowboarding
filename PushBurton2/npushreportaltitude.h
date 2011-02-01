@@ -28,6 +28,8 @@
 #ifndef NPUSHREPORTALTITUDE_H
 #define NPUSHREPORTALTITUDE_H
 
+#include "FilesystemConventions.h"
+
 #include "npushgenreport.h"
 #include <QVector>
 #include <QObject>

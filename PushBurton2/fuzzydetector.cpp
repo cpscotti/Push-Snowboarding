@@ -68,10 +68,8 @@ FuzzyDetector::FuzzyDetector()
     ia_onGrnd.push_back(Relation(3.0, 1.0));
     ia_onGrnd.push_back(Relation(8.0, 1.0));
 
-    LoadFromXml("E:/atdsettings.xml");//if file doesn't exist, do nothing + save it
+    LoadFromXml(QString(FSC_RUNS_FOLDERS_ROOT)+QString("atdsettings.xml"));//if file doesn't exist, do nothing + save it
 
-//    LoadFromXml("E:/saved.xml");
-//    SaveToXml("E:/saved2.xml");
 }
 
 FuzzyDetector::~FuzzyDetector()
@@ -84,12 +82,12 @@ Response FuzzyDetector::AskGodAboutAirTime(double fp, double pa, double ia)
     double oa_fp = fp_onAir.fuzificate(fp);
     double oa_pa = pa_onAir.fuzificate(pa);
     double oa_ia = ia_onAir.fuzificate(ia);
-    double onAir = Max(oa_fp, Max(oa_pa, oa_ia));
+    double onAir = std::max(oa_fp, std::max(oa_pa, oa_ia));
 
     double og_fp = fp_onGrnd.fuzificate(fp);
     double og_pa = pa_onGrnd.fuzificate(pa);
     double og_ia = ia_onGrnd.fuzificate(ia);
-    double onGround = Max(og_fp, Max(og_pa, og_ia));
+    double onGround = std::max(og_fp, std::max(og_pa, og_ia));
 
     Response resp;
     if(onAir > onGround) {
@@ -238,7 +236,7 @@ void FuzzyDetector::LoadFromXml(QString settingsFileName)
     QFile data_input(settingsFileName);
     if(! data_input.open(QFile::ReadOnly | QFile::Text))
     {
-        SaveToXml("E:/atdsettings.xml");
+        SaveToXml(QString(FSC_RUNS_FOLDERS_ROOT)+QString("atdsettings.xml"));
         return;
     }
 
@@ -262,21 +260,17 @@ void FuzzyDetector::LoadFromXml(QString settingsFileName)
         }
     }
 
-    qDebug() << "before running everything up";
-
     do
     {
         while( xml.readNextStartElement()) {
             if(xml.name() == "FP_OnAir") {
                 do {
                 while(xml.readNextStartElement()) {
-                    qDebug() << "running fp_onAir";
                     if(xml.name() == "relation") {
                         fp_onAir.push_back(Relation(
                                 xml.attributes().value("inVal").toString().toDouble(),
                                 xml.attributes().value("outVal").toString().toDouble()
                                 ));
-                        qDebug() << "Added one fp_onAir";
                     } else {
                         xml.skipCurrentElement();
                     }

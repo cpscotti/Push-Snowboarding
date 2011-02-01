@@ -32,7 +32,7 @@ UbiqLogSaver::UbiqLogSaver(uint a_start_time)
     start_time = a_start_time;
     CreateRunDir();
 
-    QString rawLogFilename = dirName + "/RawLog.xml";
+    QString rawLogFilename = (dirName + FSC_FSYS_SLASH) + "RawLog.xml";
     dataFile = new QFile(rawLogFilename);
 
 
@@ -114,7 +114,8 @@ void UbiqLogSaver::run_end()
 
 void UbiqLogSaver::CreateRunDir()
 {
-    dirName = "E:/NPBRun";
+    dirName = QString(FSC_RUNS_FOLDERS_ROOT)+QString(FSC_RUNS_PREFIX);
+
     dirName += QString::number(start_time);
     dirName += QDateTime::fromTime_t(start_time).toString("_hhmm");
     QFSFileEngine fse;

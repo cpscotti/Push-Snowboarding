@@ -89,7 +89,7 @@ void NPushReportAltitude::append_new_reading(double altitude)
 bool NPushReportAltitude::save_to_dir(QString &dirName)
 {
 
-    QString reportFilename = dirName + "/Altitude.xml";
+    QString reportFilename = (dirName + FSC_FSYS_SLASH) + "Altitude.xml";
     QFile reportFile(reportFilename);
 
     reportFile.open(QFile::WriteOnly | QFile::Text);
@@ -139,7 +139,9 @@ bool NPushReportAltitude::save_to_dir(QString &dirName)
 
 bool NPushReportAltitude::load_from_dir(QString &dirName)
 {
-    QString data_in_filename = dirName + "/Altitude.xml";
+
+    QString data_in_filename = (dirName + FSC_FSYS_SLASH) + "Altitude.xml";
+
     QFile data_input(data_in_filename);
     data_input.open(QFile::ReadOnly | QFile::Text);
 

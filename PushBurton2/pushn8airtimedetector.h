@@ -30,6 +30,8 @@
 
 #define AIR_TIME_THRESHOLD 220
 
+#include <typeinfo>
+
 #include "npushlogtick.h"
 
 #include "npushimutick.h"

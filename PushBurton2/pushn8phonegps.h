@@ -36,9 +36,11 @@
 
 #include "pushburtongenericdevice.h"
 
+#ifdef Q_OS_SYMBIAN
 #include <tz.h>
 #include <TzLocalizer.h>
 #include <TzLocalizationDataTypes.h>
+#endif
 
 QTM_BEGIN_NAMESPACE
 class QGeoPositionInfo;

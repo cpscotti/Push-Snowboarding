@@ -28,6 +28,8 @@
 #ifndef PUSHN8ABSNORMFEETDEVICE_H
 #define PUSHN8ABSNORMFEETDEVICE_H
 
+#include <typeinfo>
+
 #include "pushburtongenericdevice.h"
 
 #include "pushn8footdevice.h"

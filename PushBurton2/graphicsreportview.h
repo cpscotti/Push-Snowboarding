@@ -51,6 +51,8 @@
 #include "npushreportaltitude.h"
 #include "npushreportairtime.h"
 
+#include "FilesystemConventions.h"
+
 #include <QDebug>
 
 class GraphicsReportView : public QGraphicsObject

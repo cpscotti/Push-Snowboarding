@@ -33,6 +33,8 @@
 #include <QDebug>
 #include <QObject>
 
+#include <typeinfo>
+
 #include "npushlogtick.h"
 #include "pushburtongenericdevice.h"
 #include "pushn8simulationdevice.h"

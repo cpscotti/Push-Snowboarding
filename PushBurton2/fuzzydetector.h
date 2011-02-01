@@ -33,6 +33,8 @@
 
 #include <QtXml>
 
+#include "FilesystemConventions.h"
+
 enum Response
 {
     FlyingLikeAnEagle = 42,
@@ -117,6 +119,9 @@ public:
     void SaveToXml(QString settingsFileName);
     void LoadFromXml(QString settingsFileName);
 
+//    inline double max(double a, double b) {
+//        return (a>b)?a:b;
+//    }
 
 };
 

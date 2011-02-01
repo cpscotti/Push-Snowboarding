@@ -120,6 +120,9 @@ void PushN8SimulationDevice::timerEvent(QTimerEvent * event)
         if(reachedEnd)
             break;
     }
+
+    if(xml.isEndElement() && xml.name() == "N8SensorsLog")
+        qDebug() << "Simulation Ended!!";
 }
 
 NPushAccTick * PushN8SimulationDevice::readAccTick()

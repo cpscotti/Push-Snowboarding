@@ -104,6 +104,7 @@ void PushN8PhoneGPS::positionUpdated(QGeoPositionInfo info)
 
 void PushN8PhoneGPS::computeUTCOffset()
 {
+#ifdef Q_OS_SYMBIAN
     RTz tzServer;
     CTzId* timeZoneID;
 
@@ -129,4 +130,7 @@ void PushN8PhoneGPS::computeUTCOffset()
     CleanupStack::PushL(timeZoneID);
     CleanupStack::PopAndDestroy(timeZoneID);
     CleanupStack::PopAndDestroy(1);
+#else
+    UTCOffset = 0;
+#endif
 }

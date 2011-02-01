@@ -90,7 +90,7 @@ bool NPushReportAirTime::end_run()
 
 bool NPushReportAirTime::save_to_dir(QString& dirName)
 {
-    QString reportFilename = dirName + "/AirTime.xml";
+    QString reportFilename = (dirName + FSC_FSYS_SLASH) + "AirTime.xml";
     QFile reportFile(reportFilename);
 
     reportFile.open(QFile::WriteOnly | QFile::Text);
@@ -154,7 +154,9 @@ bool NPushReportAirTime::save_to_dir(QString& dirName)
 
 bool NPushReportAirTime::load_from_dir(QString& dirName)
 {
-    QString data_in_filename = dirName + "/AirTime.xml";
+
+    QString data_in_filename = (dirName + FSC_FSYS_SLASH) + "AirTime.xml";
+
     QFile data_input(data_in_filename);
     data_input.open(QFile::ReadOnly | QFile::Text);
 

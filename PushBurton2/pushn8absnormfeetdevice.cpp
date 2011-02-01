@@ -121,44 +121,5 @@ void PushN8AbsNormFeetDevice::incomming_reading(NPushLogTick * gtick)
         lastReading = ftick->msecsToEpoch;
         lastReadingSide = ftick->side;
 
-//        if((ftick->msecsToEpoch - lastReading) < 100 &&
-//           (ftick->side != lastReadingSide)) {
-
-//            int sensorsRawSum = pdata.computeSum();
-
-//            normRunCount++;
-
-//            NPushAirTimeTick * newTick = 0;
-//            if(sensorsRawSum < 2300) {
-//                if(!flying) {
-//                    takeOffTime = ftick->msecsToEpoch;
-//                    lastAirborneTime = takeOffTime;
-//                    flying = true;
-//                } else {
-//                    lastAirborneTime = ftick->msecsToEpoch;
-//                }
-//                quint64 airTime = lastAirborneTime-takeOffTime;
-//                if(airTime > 400) {
-//                    newTick = new NPushAirTimeTick(airTime, false, ftick->msecsToEpoch);
-//                }
-//            } else {
-//                if(flying) {
-//                    quint64 airTime = lastAirborneTime-takeOffTime;
-//                    newTick = new NPushAirTimeTick(airTime, true, ftick->msecsToEpoch);
-//                    flying = false;
-//                }
-//            }
-
-
-
-//            qDebug() << "(range) Rt[" << (pdata.RToe.maxVal - pdata.RToe.minVal) << "] Rh [" << (pdata.RHeel.maxVal - pdata.RHeel.minVal) << "]";
-//            qDebug() << "(range) Lt[" << (pdata.LToe.maxVal - pdata.LToe.minVal) << "] Lh [" << (pdata.LHeel.maxVal - pdata.LHeel.minVal) << "]";
-
-//            qDebug() << "(norml) Rt[" << pdata.RToe.normVal << "] Rh [" << pdata.RHeel.normVal << "]";
-//            qDebug() << "(norml) Lt[" << pdata.LToe.normVal << "] Lh [" << pdata.LHeel.normVal << "]";
-
-//            qDebug() << "(sum) " << ftick->msecsToEpoch << " -> [" << sensorsRawSum << "] normCount = " << normRunCount;
-
-//        }
     }
 }

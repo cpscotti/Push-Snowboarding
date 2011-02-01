@@ -46,6 +46,8 @@
 
 #include <QDebug>
 
+#include "math.h"
+
 class GraphicVarPlot : public QGraphicsObject
 {
     Q_OBJECT

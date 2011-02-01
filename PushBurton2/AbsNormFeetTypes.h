@@ -40,8 +40,8 @@ public:
     void update(int inVal)
     {
         rawVal = inVal;
-        maxVal = Max(inVal, maxVal);
-        minVal = Min(inVal, minVal);
+        maxVal = (inVal > maxVal)?inVal:maxVal;
+        minVal = (inVal < minVal)?inVal:minVal;
         normVal = (inVal - minVal)*(1.0f/(maxVal-minVal));
     }
 

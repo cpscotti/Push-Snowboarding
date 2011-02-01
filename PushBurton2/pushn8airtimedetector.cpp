@@ -118,7 +118,7 @@ void PushN8AirTimeDetector::handle_response(Response resp)
                 quint64 airTime = lastAirborneTime-takeOffTime;
                 qDebug() << "Landed Air Time: " << airTime;
                 if(airTime > AIR_TIME_THRESHOLD) {
-                    newTick = new NPushAirTimeTick(airTime, true, Max(currentTstamp, lastAirborneTime));                    
+                    newTick = new NPushAirTimeTick(airTime, true, std::max(currentTstamp, lastAirborneTime));
                     atReport->append_air(airTime, takeOffTime);
                 }
             }

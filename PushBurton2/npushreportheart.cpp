@@ -97,7 +97,7 @@ void NPushReportHeart::append_new_reading(int reading)
 bool NPushReportHeart::save_to_dir(QString &dirName)
 {
 
-    QString reportFilename = dirName + "/Heart.xml";
+    QString reportFilename = (dirName + FSC_FSYS_SLASH) + "Heart.xml";
     QFile reportFile(reportFilename);
 
     reportFile.open(QFile::WriteOnly | QFile::Text);
@@ -147,7 +147,8 @@ bool NPushReportHeart::save_to_dir(QString &dirName)
 
 bool NPushReportHeart::load_from_dir(QString &dirName)
 {
-    QString data_in_filename = dirName + "/Heart.xml";
+
+    QString data_in_filename = (dirName + FSC_FSYS_SLASH) + "Heart.xml";
     QFile data_input(data_in_filename);
     data_input.open(QFile::ReadOnly | QFile::Text);
 

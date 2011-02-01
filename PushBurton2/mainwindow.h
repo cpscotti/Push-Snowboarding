@@ -43,6 +43,8 @@
 
 #include <QDebug>
 
+#include "FilesystemConventions.h"
+
 #include "graphicpixmapbt.h"
 #include "graphicsdeviceinfo.h"
 #include "graphicsconnmenu.h"

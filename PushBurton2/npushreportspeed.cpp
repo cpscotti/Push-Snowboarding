@@ -95,7 +95,7 @@ void NPushReportSpeed::append_new_reading(double speed)
 bool NPushReportSpeed::save_to_dir(QString &dirName)
 {
 
-    QString reportFilename = dirName + "/Speed.xml";
+    QString reportFilename = (dirName + FSC_FSYS_SLASH) + "Speed.xml";
     QFile reportFile(reportFilename);
 
     reportFile.open(QFile::WriteOnly | QFile::Text);
@@ -145,7 +145,8 @@ bool NPushReportSpeed::save_to_dir(QString &dirName)
 
 bool NPushReportSpeed::load_from_dir(QString &dirName)
 {
-    QString data_in_filename = dirName + "/Speed.xml";
+
+    QString data_in_filename = (dirName + FSC_FSYS_SLASH) + "Speed.xml";
     QFile data_input(data_in_filename);
     data_input.open(QFile::ReadOnly | QFile::Text);
 
