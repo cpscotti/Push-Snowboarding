@@ -104,6 +104,7 @@ void PushN8AbsNormFeetDevice::incomming_reading(NPushLogTick * gtick)
            (ftick->side != lastReadingSide)) {
 
             pdata.computeSum();
+            pdata.computeNormFactor();
 
             normRunCount++;
 

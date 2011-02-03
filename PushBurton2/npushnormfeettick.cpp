@@ -55,6 +55,17 @@ void NPushNormFeetTick::dump_to_xml(QXmlStreamWriter& xml) const
     xml.writeAttribute("tstamp", QString::number(((double)msecsToEpoch)/(double)1000.0, 'f', 3));
     xml.writeAttribute("sum", QString::number(pdata.totalRawSum));
 
+
+    xml.writeAttribute("norm_factor", QString::number(pdata.totalNormFactor));
+
+    xml.writeAttribute("on_air", QString((pdata.totalNormFactor < 0.5)?"true":"false"));
+
+    xml.writeAttribute("valid_cnt", QString::number(pdata.validCount));
+    xml.writeAttribute("minLToe", QString::number(pdata.LToe.minVal));
+    xml.writeAttribute("minLHeel", QString::number(pdata.LHeel.minVal));
+    xml.writeAttribute("minRToe", QString::number(pdata.RToe.minVal));
+    xml.writeAttribute("minRHeel", QString::number(pdata.RHeel.minVal));
+
     xml.writeEndElement();//feet_sum
 }
 

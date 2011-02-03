@@ -68,7 +68,7 @@ FuzzyDetector::FuzzyDetector()
     ia_onGrnd.push_back(Relation(3.0, 1.0));
     ia_onGrnd.push_back(Relation(8.0, 1.0));
 
-    LoadFromXml(QString(FSC_RUNS_FOLDERS_ROOT)+QString("atdsettings.xml"));//if file doesn't exist, do nothing + save it
+    LoadFromXml((QString(FSC_RUNS_FOLDERS_ROOT)+FSC_SETTINGS_FOLDER)+"atdsettings.xml");//if file doesn't exist, do nothing + save it
 
 }
 
@@ -79,14 +79,25 @@ FuzzyDetector::~FuzzyDetector()
 
 Response FuzzyDetector::AskGodAboutAirTime(double fp, double pa, double ia)
 {
-    double oa_fp = fp_onAir.fuzificate(fp);
-    double oa_pa = pa_onAir.fuzificate(pa);
-    double oa_ia = ia_onAir.fuzificate(ia);
-    double onAir = std::max(oa_fp, std::max(oa_pa, oa_ia));
+    double oa_fp=0, oa_pa=0, oa_ia=0;
+    double og_fp=0, og_pa=0, og_ia=0;
 
-    double og_fp = fp_onGrnd.fuzificate(fp);
-    double og_pa = pa_onGrnd.fuzificate(pa);
-    double og_ia = ia_onGrnd.fuzificate(ia);
+    if(!isnan(fp)) {
+        oa_fp = fp_onAir.fuzificate(fp);
+        og_fp = fp_onGrnd.fuzificate(fp);
+    }
+
+    if(!isnan(pa)) {
+        oa_pa = pa_onAir.fuzificate(pa);
+        og_pa = pa_onGrnd.fuzificate(pa);
+    }
+
+    if(!isnan(ia)) {
+        oa_ia = ia_onAir.fuzificate(ia);
+        og_ia = ia_onGrnd.fuzificate(ia);
+    }
+
+    double onAir = std::max(oa_fp, std::max(oa_pa, oa_ia));
     double onGround = std::max(og_fp, std::max(og_pa, og_ia));
 
     Response resp;
@@ -113,30 +124,6 @@ Response FuzzyDetector::AskGodAboutAirTime(double fp, double pa, double ia)
         resp = CantHelpYouOnThisOne;
     }
 
-
-//    if(onAir > onGround) {
-//        if(onAir > 0.8) {
-//            resp = FlyingLikeAnEagle;
-
-//            qDebug() << "onAir " << oa_fp <<"(fp)/"
-//                    << oa_pa <<"(pa)/"
-//                    << oa_ia << "(ia), onGround "
-//                    << og_fp <<"(fp)/"
-//                    << og_pa <<"(pa)/"
-//                    << og_ia << "ia";
-//        } else {
-//            resp = CantHelpYouOnThisOne;
-//        }
-//    } else if(onAir < onGround){
-//        if(onGround > 0.8) {
-//            resp = SlidingDownLikeAPenguin;
-//        } else {
-//            resp = CantHelpYouOnThisOne;
-//        }
-//    } else {
-//        resp = CantHelpYouOnThisOne;
-//    }
-
     return resp;
 }
 
@@ -145,8 +132,10 @@ void FuzzyDetector::SaveToXml(QString settingsFileName)
 
     QFile reportFile(settingsFileName);
 
-    reportFile.open(QFile::WriteOnly | QFile::Text);
-
+    if( !reportFile.open(QFile::WriteOnly | QFile::Text) ) {
+        qDebug() << "Could not open " << settingsFileName << " to write settings";
+        return;
+    }
 
     QXmlStreamWriter xml;
 
@@ -236,7 +225,8 @@ void FuzzyDetector::LoadFromXml(QString settingsFileName)
     QFile data_input(settingsFileName);
     if(! data_input.open(QFile::ReadOnly | QFile::Text))
     {
-        SaveToXml(QString(FSC_RUNS_FOLDERS_ROOT)+QString("atdsettings.xml"));
+        qDebug() << "Could not load settings, creating new one!";
+        SaveToXml(settingsFileName);
         return;
     }
 

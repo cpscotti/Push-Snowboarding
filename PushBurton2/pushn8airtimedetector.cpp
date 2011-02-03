@@ -76,7 +76,8 @@ void PushN8AirTimeDetector::incomming_reading(NPushLogTick * gtick)
         tRunCurr = (double)((double)currentTstamp/1000.0);
     }
 
-    if(!isnan(fp) && !isnan(pa) && !isnan(ia) && runFuzzy) {
+    if( (!isnan(fp) || !isnan(pa) || !isnan(ia))
+        && runFuzzy) {
 //        qDebug() << currentTstamp;
         Response resp = fuzzyDetector.AskGodAboutAirTime(fp, pa, ia);
         handle_response(resp);

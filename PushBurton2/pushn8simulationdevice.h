@@ -38,6 +38,8 @@
 #include <QMagnetometerReading>
 #include <QGeoPositionInfo>
 
+#include "FilesystemConventions.h"
+
 #include "pushburtongenericdevice.h"
 
 #include "npushacctick.h"

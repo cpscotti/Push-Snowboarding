@@ -46,7 +46,7 @@ PushN8PhoneAcc::PushN8PhoneAcc()
     emit connected();
 
     timerId = 0;
-    timerPeriod = 100;
+    timerPeriod = 50;
 }
 
 PushN8PhoneAcc::~PushN8PhoneAcc()

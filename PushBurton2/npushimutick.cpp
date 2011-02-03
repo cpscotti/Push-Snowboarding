@@ -43,21 +43,7 @@ NPushIMUTick::NPushIMUTick(QStringList& values)
         secs_to_epoch = aft;
     }
 
-    if(values.count() != 11)
-    {
-        qDebug() << "EARLIER PARSING ERROR!";
-        return;
-    }
-
-    for(int i=1;i<values.count();i++)
-    {
-        if(i < 4)
-            gyro[i-1] = values[i].toInt();
-        else if(i < 7)
-            accel[i-4] = values[i].toInt();
-        else if(i < 10)
-            mag[i-7] = values[i].toInt();
-    }
+    ParseValues(values);
 
     msecsToEpoch = (quint64)((double)secs_to_epoch*1000.0+(double)msecs);
 
@@ -66,6 +52,13 @@ NPushIMUTick::NPushIMUTick(QStringList& values)
 
 
 NPushIMUTick::NPushIMUTick(QStringList &values, quint64 a_msecsToEpoch)
+{
+    ParseValues(values);
+
+    msecsToEpoch = a_msecsToEpoch;
+}
+
+void NPushIMUTick::ParseValues(QStringList& values)
 {
     if(values.count() != 11)
     {
@@ -82,8 +75,6 @@ NPushIMUTick::NPushIMUTick(QStringList &values, quint64 a_msecsToEpoch)
         else if(i < 10)
             mag[i-7] = values[i].toInt();
     }
-
-    msecsToEpoch = a_msecsToEpoch;
 }
 
 NPushIMUTick::~NPushIMUTick()

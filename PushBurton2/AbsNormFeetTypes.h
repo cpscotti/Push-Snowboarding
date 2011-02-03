@@ -28,6 +28,11 @@
 #ifndef ABSNORMFEETTYPES_H
 #define ABSNORMFEETTYPES_H
 
+#define FOOT_PRESSURE_INVALID_THRESHOLD 50
+
+#include "math.h"
+#include <algorithm>
+
 class PressurePointData
 {
 public:
@@ -40,8 +45,8 @@ public:
     void update(int inVal)
     {
         rawVal = inVal;
-        maxVal = (inVal > maxVal)?inVal:maxVal;
-        minVal = (inVal < minVal)?inVal:minVal;
+        if(inVal > FOOT_PRESSURE_INVALID_THRESHOLD) maxVal = std::max(inVal, maxVal);
+        if(inVal > FOOT_PRESSURE_INVALID_THRESHOLD) minVal = std::min(inVal, minVal);
         normVal = (inVal - minVal)*(1.0f/(maxVal-minVal));
     }
 
@@ -81,7 +86,44 @@ public:
         return totalRawSum;
     }
 
+    float computeNormFactor()
+    {
+        validCount = 0;
+        totalNormFactor = 0.0;
+
+        if(LHeel.rawVal > FOOT_PRESSURE_INVALID_THRESHOLD && LToe.rawVal > FOOT_PRESSURE_INVALID_THRESHOLD) {
+            totalNormFactor += LHeel.normVal;
+            validCount++;
+
+            totalNormFactor += LToe.normVal;
+            validCount++;
+        }
+
+//        if(LToe.rawVal > FOOT_PRESSURE_INVALID_THRESHOLD) {
+//            totalNormFactor += LToe.normVal;
+//            validCount++;
+//        }
+
+        if(RHeel.rawVal > FOOT_PRESSURE_INVALID_THRESHOLD && RToe.rawVal > FOOT_PRESSURE_INVALID_THRESHOLD) {
+            totalNormFactor += RHeel.normVal;
+            validCount++;
+
+            totalNormFactor += RToe.normVal;
+            validCount++;
+        }
+
+//        if(RToe.rawVal > FOOT_PRESSURE_INVALID_THRESHOLD) {
+//            totalNormFactor += RToe.normVal;
+//            validCount++;
+//        }
+
+        totalNormFactor /= validCount;
+        return totalNormFactor;
+    }
+
     int totalRawSum;
+    int validCount;
+    float totalNormFactor;
 };
 
 #endif // ABSNORMFEETTYPES_H

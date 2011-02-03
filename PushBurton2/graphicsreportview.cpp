@@ -42,8 +42,6 @@ GraphicsReportView::GraphicsReportView(QObject *parent=0) :
     homeBt->setPos(0,0);
     connect(homeBt, SIGNAL(activated()), this, SIGNAL(home_bt_clicked()));
 
-    qDebug() << "before creating reports bts";
-
     speedLink = new GraphicPixmapBt(":/buttons/r_speedOff.png", this);
     speedLink->setAltImage(QString(":/buttons/r_speedOn.png"));
     speedLink->setPos(10+0*8+0*58,62);
@@ -88,8 +86,6 @@ GraphicsReportView::GraphicsReportView(QObject *parent=0) :
     altitudePlot.setPlotTitle("ALTITUDE (M)");
     connect(&altitudePlot, SIGNAL(hor_rel_drag(qreal)), this, SIGNAL(hor_rel_drag(qreal)));
     connect(this, SIGNAL(hor_rel_drag(qreal)), &altitudePlot, SLOT(hor_rel_slide(qreal)));
-
-    qDebug() << "before creating report fsm";
 
     init_state_machine();
 
@@ -184,8 +180,6 @@ void GraphicsReportView::init_state_machine()
     rootState->addTransition(&altitudePlot, SIGNAL(swipeRigth()), rushViewState);
     rootState->addTransition(&altitudePlot, SIGNAL(swipeLeft()), altitudeViewState);
     rootState->addTransition(&altitudePlot, SIGNAL(bounceBack()), altitudeViewState);
-
-    qDebug() << "Before assigning all properties";
 
 
     setup_link_alt_bts(speedViewState, speedLink);

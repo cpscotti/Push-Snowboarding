@@ -30,7 +30,7 @@
 PushN8SimulationDevice::PushN8SimulationDevice()
 {
 
-    QString simulationFile = QFileDialog::getOpenFileName(0, "Select where to save log", "E:\\", "Log Files (*.xml)");
+    QString simulationFile = QFileDialog::getOpenFileName(0, "Select where to read the log from", FSC_RUNS_FOLDERS_ROOT, "Log Files (RawLog.xml)");
     if(simulationFile == "") {
         simulationFile = "E:/sample_input.xml";
     }
@@ -54,7 +54,7 @@ PushN8SimulationDevice::PushN8SimulationDevice()
     }
 
     timerId = 0;
-    timerPeriod = 20;
+    timerPeriod = 5;
 }
 
 PushN8SimulationDevice::~PushN8SimulationDevice()
@@ -120,6 +120,9 @@ void PushN8SimulationDevice::timerEvent(QTimerEvent * event)
         if(reachedEnd)
             break;
     }
+
+//    qDebug() << "On Simulation QDateTime::currentMSecs " << QDateTime::currentMSecsSinceEpoch();
+//    qDebug() << "On Simulation timerEvent(); " << QTime::currentTime().msec();
 
     if(xml.isEndElement() && xml.name() == "N8SensorsLog")
         qDebug() << "Simulation Ended!!";

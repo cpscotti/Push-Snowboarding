@@ -52,7 +52,6 @@ bool NPushReportGSR::start_run()
     GSR_acc = 0;
     GSR_cnt = 0;
 
-    qDebug() << "GSR Run started";
     running = true;
 
     return true;
@@ -69,8 +68,6 @@ bool NPushReportGSR::end_run()
         GSR_avg = (double)(GSR_acc/(long int)GSR_cnt);
     else
         GSR_avg = 0;
-
-    qDebug() << "GSR Run Ended";
 
     running = false;
     return true;
