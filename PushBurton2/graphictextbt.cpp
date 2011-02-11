@@ -35,6 +35,12 @@ GraphicTextBt::GraphicTextBt(QString _text, QGraphicsItem* parent) : QGraphicsOb
     btRect = QRectF(0,0,110+5+110,54);
 }
 
+GraphicTextBt::GraphicTextBt(QString _text, QRectF _rect, QGraphicsItem* parent)
+    : QGraphicsObject(parent), text(_text), btRect(_rect)
+{
+    toggled = false;
+}
+
 GraphicTextBt::~GraphicTextBt()
 {
 

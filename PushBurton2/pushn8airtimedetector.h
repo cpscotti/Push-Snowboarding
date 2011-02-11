@@ -80,20 +80,36 @@ protected:
     bool end_run();
 
 private:
-
     void handle_response(Response);
     bool flying;
 
     FuzzyDetector fuzzyDetector;
 
-    quint64 currentTstamp;
-    quint64 takeOffTime;
-    quint64 lastAirborneTime;
-
     double tRunStart;
     double tRunCurr;
 
     double fp,pa,ia;
+
+    static const quint64 air_threshold = 400;//how big an air needs to be to be even considered
+
+    static const quint64 ground_threshold = 200;//for how long the rider needs to be on the
+    //ground to count as landing
+
+    quint64 currentTstamp;//always running
+    quint64 takeOffTime;//tstamp when the jump started (entered Counting Air)
+    quint64 touchDownTime;//tstamp when ground detected (entered CountingGround)
+
+    quint64 lastAirborneTime;
+
+    enum AirDetectorDynState
+    {
+        IdleGround = 42,
+        CountingAir,
+        IdleAir,
+        CountingGround
+    } dynamic_state;
+
+    void handle_response_new(Response);
 
 public slots:
     void incomming_reading(NPushLogTick *);

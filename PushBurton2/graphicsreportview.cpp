@@ -38,9 +38,10 @@ GraphicsReportView::GraphicsReportView(QObject *parent=0) :
     this->setParent(parent);
     this->setZValue(0.2);
 
-    homeBt = new GraphicPixmapBt(":/buttons/home_bt.png", this);
-    homeBt->setPos(0,0);
-    connect(homeBt, SIGNAL(activated()), this, SIGNAL(home_bt_clicked()));
+//    deleteBt = new GraphicPixmapBt(":/buttons/home_bt.png", this);
+    deleteBt = new GraphicTextBt("Delete", QRectF(0,0,110, 54) ,this);
+    deleteBt->setPos(0,0);
+    connect(deleteBt, SIGNAL(activated()), this, SLOT(delete_current_dir()));
 
     speedLink = new GraphicPixmapBt(":/buttons/r_speedOff.png", this);
     speedLink->setAltImage(QString(":/buttons/r_speedOn.png"));
@@ -295,10 +296,33 @@ void GraphicsReportView::load_avDirectories_directories()
     }
 }
 
+void GraphicsReportView::delete_run_dir(const QString& dir)
+{
+    QDir runDir(dir);
+
+    QStringList filesInDir;
+    filesInDir = runDir.entryList();
+    foreach(QString fileEntry, filesInDir)
+    {
+        runDir.remove(fileEntry);
+    }
+
+    QDir root(FSC_RUNS_FOLDERS_ROOT);
+    root.rmdir(dir);
+}
+
+void GraphicsReportView::delete_current_dir()
+{
+    qDebug() << "Removing: " << currentDir;
+    delete_run_dir(currentDir);
+    refresh_dirs_graphs();
+}
+
 void GraphicsReportView::file_selected(QString dir)
 {
     qDebug() << "Selected directory: " << dir;
-    load_graphs(dir);
+    currentDir = dir;
+    load_graphs(currentDir);
 }
 
 QString GraphicsReportView::name_from_old_format(const QString& inStr)

@@ -75,7 +75,8 @@ private:
         QState * altitudeViewState;
 
 
-    GraphicPixmapBt * homeBt;
+    GraphicTextBt * deleteBt;
+
     GraphicPixmapBt * speedLink;
     GraphicPixmapBt * airTimeLink;
     GraphicPixmapBt * heartLink;
@@ -103,6 +104,9 @@ private:
 
     void load_graphs(QString dir);
     void load_avDirectories_directories();
+
+    void delete_run_dir(const QString& dir);
+
     QStringList avDirectories;
 
     void setup_link_alt_bts(QState *, QObject *);
@@ -112,6 +116,8 @@ private:
     QString name_from_old_format(const QString&);
     QString name_from_new_format(const QString&);
 
+    QString currentDir;
+
 signals:
     void home_bt_clicked();
     void hor_rel_drag(qreal ydrag);
@@ -119,6 +125,8 @@ signals:
 public slots:
     void file_selected(QString dir);
     void refresh_dirs_graphs();
+
+    void delete_current_dir();
 };
 
 #endif // GRAPHICSREPORTVIEW_H

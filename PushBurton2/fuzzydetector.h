@@ -114,7 +114,7 @@ public:
     Fuzzificator ia_onGrnd;
 
 
-    Response AskGodAboutAirTime(double fp, double pa, double ia);
+    Response FuzzyficateToAirOrGround(double fp, double pa, double ia);
 
     void SaveToXml(QString settingsFileName);
     void LoadFromXml(QString settingsFileName);

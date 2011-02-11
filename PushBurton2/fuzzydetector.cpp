@@ -77,7 +77,7 @@ FuzzyDetector::~FuzzyDetector()
 
 }
 
-Response FuzzyDetector::AskGodAboutAirTime(double fp, double pa, double ia)
+Response FuzzyDetector::FuzzyficateToAirOrGround(double fp, double pa, double ia)
 {
     double oa_fp=0, oa_pa=0, oa_ia=0;
     double og_fp=0, og_pa=0, og_ia=0;

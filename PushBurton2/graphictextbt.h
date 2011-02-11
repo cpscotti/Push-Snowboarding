@@ -41,6 +41,7 @@ class GraphicTextBt : public QGraphicsObject
     Q_OBJECT
 public:
     GraphicTextBt(QString, QGraphicsItem* parent = 0);
+    GraphicTextBt(QString, QRectF, QGraphicsItem* parent = 0);
     ~GraphicTextBt();
 
     QRectF boundingRect() const;
