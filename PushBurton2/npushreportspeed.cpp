@@ -100,8 +100,6 @@ bool NPushReportSpeed::save_to_dir(QString &dirName)
 
     reportFile.open(QFile::WriteOnly | QFile::Text);
 
-    qDebug() << "Speed -> Saving to dir";
-
     QXmlStreamWriter xml;
 
     xml.setDevice(&reportFile);

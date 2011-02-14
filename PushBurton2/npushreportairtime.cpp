@@ -93,6 +93,9 @@ bool NPushReportAirTime::save_to_dir(QString& dirName)
     QString reportFilename = (dirName + FSC_FSYS_SLASH) + "AirTime.xml";
     QFile reportFile(reportFilename);
 
+    qDebug() << "reportFilename = " << reportFilename;
+    qDebug() << "slash is = " << FSC_FSYS_SLASH;
+
     reportFile.open(QFile::WriteOnly | QFile::Text);
 
     QXmlStreamWriter xml;

@@ -33,6 +33,9 @@ UbiqLogSaver::UbiqLogSaver(uint a_start_time)
     CreateRunDir();
 
     QString rawLogFilename = (dirName + FSC_FSYS_SLASH) + "RawLog.xml";
+
+    qDebug() << "RawLog Filename: " << rawLogFilename;
+
     dataFile = new QFile(rawLogFilename);
 
 
@@ -119,7 +122,8 @@ void UbiqLogSaver::CreateRunDir()
     dirName += QString::number(start_time);
     dirName += QDateTime::fromTime_t(start_time).toString("_hhmm");
     QFSFileEngine fse;
-    fse.mkdir(dirName, false);
+    if(!fse.mkdir(dirName, false))
+        qDebug() << "Could not create run directory";
 }
 
 
