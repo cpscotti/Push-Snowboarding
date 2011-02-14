@@ -57,9 +57,9 @@ void PushN8AirTimeDetector::incomming_reading(NPushLogTick * gtick)
         runFuzzy = true;
 
         double nacc[3];
-        nacc[0] = (((double)itick->accel[0]) -511.0)*1.0/107.0;
-        nacc[1] = (((double)itick->accel[1]) -511.0)*1.0/107.0;
-        nacc[2] = (((double)itick->accel[2]) -511.0)*1.0/107.0;
+        nacc[0] = (((double)itick->accel[0]) -512.0)*1.0/107.0;
+        nacc[1] = (((double)itick->accel[1]) -512.0)*1.0/107.0;
+        nacc[2] = (((double)itick->accel[2]) -512.0)*1.0/107.0;
 
         qreal imuAccAbs = qSqrt(nacc[0]*nacc[0] + nacc[1]*nacc[1] + nacc[2]*nacc[2]);
 

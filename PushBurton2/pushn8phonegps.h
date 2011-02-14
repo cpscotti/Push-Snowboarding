@@ -36,6 +36,8 @@
 
 #include "pushburtongenericdevice.h"
 
+#include <math.h>
+
 #ifdef Q_OS_SYMBIAN
 #include <tz.h>
 #include <TzLocalizer.h>
@@ -70,9 +72,15 @@ private:
 
     void computeUTCOffset();
 
+    double getDelta2Pos(QGeoPositionInfo& i, QGeoPositionInfo& f);
+
+    bool streaming;
+
     QGeoPositionInfoSource * gpsSource;
     bool gpsOnline;
     int UTCOffset;
+
+//    QGeoPositionInfo lastInfo;
 
 protected:
     void timerEvent(QTimerEvent *);

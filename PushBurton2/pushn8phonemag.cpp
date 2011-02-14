@@ -77,7 +77,6 @@ void PushN8PhoneMag::timerEvent(QTimerEvent * event)
     {
         emit reading_ready(newMagTick);
     } else {
-        //TODO memory leak danger here put on "stand by"
         delete newMagTick;
     }
 }

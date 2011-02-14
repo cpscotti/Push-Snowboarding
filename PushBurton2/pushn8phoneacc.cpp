@@ -76,7 +76,6 @@ void PushN8PhoneAcc::timerEvent(QTimerEvent * event)
     {
         emit reading_ready(newAccTick);
     } else {
-        //TODO memory leak danger here put on "stand by"
         delete newAccTick;
     }
 }

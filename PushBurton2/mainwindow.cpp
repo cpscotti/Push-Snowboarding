@@ -32,9 +32,9 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow),
     devicesManager(&devicesHolder,parent),
-    runManager(&devicesHolder,parent)
+    runManager(&devicesHolder,parent),
+    ui(new Ui::MainWindow)
 {
 
     ui->setupUi(this);

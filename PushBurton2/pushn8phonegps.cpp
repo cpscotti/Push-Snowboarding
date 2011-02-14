@@ -32,16 +32,21 @@ PushN8PhoneGPS::PushN8PhoneGPS(QObject * parent)
     computeUTCOffset();
     gpsSource = QGeoPositionInfoSource::createDefaultSource(0);
 
+//    lastCoord = gpsSource->lastKnownPosition(true);
+
     connect(gpsSource, SIGNAL(positionUpdated(QGeoPositionInfo)),
             this, SLOT(positionUpdated(QGeoPositionInfo)));
 
     gpsSource->requestUpdate(60000);
     gpsSource->setUpdateInterval(500);
 
+    gpsSource->startUpdates();
+
     gpsOnline = false;
 
     timerId = -1;//disable any periodic events
 
+    streaming = false;
 
 }
 
@@ -52,12 +57,15 @@ PushN8PhoneGPS::~PushN8PhoneGPS()
 
 void PushN8PhoneGPS::start_readings()
 {
-    gpsSource->startUpdates();
+    //Updates are always on!
+    streaming = true;
+//    gpsSource->startUpdates();
 }
 
 void PushN8PhoneGPS::stop_readings()
 {
-    gpsSource->stopUpdates();
+    streaming = false;
+//    gpsSource->stopUpdates();
 }
 
 void PushN8PhoneGPS::timerEvent(QTimerEvent *)
@@ -77,17 +85,29 @@ bool PushN8PhoneGPS::is_online()
 
 void PushN8PhoneGPS::positionUpdated(QGeoPositionInfo info)
 {
-    if(info.isValid())
+    if(info.coordinate().isValid() && !gpsOnline)
     {
         //emitting connected signal when receiving first reading
-        if(!gpsOnline)
-            emit connected();
-
+        emit connected();
         gpsOnline = true;
+
+    } else if(gpsOnline) {
+
+        gpsOnline = false;
+        emit disconnected();
+
+    }
+
+    if(!streaming)
+        return;
+
+    if(info.timestamp().isValid()) { //&& info.coordinate().isValid()
 
         QDateTime correctedTstamp;
         correctedTstamp = info.timestamp().addSecs(UTCOffset);//ugly localisation!
         info.setTimestamp(correctedTstamp);
+
+        //double checking speed
 
         NPushGpsTick * newGPSTick = new NPushGpsTick(info);
 
@@ -95,9 +115,9 @@ void PushN8PhoneGPS::positionUpdated(QGeoPositionInfo info)
         {
             emit reading_ready(newGPSTick);
         } else {
-            //TODO memory leak danger here put on "stand by"
             delete newGPSTick;
         }
+
     }
 
 }
@@ -133,4 +153,35 @@ void PushN8PhoneGPS::computeUTCOffset()
 #else
     UTCOffset = 0;
 #endif
+}
+
+double PushN8PhoneGPS::getDelta2Pos(QGeoPositionInfo& i, QGeoPositionInfo& f)
+{
+//    distance=R*2*asin(sqrt((sin((lat1-lat2)/2))**2
+//                   +cos(lat1)*cos(lat2)*(sin((long1-long2)/2))**2))
+
+    double R = 6372000.0;
+
+    double lat1,lat2,long1,long2;
+
+
+    lat1 = i.coordinate().latitude()*3.14/180.0;
+    lat2 = f.coordinate().latitude()*3.14/180.0;
+
+    long1 = i.coordinate().longitude()*3.14/180.0;
+    long2 = f.coordinate().longitude()*3.14/180.0;
+
+    double distance=R*2*asin(sqrt(pow((sin((lat1-lat2)/2)),2.0)
+                   +cos(lat1)*cos(lat2)*pow((sin((long1-long2)/2)),2.0)));
+
+    uint secs;
+    if(i.timestamp().toTime_t() > f.timestamp().toTime_t()) {
+        secs = i.timestamp().toTime_t()-f.timestamp().toTime_t();
+    } else {
+        secs = f.timestamp().toTime_t()-i.timestamp().toTime_t();
+    }
+
+    qDebug() << "AvgVel = " << distance/(double)secs;
+
+    return distance/(double)secs;
 }
