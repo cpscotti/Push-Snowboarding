@@ -88,7 +88,7 @@ private:
     double tRunStart;
     double tRunCurr;
 
-    double fp,pa,ia;
+    double fp,pa,ia,bpa;
 
     static const quint64 air_threshold = 200;//how big an air needs to be to be even considered
 

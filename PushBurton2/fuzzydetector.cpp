@@ -65,7 +65,13 @@ FuzzyDetector::FuzzyDetector()
     ia_onGrnd.push_back(Relation(-0.3, 0.0));
     ia_onGrnd.push_back(Relation(10.0, 0.0));
 
-    LoadFromXml((QString(FSC_RUNS_FOLDERS_ROOT)+FSC_SETTINGS_FOLDER)+"atdsettings.xml");//if file doesn't exist, do nothing + save it
+//    bpa_onGrnd.push_back(Relation(0.0, 0.0));
+//    bpa_onGrnd.push_back(Relation(0.85, 0.0));
+//    bpa_onGrnd.push_back(Relation(0.95, 0.6));//ahhahaha
+//    bpa_onGrnd.push_back(Relation(1.05, 0.0));
+//    bpa_onGrnd.push_back(Relation(10.0, 0.0));
+
+//    LoadFromXml((QString(FSC_RUNS_FOLDERS_ROOT)+FSC_SETTINGS_FOLDER)+"atdsettings.xml");//if file doesn't exist, do nothing + save it
 
 }
 
@@ -74,10 +80,10 @@ FuzzyDetector::~FuzzyDetector()
 
 }
 
-Response FuzzyDetector::FuzzyficateToAirOrGround(double fp, double pa, double ia)
+Response FuzzyDetector::FuzzyficateToAirOrGround(double fp, double pa, double ia, double bpa)
 {
     double oa_fp=0, oa_pa=0, oa_ia=0;
-    double og_fp=0, og_pa=0, og_ia=0;
+    double og_fp=0, og_pa=0, og_ia=0, og_bpa=0;
 
     if(!isnan(fp)) {
         oa_fp = fp_onAir.fuzificate(fp);
@@ -93,13 +99,17 @@ Response FuzzyDetector::FuzzyficateToAirOrGround(double fp, double pa, double ia
         og_ia = ia_onGrnd.fuzificate(ia);
     }
 
+//    if(!isnan(bpa)) {
+//        og_bpa = bpa_onGrnd.fuzificate(bpa);
+//    }
+
     //Most certain dictates all
 //    double onAir = std::max(oa_fp, std::max(oa_pa, oa_ia));
 //    double onGround = std::max(og_fp, std::max(og_pa, og_ia));
 
     //Sum of all votes
     double onAir = (oa_fp+oa_pa+oa_ia)/3.0;
-    double onGround = (og_fp+og_pa+og_ia)/3.0;
+    double onGround = (og_fp+og_pa+og_ia)/3.0;//+og_bpa)/3.0;
 
     Response resp;
     if(onAir > onGround) {
@@ -118,21 +128,21 @@ Response FuzzyDetector::FuzzyficateToAirOrGround(double fp, double pa, double ia
         resp = CantHelpYouOnThisOne;
     }
 
-    QString sresp;
-    if(resp == FlyingLikeAnEagle) {
-        sresp = " AIR ";
-    } else if(resp == SlidingDownLikeAPenguin) {
-        sresp = " GROUND ";
-    } else {
-        sresp = " UNKNOWN ";
-    }
+//    QString sresp;
+//    if(resp == FlyingLikeAnEagle) {
+//        sresp = " AIR ";
+//    } else if(resp == SlidingDownLikeAPenguin) {
+//        sresp = " GROUND ";
+//    } else {
+//        sresp = " UNKNOWN ";
+//    }
 
-    qDebug() << sresp << ": onAir (" << onAir << ") " << oa_fp <<"(fp)/"
-            << oa_pa <<"(pa)/"
-            << oa_ia << "(ia), onGround (" << onGround << ")"
-            << og_fp <<"(fp)/"
-            << og_pa <<"(pa)/"
-            << og_ia << "ia";
+//    qDebug() << sresp << ": onAir (" << onAir << ") " << oa_fp <<"(fp)/"
+//            << oa_pa <<"(pa)/"
+//            << oa_ia << "(ia), onGround (" << onGround << ")"
+//            << og_fp <<"(fp)/"
+//            << og_pa <<"(pa)/"
+//            << og_ia << "ia";
 
     return resp;
 }

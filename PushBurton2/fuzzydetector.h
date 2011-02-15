@@ -70,7 +70,7 @@ public:
         int i;
         Relation left,right;
         for(i=1;i<relCnt;i++) {
-            if(QVector<Relation>::at(i-1).inVal < inVal
+            if(QVector<Relation>::at(i-1).inVal <= inVal
                && QVector<Relation>::at(i).inVal >= inVal) {
                 left = QVector<Relation>::at(i-1);
                 right = QVector<Relation>::at(i);
@@ -113,8 +113,11 @@ public:
     Fuzzificator ia_onAir;
     Fuzzificator ia_onGrnd;
 
+    Fuzzificator bpa_onGrnd;
 
-    Response FuzzyficateToAirOrGround(double fp, double pa, double ia);
+
+//    Response FuzzyficateToAirOrGround(double fp, double pa, double ia);
+    Response FuzzyficateToAirOrGround(double fp, double pa, double ia, double bpa = 0.0);
 
     void SaveToXml(QString settingsFileName);
     void LoadFromXml(QString settingsFileName);
