@@ -93,11 +93,25 @@ void PushN8AbsNormFeetDevice::incomming_reading(NPushLogTick * gtick)
         NPushFootTick * ftick = (NPushFootTick *)gtick;
 
         if(ftick->side == 'L') {
-            pdata.LToe.update(ftick->toes);
-            pdata.LHeel.update(ftick->heel);
+            pdata.LToe.update(
+                    (ftick->toes > FOOT_PRESSURE_INVALID_THRESHOLD)?
+                    ftick->toes : pdata.RToe.rawVal
+                    );
+
+            pdata.LHeel.update(
+                    (ftick->heel > FOOT_PRESSURE_INVALID_THRESHOLD)?
+                    ftick->heel : pdata.RHeel.rawVal
+                    );
         } else {
-            pdata.RToe.update(ftick->toes);
-            pdata.RHeel.update(ftick->heel);
+            pdata.RToe.update(
+                    (ftick->toes > FOOT_PRESSURE_INVALID_THRESHOLD)?
+                    ftick->toes : pdata.LToe.rawVal
+                    );
+
+            pdata.RHeel.update(
+                    (ftick->heel > FOOT_PRESSURE_INVALID_THRESHOLD)?
+                    ftick->heel : pdata.LHeel.rawVal
+                    );
         }
 
         if((ftick->msecsToEpoch - lastReading) < 100 &&

@@ -76,56 +76,62 @@ bool PushN8SimulationDevice::is_online()
 
 void PushN8SimulationDevice::timerEvent(QTimerEvent * event)
 {
-    bool reachedEnd = false;
-    while(xml.readNextStartElement())
-    {
-        NPushLogTick * newTick = 0;
-        if(xml.name() == "acc_data")
-        {
-            newTick = readAccTick();
-        } else if(xml.name() == "mag_data")
-        {
-            newTick = readMagTick();
-        } else if(xml.name() == "gps_data")
-        {
-            newTick = readGpsTick();
-        } else if(xml.name() == "imu_data")
-        {
-            newTick = readImuTick();
-            //Imu tick has inner elements, when it returns we can quit
-            reachedEnd = true;
-        } else if(xml.name() == "gsr_data")
-        {
-            newTick = readGsrTick();
-        } else if(xml.name() == "heart_data")
-        {
-            newTick = readHeartTick();
-        } else if(xml.name() == "foot_data")
-        {
-            newTick = readFootTick();
-        } else {
-//            qDebug() << "Unrecognized tag " << xml.name();
-            xml.skipCurrentElement();
-        }
+    while(!(xml.isEndElement() && xml.name() == "N8SensorsLog")) {
 
-        if(newTick != 0) {
-            if(receivers(SIGNAL(reading_ready(NPushLogTick*))) > 0)
+        bool reachedEnd = false;
+        while(xml.readNextStartElement())
+        {
+            NPushLogTick * newTick = 0;
+            if(xml.name() == "acc_data")
             {
-                emit reading_ready(newTick);
+                newTick = readAccTick();
+            } else if(xml.name() == "mag_data")
+            {
+                newTick = readMagTick();
+            } else if(xml.name() == "gps_data")
+            {
+                newTick = readGpsTick();
+            } else if(xml.name() == "imu_data")
+            {
+                newTick = readImuTick();
+                //Imu tick has inner elements, when it returns we can quit
+                reachedEnd = true;
+            } else if(xml.name() == "gsr_data")
+            {
+                newTick = readGsrTick();
+            } else if(xml.name() == "heart_data")
+            {
+                newTick = readHeartTick();
+            } else if(xml.name() == "foot_data")
+            {
+                newTick = readFootTick();
             } else {
-                delete newTick;
+                //            qDebug() << "Unrecognized tag " << xml.name();
+                xml.skipCurrentElement();
             }
+
+            if(newTick != 0) {
+                if(receivers(SIGNAL(reading_ready(NPushLogTick*))) > 0)
+                {
+                    emit reading_ready(newTick);
+                } else {
+                    delete newTick;
+                }
+            }
+
+            if(reachedEnd)
+                break;
         }
 
-        if(reachedEnd)
-            break;
+        if(xml.isEndElement() && xml.name() == "N8SensorsLog") {
+            qDebug() << "Simulation Ended!!";
+            this->stop_readings();
+        }
     }
 
 //    qDebug() << "On Simulation QDateTime::currentMSecs " << QDateTime::currentMSecsSinceEpoch();
 //    qDebug() << "On Simulation timerEvent(); " << QTime::currentTime().msec();
 
-    if(xml.isEndElement() && xml.name() == "N8SensorsLog")
-        qDebug() << "Simulation Ended!!";
 }
 
 NPushAccTick * PushN8SimulationDevice::readAccTick()

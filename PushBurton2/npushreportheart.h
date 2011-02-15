@@ -28,8 +28,6 @@
 #ifndef NPUSHREPORTHEART_H
 #define NPUSHREPORTHEART_H
 
-#include "FilesystemConventions.h"
-
 #include "npushgenreport.h"
 #include <QVector>
 #include <QObject>
@@ -41,6 +39,8 @@
 #include <QFile>
 
 #include "selfshrinkinglist.h"
+
+#include "FilesystemConventions.h"
 
 class NPushReportHeart : public NPushGenReport
 {

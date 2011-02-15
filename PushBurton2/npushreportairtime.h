@@ -28,8 +28,6 @@
 #ifndef NPUSHREPORTAIRTIME_H
 #define NPUSHREPORTAIRTIME_H
 
-#include "FilesystemConventions.h"
-
 #include "npushgenreport.h"
 #include <QList>
 #include <QObject>
@@ -39,6 +37,8 @@
 #include <QXmlStreamWriter>
 #include <QXmlStreamReader>
 #include <QFile>
+
+#include "FilesystemConventions.h"
 
 class NPushReportAirTime : public NPushGenReport
 {

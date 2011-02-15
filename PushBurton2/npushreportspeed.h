@@ -28,8 +28,6 @@
 #ifndef NPUSHREPORTSPEED_H
 #define NPUSHREPORTSPEED_H
 
-#include "FilesystemConventions.h"
-
 #include "npushgenreport.h"
 #include <QVector>
 #include <QObject>
@@ -39,6 +37,8 @@
 #include <QXmlStreamWriter>
 #include <QXmlStreamReader>
 #include <QFile>
+
+#include "FilesystemConventions.h"
 
 #include "selfshrinkinglist.h"
 

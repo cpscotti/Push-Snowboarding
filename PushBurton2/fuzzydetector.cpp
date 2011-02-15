@@ -30,43 +30,40 @@
 FuzzyDetector::FuzzyDetector()
 {
     fp_onAir.push_back(Relation(0.0, 1.0));//No pressure, air
-    fp_onAir.push_back(Relation(2000.0, 1.0));
-    fp_onAir.push_back(Relation(2600.0, 0.0));
+    fp_onAir.push_back(Relation(1900.0, 1.0));
+    fp_onAir.push_back(Relation(2100.0, 0.0));
     fp_onAir.push_back(Relation(4024.0, 0.0));//full pressure, dunno
 
     fp_onGrnd.push_back(Relation(0.0, 0.0));//No pressure, dunno
-    fp_onGrnd.push_back(Relation(2600.0, 0.0));
-    fp_onGrnd.push_back(Relation(3000.0, 0.9));
+    fp_onGrnd.push_back(Relation(2100.0, 0.0));
+    fp_onGrnd.push_back(Relation(2500.0, 0.8));
+    fp_onGrnd.push_back(Relation(2800.0, 1.0));
     fp_onGrnd.push_back(Relation(4024.0, 1.0));//full pressure, ground
 
     pa_onAir.push_back(Relation(0.0, 1.0));//no gravity, on air!
     pa_onAir.push_back(Relation(3.0, 1.0));
-    pa_onAir.push_back(Relation(6.6, 0.0));
+    pa_onAir.push_back(Relation(7.0, 0.0));
     pa_onAir.push_back(Relation(50.0, 0.0));//hell no!
 
-//    fp_onGrnd.push_back(Relation(0.0, 0.0));//No pressure, dunno
-//    fp_onGrnd.push_back(Relation(2600.0, 0.0));
-//    fp_onGrnd.push_back(Relation(3300.0, 1.0));
-//    fp_onGrnd.push_back(Relation(4024.0, 1.0));//full pressure, ground
-
-//    pa_onAir.push_back(Relation(0.0, 1.0));//no gravity, on air!
-//    pa_onAir.push_back(Relation(3.0, 1.0));
-//    pa_onAir.push_back(Relation(6.0, 0.0));
-//    pa_onAir.push_back(Relation(50.0, 0.0));//hell no!
-
     pa_onGrnd.push_back(Relation(0.0, 0.0));//no gravity, hell no
-    pa_onGrnd.push_back(Relation(6.0, 0.0));
-    pa_onGrnd.push_back(Relation(9.0, 1.0));
+    pa_onGrnd.push_back(Relation(7.0, 0.0));
+    pa_onGrnd.push_back(Relation(9.0, 0.5));
+    pa_onGrnd.push_back(Relation(15.0, 1.0));//definitely on ground
     pa_onGrnd.push_back(Relation(50.0, 1.0));//definitely on ground
 
-    ia_onAir.push_back(Relation(0.0, 0.8));
-    ia_onAir.push_back(Relation(0.6, 0.0));
-    ia_onAir.push_back(Relation(8.0, 0.0));
 
-    ia_onGrnd.push_back(Relation(0.0, 0.0));
-    ia_onGrnd.push_back(Relation(1.0, 0.0));
-    ia_onGrnd.push_back(Relation(3.0, 1.0));
-    ia_onGrnd.push_back(Relation(8.0, 1.0));
+    ia_onAir.push_back(Relation(-10.0, 0.0));
+    ia_onAir.push_back(Relation(-0.5, 0.0));
+    ia_onAir.push_back(Relation(0.0, 1.0));
+    ia_onAir.push_back(Relation(1.0, 1.0));
+    ia_onAir.push_back(Relation(1.5, 0.0));
+    ia_onAir.push_back(Relation(10.0, 0.0));
+
+    ia_onGrnd.push_back(Relation(-10.0, 1.0));
+    ia_onGrnd.push_back(Relation(-3.0, 1.0));
+    ia_onGrnd.push_back(Relation(-1.0, 0.6));
+    ia_onGrnd.push_back(Relation(-0.3, 0.0));
+    ia_onGrnd.push_back(Relation(10.0, 0.0));
 
     LoadFromXml((QString(FSC_RUNS_FOLDERS_ROOT)+FSC_SETTINGS_FOLDER)+"atdsettings.xml");//if file doesn't exist, do nothing + save it
 
@@ -86,7 +83,6 @@ Response FuzzyDetector::FuzzyficateToAirOrGround(double fp, double pa, double ia
         oa_fp = fp_onAir.fuzificate(fp);
         og_fp = fp_onGrnd.fuzificate(fp);
     }
-
     if(!isnan(pa)) {
         oa_pa = pa_onAir.fuzificate(pa);
         og_pa = pa_onGrnd.fuzificate(pa);
@@ -97,25 +93,23 @@ Response FuzzyDetector::FuzzyficateToAirOrGround(double fp, double pa, double ia
         og_ia = ia_onGrnd.fuzificate(ia);
     }
 
-    double onAir = std::max(oa_fp, std::max(oa_pa, oa_ia));
-    double onGround = std::max(og_fp, std::max(og_pa, og_ia));
+    //Most certain dictates all
+//    double onAir = std::max(oa_fp, std::max(oa_pa, oa_ia));
+//    double onGround = std::max(og_fp, std::max(og_pa, og_ia));
+
+    //Sum of all votes
+    double onAir = (oa_fp+oa_pa+oa_ia)/3.0;
+    double onGround = (og_fp+og_pa+og_ia)/3.0;
 
     Response resp;
     if(onAir > onGround) {
-        if(onAir > 0.8 && onGround < 0.5) {
+        if(onAir > 0.15) {// && onGround < 0.6) {
             resp = FlyingLikeAnEagle;
-
-//            qDebug() << "onAir " << oa_fp <<"(fp)/"
-//                    << oa_pa <<"(pa)/"
-//                    << oa_ia << "(ia), onGround "
-//                    << og_fp <<"(fp)/"
-//                    << og_pa <<"(pa)/"
-//                    << og_ia << "ia";
         } else {
             resp = CantHelpYouOnThisOne;
         }
     } else if(onAir < onGround){
-        if(onGround > 0.8 && onAir < 0.5) {
+        if(onGround > 0.15) {// && onAir < 0.6) {
             resp = SlidingDownLikeAPenguin;
         } else {
             resp = CantHelpYouOnThisOne;
@@ -123,6 +117,22 @@ Response FuzzyDetector::FuzzyficateToAirOrGround(double fp, double pa, double ia
     } else {
         resp = CantHelpYouOnThisOne;
     }
+
+    QString sresp;
+    if(resp == FlyingLikeAnEagle) {
+        sresp = " AIR ";
+    } else if(resp == SlidingDownLikeAPenguin) {
+        sresp = " GROUND ";
+    } else {
+        sresp = " UNKNOWN ";
+    }
+
+    qDebug() << sresp << ": onAir (" << onAir << ") " << oa_fp <<"(fp)/"
+            << oa_pa <<"(pa)/"
+            << oa_ia << "(ia), onGround (" << onGround << ")"
+            << og_fp <<"(fp)/"
+            << og_pa <<"(pa)/"
+            << og_ia << "ia";
 
     return resp;
 }

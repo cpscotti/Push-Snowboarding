@@ -38,6 +38,9 @@ void PushN8AirTimeDetector::incomming_reading(NPushLogTick * gtick)
         currentTstamp = ftick->msecsToEpoch;
 
         runFuzzy = true;
+        if(fp < 2000) {
+            qDebug() << "Got air here";
+        }
 
 
 //        qDebug() << "Got Sum: " << ftick->pdata.totalRawSum;
@@ -61,9 +64,10 @@ void PushN8AirTimeDetector::incomming_reading(NPushLogTick * gtick)
         nacc[1] = (((double)itick->accel[1]) -512.0)*1.0/107.0;
         nacc[2] = (((double)itick->accel[2]) -512.0)*1.0/107.0;
 
-        qreal imuAccAbs = qSqrt(nacc[0]*nacc[0] + nacc[1]*nacc[1] + nacc[2]*nacc[2]);
+//        qreal imuAccAbs = qSqrt(nacc[0]*nacc[0] + nacc[1]*nacc[1] + nacc[2]*nacc[2]);
 
-        ia = imuAccAbs;
+//        ia = imuAccAbs;
+        ia = nacc[2];//imu.acc.z
 
 //        qDebug() << "Got IMU: " << nacc[0] << "," << nacc[1] << "," << nacc[2] << " abs: " << imuAccAbs;
 
@@ -78,7 +82,7 @@ void PushN8AirTimeDetector::incomming_reading(NPushLogTick * gtick)
 
     if( (!isnan(fp) || !isnan(pa) || !isnan(ia))
         && runFuzzy) {
-//        qDebug() << currentTstamp;
+        qDebug() << QString::number(currentTstamp/1000.0, 'f', 3);
         Response resp = fuzzyDetector.FuzzyficateToAirOrGround(fp, pa, ia);
 
 //        handle_response(resp);
@@ -100,6 +104,7 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
 
             takeOffTime = currentTstamp;
             lastAirborneTime = takeOffTime;
+            qDebug() << "take off: " << takeOffTime;
             break;
 
         default:

@@ -28,8 +28,6 @@
 #ifndef NPUSHREPORTALTITUDE_H
 #define NPUSHREPORTALTITUDE_H
 
-#include "FilesystemConventions.h"
-
 #include "npushgenreport.h"
 #include <QVector>
 #include <QObject>
@@ -41,6 +39,8 @@
 #include <QFile>
 
 #include "selfshrinkinglist.h"
+
+#include "FilesystemConventions.h"
 
 class NPushReportAltitude : public NPushGenReport
 {
