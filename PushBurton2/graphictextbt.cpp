@@ -67,6 +67,8 @@ void GraphicTextBt::paint(QPainter *painter, const QStyleOptionGraphicsItem *,QW
     else
         painter->setFont(QFont("Nokia Standard Bold", 4));
 
+    painter->setPen(QColor(17,83,161));
+
     painter->drawText(btRect, Qt::AlignCenter, text);
 }
 

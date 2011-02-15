@@ -38,9 +38,9 @@ void PushN8AirTimeDetector::incomming_reading(NPushLogTick * gtick)
         currentTstamp = ftick->msecsToEpoch;
 
         runFuzzy = true;
-        if(fp < 2000) {
-            qDebug() << "Got air here";
-        }
+//        if(fp < 2000) {
+//            qDebug() << "Got air here";
+//        }
 
 
 //        qDebug() << "Got Sum: " << ftick->pdata.totalRawSum;
@@ -204,7 +204,7 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
                     dynamic_state = IdleGround;
                     quint64 airTime = (lastAirborneTime - takeOffTime);
                     qDebug() << "IdleGround, final aT is " << airTime << "@" << takeOffTime;
-                    newTick = new NPushAirTimeTick(airTime, true, takeOffTime);
+                    newTick = new NPushAirTimeTick(airTime, true, lastAirborneTime);
                     atReport->append_air(airTime, takeOffTime);
                 }
             }
