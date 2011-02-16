@@ -220,12 +220,19 @@ void DevicesManager::switch_to_simulation_device()
 
     SetupAbstractDevices();
 
-    emit foot_l_connected();
-    emit foot_r_connected();
-    emit motion_box_connected();
-    emit heart_connected();
-    emit gsr_connected();
-    emit phone_gps_connected();
+    emit device_connected(QString("LBoot"));
+    emit device_connected(QString("RBoot"));
+    emit device_connected(QString("Arm"));
+    emit device_connected(QString("Board"));
+    emit device_connected(QString("Location"));
+    emit device_connected(QString("Heart"));
+
+//    emit foot_l_connected();
+//    emit foot_r_connected();
+//    emit motion_box_connected();
+//    emit heart_connected();
+//    emit gsr_connected();
+//    emit phone_gps_connected();
 
 }
 
@@ -249,14 +256,38 @@ void DevicesManager::SetupPhoneDevices()
     PushN8PhoneAcc * phoneAcc = new PushN8PhoneAcc();
     configuredDevices->push_back(phoneAcc);
 
+    connect(phoneAcc, SIGNAL(connected()), &connectedMapper, SLOT(map()));
+    connectedMapper.setMapping(phoneAcc, "PhoneAcc");
+
+    connect(phoneAcc, SIGNAL(disconnected()), &disconnectedMapper, SLOT(map()));
+    disconnectedMapper.setMapping(phoneAcc, "PhoneAcc");
+
+
+
     PushN8PhoneMag * phoneMag = new PushN8PhoneMag();
     configuredDevices->push_back(phoneMag);
+
+    connect(phoneMag, SIGNAL(connected()), &connectedMapper, SLOT(map()));
+    connectedMapper.setMapping(phoneMag, "PhoneMag");
+
+    connect(phoneMag, SIGNAL(disconnected()), &disconnectedMapper, SLOT(map()));
+    disconnectedMapper.setMapping(phoneMag, "PhoneMag");
+
+
 
     PushN8PhoneGPS * phoneGPS = new PushN8PhoneGPS(this);
     configuredDevices->push_back(phoneGPS);
 
-    emit phone_gps_connecting();
-    connect(phoneGPS, SIGNAL(connected()), this, SIGNAL(phone_gps_connected()));
+    emit device_connecting(QString("Location"));
+
+    connect(phoneGPS, SIGNAL(connected()), &connectedMapper, SLOT(map()));
+    connectedMapper.setMapping(phoneGPS, "Location");
+
+    connect(phoneGPS, SIGNAL(disconnected()), &disconnectedMapper, SLOT(map()));
+    disconnectedMapper.setMapping(phoneGPS, "Location");
+
+//    emit phone_gps_connecting();
+//    connect(phoneGPS, SIGNAL(connected()), this, SIGNAL(phone_gps_connected()));
 }
 
 void DevicesManager::SetupAbstractDevices()

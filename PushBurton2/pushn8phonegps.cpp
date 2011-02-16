@@ -85,18 +85,24 @@ bool PushN8PhoneGPS::is_online()
 
 void PushN8PhoneGPS::positionUpdated(QGeoPositionInfo info)
 {
-    if(info.coordinate().isValid() && !gpsOnline)
-    {
-        //emitting connected signal when receiving first reading
+    if(info.isValid() && !gpsOnline) {
         emit connected();
         gpsOnline = true;
-
-    } else if(gpsOnline) {
-
-        gpsOnline = false;
-        emit disconnected();
-
+        qDebug() << "GPS now connected";
     }
+
+//    if(info.coordinate().isValid() && !gpsOnline)
+//    {
+//        //emitting connected signal when receiving first reading
+//        emit connected();
+//        gpsOnline = true;
+
+//    } else if(gpsOnline) {
+
+//        gpsOnline = false;
+//        emit disconnected();
+
+//    }
 
     if(!streaming)
         return;

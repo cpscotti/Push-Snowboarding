@@ -139,6 +139,8 @@ void GraphicsDeviceInfo::device_connecting(const QString& devName)
 
 void GraphicsDeviceInfo::device_connected(const QString& devName)
 {
+    qDebug() << "Got connected: " << devName;
+
     if(devName == "Heart") {
         heartOn = true;
         heartBlink = 0;
@@ -155,6 +157,7 @@ void GraphicsDeviceInfo::device_connected(const QString& devName)
         leftBootOn = true;
         leftBootBlink = 0;
     } else if(devName == "Location") {
+        qDebug() << "GOT GPS Connected signal!!";
         locationOn = true;
         locationBlink = 0;
     }
