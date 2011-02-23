@@ -27,7 +27,7 @@
 
 #include "pushn8phonegps.h"
 
-PushN8PhoneGPS::PushN8PhoneGPS(QObject * parent)
+PushN8PhoneGPS::PushN8PhoneGPS(QObject *)
 {
     computeUTCOffset();
     gpsSource = QGeoPositionInfoSource::createDefaultSource(0);

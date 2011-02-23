@@ -28,7 +28,7 @@
 #include "runmanager.h"
 
 RunManager::RunManager(PushDevicesHolder * aDevHolder, QObject *parent) :
-    configuredDevices(aDevHolder), QObject(parent)
+    QObject(parent), configuredDevices(aDevHolder)
 {
     logging = false;
     ubiqSaver = 0;

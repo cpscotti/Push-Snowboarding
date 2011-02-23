@@ -76,7 +76,8 @@ SOURCES += main.cpp\
     graphicsreportview.cpp \
     graphicslidingdownbts.cpp \
     liveview.cpp \
-    graphicssettings.cpp
+    graphicssettings.cpp \
+    graphicconfirmationrequest.cpp
 
 HEADERS  += mainwindow.h \
     graphicpixmapbt.h \
@@ -123,7 +124,8 @@ HEADERS  += mainwindow.h \
     graphicslidingdownbts.h \
     liveview.h \
     graphicssettings.h \
-    FilesystemConventions.h
+    FilesystemConventions.h \
+    graphicconfirmationrequest.h
 
 FORMS    += mainwindow.ui \
     liveview.ui

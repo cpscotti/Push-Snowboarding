@@ -85,6 +85,9 @@ Response FuzzyDetector::FuzzyficateToAirOrGround(double fp, double pa, double ia
     double oa_fp=0, oa_pa=0, oa_ia=0;
     double og_fp=0, og_pa=0, og_ia=0, og_bpa=0;
 
+    Q_UNUSED(og_bpa);
+    Q_UNUSED(bpa);
+
     if(!isnan(fp)) {
         oa_fp = fp_onAir.fuzificate(fp);
         og_fp = fp_onGrnd.fuzificate(fp);

@@ -139,6 +139,7 @@ bool NPushReportSpeed::save_to_dir(QString &dirName)
     reportFile.close();
 
     qDebug() << "Speed -> Ended";
+    return true;
 }
 
 bool NPushReportSpeed::load_from_dir(QString &dirName)
@@ -178,6 +179,7 @@ bool NPushReportSpeed::load_from_dir(QString &dirName)
         }
     }   while(xml.name() != "SpeedReport");
 
+    return true;
 //    qDebug() << "Done; " << Speed_max << "/" << Speed_avg << "; " << graphPoints.count() << "points";
 }
 

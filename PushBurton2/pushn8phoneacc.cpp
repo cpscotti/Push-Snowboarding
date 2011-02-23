@@ -68,7 +68,7 @@ bool PushN8PhoneAcc::is_online()
         return false;
 }
 
-void PushN8PhoneAcc::timerEvent(QTimerEvent * event)
+void PushN8PhoneAcc::timerEvent(QTimerEvent *)
 {
     NPushAccTick * newAccTick = new NPushAccTick(accSensor->reading());
 

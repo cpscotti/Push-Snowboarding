@@ -143,6 +143,7 @@ bool NPushReportHeart::save_to_dir(QString &dirName)
     reportFile.close();
 
     qDebug() << "Heart -> Ended";
+    return true;
 }
 
 bool NPushReportHeart::load_from_dir(QString &dirName)
@@ -182,6 +183,7 @@ bool NPushReportHeart::load_from_dir(QString &dirName)
         }
     }   while(xml.name() != "HeartReport");
 
+    return true;
 //    qDebug() << "Done; " << Heart_max << "/" << Heart_avg << "; " << graphPoints.count() << "points";
 }
 

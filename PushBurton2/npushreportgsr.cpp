@@ -135,6 +135,7 @@ bool NPushReportGSR::save_to_dir(QString &dirName)
     reportFile.close();
 
     qDebug() << "GSR -> Ended";
+    return true;
 }
 
 bool NPushReportGSR::load_from_dir(QString &dirName)
@@ -174,6 +175,7 @@ bool NPushReportGSR::load_from_dir(QString &dirName)
             }
         }
     }   while(xml.name() != "GSRReport");
+    return true;
 }
 
 void NPushReportGSR::read_points_from_xml(QXmlStreamReader& xml)

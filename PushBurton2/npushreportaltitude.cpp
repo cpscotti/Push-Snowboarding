@@ -135,6 +135,7 @@ bool NPushReportAltitude::save_to_dir(QString &dirName)
     reportFile.close();
 
     qDebug() << "Altitude -> Ended";
+    return true;
 }
 
 bool NPushReportAltitude::load_from_dir(QString &dirName)
@@ -174,6 +175,7 @@ bool NPushReportAltitude::load_from_dir(QString &dirName)
             }
         }
     }   while(xml.name() != "AltitudeReport");
+    return true;
 }
 
 void NPushReportAltitude::read_points_from_xml(QXmlStreamReader& xml)

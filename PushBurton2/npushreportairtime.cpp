@@ -153,6 +153,7 @@ bool NPushReportAirTime::save_to_dir(QString& dirName)
     xml.writeEndDocument();
 
     reportFile.close();
+    return true;
 }
 
 bool NPushReportAirTime::load_from_dir(QString& dirName)
@@ -196,6 +197,7 @@ bool NPushReportAirTime::load_from_dir(QString& dirName)
             }
         }
     }   while(xml.name() != "AirTimeReport");
+    return true;
 }
 
 void NPushReportAirTime::read_bar_graph_from_xml(QXmlStreamReader& xml)

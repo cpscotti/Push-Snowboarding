@@ -43,6 +43,8 @@
 #include "graphictextbt.h"
 #include "graphicslidingdownbts.h"
 
+#include "graphicconfirmationrequest.h"
+
 #include "graphicvarplot.h"
 
 #include "npushreportspeed.h"
@@ -100,6 +102,8 @@ private:
 
     GraphicSlidingDownBts * slidingDownBts;
 
+    GraphicConfirmationRequest * confirmationRequest;
+
     void init_state_machine();
 
     void load_graphs(QString dir);
@@ -125,6 +129,11 @@ signals:
 public slots:
     void file_selected(QString dir);
     void refresh_dirs_graphs();
+
+    void ask_for_delete_confirmation();
+    void deletion_accepted();
+    void deletion_rejected();
+
 
     void delete_current_dir();
 };

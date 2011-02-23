@@ -52,7 +52,7 @@ void PushBurtonGenericDevice::disconnect_from_backend()
 {
 }
 
-bool PushBurtonGenericDevice::subscribesTo(PushBurtonGenericDevice* deviceType)
+bool PushBurtonGenericDevice::subscribesTo(PushBurtonGenericDevice*)
 {
     return false;
 }
@@ -69,11 +69,11 @@ void PushBurtonGenericDevice::incomming_reading(NPushLogTick *)
 
 bool PushBurtonGenericDevice::start_run()
 {
-
+    return true;
 }
 
 
 bool PushBurtonGenericDevice::end_run()
 {
-
+    return true;
 }

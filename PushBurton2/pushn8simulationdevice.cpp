@@ -74,7 +74,7 @@ bool PushN8SimulationDevice::is_online()
     return (data_input != NULL);
 }
 
-void PushN8SimulationDevice::timerEvent(QTimerEvent * event)
+void PushN8SimulationDevice::timerEvent(QTimerEvent *)
 {
     while(!(xml.isEndElement() && xml.name() == "N8SensorsLog")) {
 

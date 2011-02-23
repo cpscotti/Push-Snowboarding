@@ -69,7 +69,7 @@ bool PushN8PhoneMag::is_online()
         return false;
 }
 
-void PushN8PhoneMag::timerEvent(QTimerEvent * event)
+void PushN8PhoneMag::timerEvent(QTimerEvent *)
 {
     NPushMagTick * newMagTick = new NPushMagTick(magSensor->reading());
 

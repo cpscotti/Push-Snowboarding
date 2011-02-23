@@ -27,9 +27,11 @@
 
 #include "npushairtimetick.h"
 
-NPushAirTimeTick::NPushAirTimeTick(quint64 a_msecsInAir, bool a_landed, quint64 a_msecsToEpoch) :
-        msecsOnAir(a_msecsInAir), landed(a_landed), msecsToEpoch(a_msecsToEpoch)
+NPushAirTimeTick::NPushAirTimeTick(quint64 a_msecsInAir, bool a_landed, quint64 a_msecsToEpoch)
 {
+    landed = a_landed;
+    msecsToEpoch = a_msecsToEpoch;
+    msecsOnAir = a_msecsInAir;
 }
 
 
