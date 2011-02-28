@@ -41,7 +41,7 @@ GraphicsReportView::GraphicsReportView(QObject *parent=0) :
 //    deleteBt = new GraphicPixmapBt(":/buttons/home_bt.png", this);
     deleteBt = new GraphicTextBt("Delete", QRectF(0,0,110, 54) ,this);
     deleteBt->setPos(0,0);
-    connect(deleteBt, SIGNAL(activated()), this, SLOT(ask_for_delete_confirmation()));
+    connect(deleteBt, SIGNAL(released()), this, SLOT(ask_for_delete_confirmation()));
 
     speedLink = new GraphicPixmapBt(":/buttons/r_speedOff.png", this);
     speedLink->setAltImage(QString(":/buttons/r_speedOn.png"));
@@ -92,7 +92,6 @@ GraphicsReportView::GraphicsReportView(QObject *parent=0) :
 
     slidingDownBts = 0;
 
-    confirmationRequest = 0;
 
     refresh_dirs_graphs();
 
@@ -351,24 +350,23 @@ void GraphicsReportView::setup_link_alt_bts(QState * state, QObject * bt)
 
 void GraphicsReportView::ask_for_delete_confirmation()
 {
-    if(confirmationRequest) {
-        confirmationRequest->disconnect();
-        confirmationRequest->deleteLater();
-        confirmationRequest = 0;
+    QMessageBox msgBox;
+    msgBox.setText("Are you sure you want to delete this run?");
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    int ret = msgBox.exec();
+
+    if(ret == QMessageBox::Yes) {
+        this->delete_current_dir();
     }
 
-    confirmationRequest = new GraphicConfirmationRequest(QString("Are you sure?"), this);
-    connect(confirmationRequest, SIGNAL(accepted()), this, SLOT(deletion_accepted()));
-    connect(confirmationRequest, SIGNAL(rejected()), this, SLOT(deletion_rejected()));
 }
 
 void GraphicsReportView::deletion_accepted()
 {
-    confirmationRequest->hide();
     this->delete_current_dir();
 }
 
 void GraphicsReportView::deletion_rejected()
 {
-    confirmationRequest->hide();
 }

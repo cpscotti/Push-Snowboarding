@@ -38,6 +38,8 @@ PushN8IMUDevice::PushN8IMUDevice(QBtDevice a_device, QObject *parent) :
     packetLen = 11;
     packetStart = "IMU";
     packetEnd = "END";
+
+    digitalAcc = false;
 }
 
 PushN8IMUDevice::~PushN8IMUDevice()
@@ -52,8 +54,17 @@ void PushN8IMUDevice::gotDataReceived(QString data)
     QStringList params;
     if(getPackage(data, params))
     {
+        //detect negative values to switch to digital mode.
+        if(!digitalAcc) {
+            if(params[4].toInt() < 0 ||
+               params[5].toInt() < 0 ||
+               params[6].toInt() < 0) {
+                digitalAcc = true;
+            }
+        }
 
         NPushIMUTick * newIMUTick = new NPushIMUTick(params);
+        newIMUTick->digitalAcc = digitalAcc;
 
 //        qDebug() << "Parms: " << params[1] << "," << params[2] << "," << params[3];
 

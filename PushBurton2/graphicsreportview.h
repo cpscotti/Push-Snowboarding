@@ -42,8 +42,7 @@
 #include "graphicpixmapbt.h"
 #include "graphictextbt.h"
 #include "graphicslidingdownbts.h"
-
-#include "graphicconfirmationrequest.h"
+#include <QMessageBox>
 
 #include "graphicvarplot.h"
 
@@ -101,8 +100,6 @@ private:
     NPushReportAltitude altitudeReport;
 
     GraphicSlidingDownBts * slidingDownBts;
-
-    GraphicConfirmationRequest * confirmationRequest;
 
     void init_state_machine();
 

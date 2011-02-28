@@ -10,7 +10,9 @@ http://yuml.me/diagram/scruffy/class/
 [PushN8BtDevice]^[PushN8IMUDevice],
 [PushBurtonGenericDevice]^[PushN8SimulationDevice],
 [PushBurtonGenericDevice]^[PushN8AirTimeDetector],
-[PushBurtonGenericDevice]^[PushN8AbsNormFeetDevice],
+[PushBurtonGenericDevice]^[PushN8AbsNormFeetDevice]
+
+http://yuml.me/diagram/scruffy/class/
 [PushDevicesHolder]<->[PushN8IMUDevice],
 [PushDevicesHolder]<->[PushN8GSRDevice],
 [PushDevicesHolder]<->[PushN8FootDevice],
@@ -21,7 +23,9 @@ http://yuml.me/diagram/scruffy/class/
 [PushDevicesHolder]<->[PushN8PhoneMag],
 [PushDevicesHolder]<->[PushN8AbsNormFeetDevice],
 [PushDevicesHolder]<->[PushN8AirTimeDetector],
-[PushDevicesHolder]->[UbiqLogSaver],
+[PushDevicesHolder]->[UbiqLogSaver]
+
+http://yuml.me/diagram/scruffy/class/
 [NPushLogTick]^[NPushAccTick],
 [NPushLogTick]^[NPushMagTick],
 [NPushLogTick]^[NPushGPSTick],

@@ -60,9 +60,16 @@ void PushN8AirTimeDetector::incomming_reading(NPushLogTick * gtick)
         runFuzzy = true;
 
         double nacc[3];
-        nacc[0] = (((double)itick->accel[0]) -512.0)*1.0/107.0;
-        nacc[1] = (((double)itick->accel[1]) -512.0)*1.0/107.0;
-        nacc[2] = (((double)itick->accel[2]) -512.0)*1.0/107.0;
+
+        if(itick->digitalAcc) {
+            nacc[0] = ((double)itick->accel[0])* 0.004;
+            nacc[1] = ((double)itick->accel[1])* 0.004;
+            nacc[2] = ((double)itick->accel[2])* 0.004;
+        } else {
+            nacc[0] = (((double)itick->accel[0]) -512.0)*1.0/107.0;
+            nacc[1] = (((double)itick->accel[1]) -512.0)*1.0/107.0;
+            nacc[2] = (((double)itick->accel[2]) -512.0)*1.0/107.0;
+        }
 
         bpa = qSqrt(nacc[0]*nacc[0] + nacc[1]*nacc[1]);
 

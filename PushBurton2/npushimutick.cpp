@@ -43,6 +43,8 @@ NPushIMUTick::NPushIMUTick(QStringList& values)
         secs_to_epoch = aft;
     }
 
+    digitalAcc = false;
+
     ParseValues(values);
 
     msecsToEpoch = (quint64)((double)secs_to_epoch*1000.0+(double)msecs);

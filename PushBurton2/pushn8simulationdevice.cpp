@@ -53,6 +53,8 @@ PushN8SimulationDevice::PushN8SimulationDevice()
         qDebug() << "Could not read first start Element";
     }
 
+    digitalAcc = false;
+
     timerId = 0;
     timerPeriod = 5;
 }
@@ -224,7 +226,16 @@ NPushIMUTick * PushN8SimulationDevice::readImuTick()
     }
     values.push_back("END");
 
+    if(!digitalAcc) {
+        if(values[4].toInt() < 0 ||
+           values[5].toInt() < 0 ||
+           values[6].toInt() < 0) {
+            digitalAcc = true;
+        }
+    }
+
     NPushIMUTick * tick = new NPushIMUTick(values, tstamp);
+    tick->digitalAcc = digitalAcc;
     return tick;
 }
 

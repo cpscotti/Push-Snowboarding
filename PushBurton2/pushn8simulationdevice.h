@@ -74,6 +74,8 @@ private:
     NPushIMUTick * readImuTick();
     NPushMagTick * readMagTick();
 
+    bool digitalAcc;
+
 protected:
     void timerEvent(QTimerEvent *);
 };

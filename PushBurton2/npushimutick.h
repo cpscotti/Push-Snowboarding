@@ -51,6 +51,8 @@ public:
     int mag[3];
 
     quint64 msecsToEpoch;
+
+    bool digitalAcc;
 };
 
 #endif // NPUSHIMUTICK_H
