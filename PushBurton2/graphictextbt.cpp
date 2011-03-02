@@ -41,6 +41,11 @@ GraphicTextBt::GraphicTextBt(QString _text, QRectF _rect, QGraphicsItem* parent)
     toggled = false;
 }
 
+void GraphicTextBt::setBtRect(const QRectF& nbtrect)
+{
+    btRect = nbtrect;
+}
+
 GraphicTextBt::~GraphicTextBt()
 {
 
@@ -63,9 +68,9 @@ void GraphicTextBt::paint(QPainter *painter, const QStyleOptionGraphicsItem *,QW
     painter->setPen(textColor);
 
     if(!toggled)
-        painter->setFont(QFont("Nokia Standard Bold", 5));
+        painter->setFont(QFont("Nokia Standard Bold", 6));
     else
-        painter->setFont(QFont("Nokia Standard Bold", 4));
+        painter->setFont(QFont("Nokia Standard Bold", 5));
 
     painter->setPen(QColor(17,83,161));
 

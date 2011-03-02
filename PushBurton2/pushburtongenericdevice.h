@@ -32,10 +32,16 @@
 
 #include <QObject>
 #include <QString>
-#include <QVector>
+//#include <QVector>
 #include "npushlogtick.h"
 #include "npushgenreport.h"
 
+/* This is the base class for all devices.
+ * This adds to all its subclasses the following functionalities
+    * Adds QObject basic functionality for all devices (emit/slots/signals)
+    * Periodic timer for sensor pooling (subclasses assign period value to timerPeriod variable)
+    * defines the common interface for all sensors
+ */
 class PushBurtonGenericDevice : public QObject
 {
     Q_OBJECT

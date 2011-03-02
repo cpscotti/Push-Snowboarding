@@ -48,9 +48,13 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *,QWidget *);
 
+    void setBtsRect(const QRectF& a_btsrect);
+
     void addBt(QString text, QString value);
 
     void construction_finished();
+
+    void setStartBt(int idx);
 
 signals:
     void bt_selected(const QString& val);
@@ -61,6 +65,10 @@ private slots:
 private:
 
     void push_back(GraphicTextBt*, QString);
+
+    int initial_selection;
+
+    QRectF btsRect;
 
     QVector<GraphicTextBt*> graphicBts;
     QVector<QState *> selectedStates;

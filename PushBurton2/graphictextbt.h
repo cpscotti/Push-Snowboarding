@@ -47,6 +47,8 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *,QWidget *);
 
+    void setBtRect(const QRectF& nbtrect);
+
 signals:
     void activated();
     void released();

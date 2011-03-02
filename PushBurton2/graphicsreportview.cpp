@@ -108,6 +108,7 @@ void GraphicsReportView::refresh_dirs_graphs()
 
     slidingDownBts = new GraphicSlidingDownBts(this);
     slidingDownBts->setPos(110+5,0);
+    slidingDownBts->setBtsRect(QRectF(0,0,110+5+110,54));
 
     QString dirName;
     load_avDirectories_directories();

@@ -42,11 +42,24 @@ GraphicSlidingDownBts::GraphicSlidingDownBts(QGraphicsItem* parent) : QGraphicsO
     machine.addState(rootState);
     machine.setInitialState(rootState);
     rootState->setInitialState(chooserState);
+
+    initial_selection = -1;
+}
+
+void GraphicSlidingDownBts::setBtsRect(const QRectF& a_btsrect)
+{
+    btsRect = a_btsrect;
+}
+
+void GraphicSlidingDownBts::setStartBt(int idx)
+{
+    initial_selection = idx;
 }
 
 void GraphicSlidingDownBts::addBt(QString text, QString value)
 {
     GraphicTextBt * newBt = new GraphicTextBt(text, this);
+    newBt->setBtRect(btsRect);
     newBt->setPos(0,0);
     newBt->setZValue(1.0);
     push_back(newBt, value);
@@ -65,8 +78,6 @@ void GraphicSlidingDownBts::push_back(GraphicTextBt* newBt, QString val)
     selectedMapper->setMapping(newState, val);
 
     machine.addDefaultAnimation(new QPropertyAnimation(newBt, "y", this));
-
-    rootState->setInitialState(newState);
 }
 
 void GraphicSlidingDownBts::construction_finished()
@@ -90,6 +101,17 @@ void GraphicSlidingDownBts::construction_finished()
     {
         chooserState->assignProperty(graphicBts[i], "y", 60*i);//chooser position for all bts (unfolded down)
         chooserState->addTransition(graphicBts[i], SIGNAL(activated()), selectedStates[i]);
+    }
+
+    if(cnt > 0)
+    {
+        QState * startState;
+        if(initial_selection == -1)
+            startState = selectedStates.last();
+        else
+            startState = selectedStates.at(initial_selection);
+
+        rootState->setInitialState(startState);
     }
 
     machine.start();
