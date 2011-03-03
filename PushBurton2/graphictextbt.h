@@ -29,12 +29,14 @@
 #define GRAPHICTEXTBT_H
 
 #include <QGraphicsObject>
+#include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QString>
 #include <QFont>
 #include <QColor>
 
 #include <QDebug>
+#include <qmath.h>
 
 class GraphicTextBt : public QGraphicsObject
 {
@@ -53,15 +55,25 @@ signals:
     void activated();
     void released();
 
+public slots:
+    void v_swipe_action(qreal dif);
+signals:
+    void v_swipe_hint(qreal ydrag);
+
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 
 private:
     bool toggled;
     QString text;
     QColor textColor;
     QRectF btRect;
+
+    QPoint firstTch;
+    QPoint prevTch;
+
 };
 
 #endif // GRAPHICTEXTBT_H

@@ -33,6 +33,7 @@
 #include <QVector>
 #include <QSignalMapper>
 #include <QStateMachine>
+
 #include <QPropertyAnimation>
 
 #include "graphictextbt.h"
@@ -68,6 +69,8 @@ private:
 
     int initial_selection;
 
+    bool isOnChooser;
+
     QRectF btsRect;
 
     QVector<GraphicTextBt*> graphicBts;
@@ -76,6 +79,17 @@ private:
     QState * chooserState;
     QStateMachine machine;
     QSignalMapper * selectedMapper;
+
+    QString lastInnSelection;
+
+signals:
+    void do_swipe(qreal ydif);
+
+public slots:
+    void get_swipe_hints(qreal ydif);
+    void entered_chooser();
+    void exited_chooser();
+
 };
 
 #endif // GRAPHICSLIDINGDOWNBTS_H

@@ -77,8 +77,11 @@ void GraphicTextBt::paint(QPainter *painter, const QStyleOptionGraphicsItem *,QW
     painter->drawText(btRect, Qt::AlignCenter, text);
 }
 
-void GraphicTextBt::mousePressEvent(QGraphicsSceneMouseEvent *)
+void GraphicTextBt::mousePressEvent(QGraphicsSceneMouseEvent * event)
 {
+    firstTch = event->screenPos();
+    prevTch = event->screenPos();
+
     if(!toggled) {
         emit activated();
         toggled = true;
@@ -86,11 +89,34 @@ void GraphicTextBt::mousePressEvent(QGraphicsSceneMouseEvent *)
     }
 }
 
-void GraphicTextBt::mouseReleaseEvent(QGraphicsSceneMouseEvent *)
+void GraphicTextBt::mouseReleaseEvent(QGraphicsSceneMouseEvent * event)
 {
+    QPoint now = event->screenPos();
+    qreal entireFlight = sqrt(pow(now.x() - firstTch.x(),2.0) + pow(now.y() - firstTch.y(),2.0));
+
     if(toggled) {
-        emit released();
+//        qDebug() << "entireFlight = " << entireFlight;
+        if(fabs(entireFlight) < 30.0) {
+            emit released();
+        }
         toggled = false;
         this->update();
     }
+}
+
+void GraphicTextBt::mouseMoveEvent(QGraphicsSceneMouseEvent * event)
+{
+    QPoint now = event->screenPos();
+    qreal vertFlight = now.y() - prevTch.y();
+//    qDebug() << "entireFlight = " << entireFlight;
+//    qreal entireFlight = now.x() - prevTch.x();
+    emit v_swipe_hint(vertFlight);
+    prevTch = now;
+
+}
+
+void GraphicTextBt::v_swipe_action(qreal dif)
+{
+    QVariant oldY = this->property("y");
+    this->setProperty("y", oldY.toFloat()+dif);
 }

@@ -37,6 +37,8 @@ GraphicSlidingDownBts::GraphicSlidingDownBts(QGraphicsItem* parent) : QGraphicsO
 
     rootState = new QState();
     chooserState = new QState(rootState);
+    connect(chooserState, SIGNAL(entered()), this, SLOT(entered_chooser()));
+    connect(chooserState, SIGNAL(exited()), this, SLOT(exited_chooser()));
 
 //    machine.setGlobalRestorePolicy(QStateMachine::RestoreProperties);
     machine.addState(rootState);
@@ -44,6 +46,7 @@ GraphicSlidingDownBts::GraphicSlidingDownBts(QGraphicsItem* parent) : QGraphicsO
     rootState->setInitialState(chooserState);
 
     initial_selection = -1;
+    isOnChooser = false;
 }
 
 void GraphicSlidingDownBts::setBtsRect(const QRectF& a_btsrect)
@@ -62,6 +65,8 @@ void GraphicSlidingDownBts::addBt(QString text, QString value)
     newBt->setBtRect(btsRect);
     newBt->setPos(0,0);
     newBt->setZValue(1.0);
+    connect(newBt, SIGNAL(v_swipe_hint(qreal)), this, SLOT(get_swipe_hints(qreal)));
+    connect(this, SIGNAL(do_swipe(qreal)), newBt, SLOT(v_swipe_action(qreal)));
     push_back(newBt, value);
 }
 
@@ -71,7 +76,7 @@ void GraphicSlidingDownBts::push_back(GraphicTextBt* newBt, QString val)
     selectedStates.push_back(newState);
     graphicBts.push_back(newBt);
 
-    newState->addTransition(newBt, SIGNAL(activated()), chooserState);
+    newState->addTransition(newBt, SIGNAL(released()), chooserState);
 //    newState->assignProperty(newBt, "y", 0);
 
     connect(newState, SIGNAL(entered()), selectedMapper, SLOT(map()));
@@ -100,7 +105,7 @@ void GraphicSlidingDownBts::construction_finished()
     for(int i=0;i < cnt;i++)
     {
         chooserState->assignProperty(graphicBts[i], "y", 60*i);//chooser position for all bts (unfolded down)
-        chooserState->addTransition(graphicBts[i], SIGNAL(activated()), selectedStates[i]);
+        chooserState->addTransition(graphicBts[i], SIGNAL(released()), selectedStates[i]);
     }
 
     if(cnt > 0)
@@ -136,4 +141,25 @@ void GraphicSlidingDownBts::paint(QPainter *painter, const QStyleOptionGraphicsI
 void GraphicSlidingDownBts::inn_selected(const QString& val)
 {
     qDebug() << "Inner selection is " << val;
+    lastInnSelection = val;
+}
+
+
+void GraphicSlidingDownBts::get_swipe_hints(qreal ydif)
+{
+//    if(isOnChooser) {
+//        emit do_swipe(ydif);
+//    }
+}
+
+void GraphicSlidingDownBts::entered_chooser()
+{
+    isOnChooser = true;
+    //start timer
+}
+
+void GraphicSlidingDownBts::exited_chooser()
+{
+    isOnChooser = false;
+    //stop timer
 }
