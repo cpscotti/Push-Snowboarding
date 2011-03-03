@@ -37,7 +37,7 @@ GraphicSlidingDownBts::GraphicSlidingDownBts(QGraphicsItem* parent) : QGraphicsO
 
     rootState = new QState();
     chooserState = new QState(rootState);
-    optionsState =  new QState(rootState);
+    optionSelectedState =  new QState(rootState);
 
     connect(chooserState, SIGNAL(entered()), this, SLOT(entered_chooser()));
     connect(chooserState, SIGNAL(exited()), this, SLOT(exited_chooser()));
@@ -46,6 +46,13 @@ GraphicSlidingDownBts::GraphicSlidingDownBts(QGraphicsItem* parent) : QGraphicsO
     machine.addState(rootState);
     machine.setInitialState(rootState);
     rootState->setInitialState(chooserState);
+
+
+    fallBackHistState = new QHistoryState(optionSelectedState);
+    fallBackTimer = new QTimer(this);
+    chooserState->addTransition(fallBackTimer, SIGNAL(timeout()), fallBackHistState);
+    fallBackTimer->setSingleShot(true);
+    fallBackTimer->stop();
 
     initial_selection = -1;
     isOnChooser = false;
@@ -74,7 +81,7 @@ void GraphicSlidingDownBts::addBt(QString text, QString value)
 
 void GraphicSlidingDownBts::push_back(GraphicTextBt* newBt, QString val)
 {
-    QState * newState = new QState(optionsState);
+    QState * newState = new QState(optionSelectedState);
     selectedStates.push_back(newState);
     graphicBts.push_back(newBt);
 
@@ -119,8 +126,8 @@ void GraphicSlidingDownBts::construction_finished()
         else
             startState = selectedStates.at(initial_selection);
 
-        optionsState->setInitialState(startState);
-        rootState->setInitialState(optionsState);
+        optionSelectedState->setInitialState(startState);
+        rootState->setInitialState(optionSelectedState);
     }
 
 
@@ -150,12 +157,13 @@ void GraphicSlidingDownBts::paint(QPainter *painter, const QStyleOptionGraphicsI
 void GraphicSlidingDownBts::inn_selected(const QString& val)
 {
     qDebug() << "Inner selection is " << val;
-    lastInnSelection = val;
+//    lastInnSelection = val;
 }
 
 
 void GraphicSlidingDownBts::get_swipe_hints(qreal ydif)
 {
+    fallBackTimer->start(5000);
     if(isOnChooser) {
         int newTotalDisplacement = totalSwipeDisplacement + ydif;
         if(newTotalDisplacement >= swipeLowerBound && newTotalDisplacement <= swipeUpperBound) {
@@ -172,6 +180,7 @@ void GraphicSlidingDownBts::entered_chooser()
 {
     totalSwipeDisplacement = 0;
     isOnChooser = true;
+    fallBackTimer->start(5000);
 //    qDebug() << "On Choeser, reset!";
     //start timer
 }
@@ -179,5 +188,6 @@ void GraphicSlidingDownBts::entered_chooser()
 void GraphicSlidingDownBts::exited_chooser()
 {
     isOnChooser = false;
+    fallBackTimer->stop();
     //stop timer
 }

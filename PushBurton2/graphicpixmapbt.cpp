@@ -32,7 +32,13 @@ GraphicPixmapBt::GraphicPixmapBt(
         QGraphicsItem* parent) :
         QGraphicsObject(parent)
 {
-    px = QPixmap(filename);
+    px = new QPixmap;
+    if(!px->load(filename)) {
+        qDebug() << "Could not load pixmap at " << filename;
+        delete px;
+        px = 0;
+    }
+
     altPx = 0;
     toggled = false;
     clickable = true;
@@ -43,29 +49,37 @@ GraphicPixmapBt::~GraphicPixmapBt()
 {
     if(altPx)
         delete altPx;
+    if(px)
+        delete px;
 }
 
 QRectF GraphicPixmapBt::boundingRect() const
 {
-    return QRectF(QPointF(0.0,0.0), px.size());
+    if(px)
+        return QRectF(QPointF(0.0,0.0), px->size());
+    else
+        return QRectF();
 }
 
 QPainterPath GraphicPixmapBt::shape() const
 {
     QPainterPath path;
-    path.addRect(QRectF(QPointF(0.0,0.0), px.size()));
+    if(px)
+        path.addRect(QRectF(QPointF(0.0,0.0), px->size()));
     return path;
 }
 
 
 void GraphicPixmapBt::paint(QPainter *painter, const QStyleOptionGraphicsItem *,QWidget *)
 {
-    QPixmap * p_px = (altImgActivated && altPx)? altPx : &px;
+    if(px) {
+        QPixmap * p_px = (altImgActivated && altPx)? altPx : px;
 
-    if(!toggled)
-        painter->drawPixmap(QRect(0,0,p_px->width(),p_px->height()), *p_px);
-    else
-        painter->drawPixmap(QRect(0.1*p_px->width(),0.1*p_px->height(),0.8*p_px->width(),0.8*p_px->height()), *p_px);
+        if(!toggled)
+            painter->drawPixmap(QRect(0,0,p_px->width(),p_px->height()), *p_px);
+        else
+            painter->drawPixmap(QRect(0.1*p_px->width(),0.1*p_px->height(),0.8*p_px->width(),0.8*p_px->height()), *p_px);
+    }
 
 }
 
@@ -97,6 +111,7 @@ void GraphicPixmapBt::setAltImage(const QString& filename)
     {
         qDebug() << "Could not load pixmap at " << filename;
         delete altPx;
+        altPx = 0;
     }
 }
 

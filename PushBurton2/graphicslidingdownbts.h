@@ -33,8 +33,10 @@
 #include <QVector>
 #include <QSignalMapper>
 #include <QStateMachine>
+#include <QHistoryState>
 
 #include <QPropertyAnimation>
+#include <QTimer>
 
 #include "graphictextbt.h"
 
@@ -80,11 +82,15 @@ private:
     QVector<QState *> selectedStates;
     QState * rootState;
     QState * chooserState;
-    QState * optionsState;
+    QState * optionSelectedState;
     QStateMachine machine;
     QSignalMapper * selectedMapper;
 
-    QString lastInnSelection;
+    QHistoryState * fallBackHistState;
+    QTimer * fallBackTimer;
+    static const int menuTimeout = 2000;
+
+//    QString lastInnSelection;
 
 signals:
     void do_swipe(qreal ydif);

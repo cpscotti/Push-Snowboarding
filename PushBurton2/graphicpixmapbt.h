@@ -68,7 +68,7 @@ private:
     bool getAltImg();
 
     bool altImgActivated;
-    QPixmap px;
+    QPixmap * px;
     QPixmap * altPx;
 
 };
