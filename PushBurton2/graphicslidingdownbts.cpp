@@ -37,6 +37,8 @@ GraphicSlidingDownBts::GraphicSlidingDownBts(QGraphicsItem* parent) : QGraphicsO
 
     rootState = new QState();
     chooserState = new QState(rootState);
+    optionsState =  new QState(rootState);
+
     connect(chooserState, SIGNAL(entered()), this, SLOT(entered_chooser()));
     connect(chooserState, SIGNAL(exited()), this, SLOT(exited_chooser()));
 
@@ -72,7 +74,7 @@ void GraphicSlidingDownBts::addBt(QString text, QString value)
 
 void GraphicSlidingDownBts::push_back(GraphicTextBt* newBt, QString val)
 {
-    QState * newState = new QState(rootState);
+    QState * newState = new QState(optionsState);
     selectedStates.push_back(newState);
     graphicBts.push_back(newBt);
 
@@ -117,11 +119,12 @@ void GraphicSlidingDownBts::construction_finished()
         else
             startState = selectedStates.at(initial_selection);
 
-        rootState->setInitialState(startState);
+        optionsState->setInitialState(startState);
+        rootState->setInitialState(optionsState);
     }
 
 
-    swipeLowerBound = -btSpan*((cnt-8)-1);
+    swipeLowerBound = -btSpan*(cnt-8);
     swipeUpperBound = 0;
 
 
@@ -157,10 +160,10 @@ void GraphicSlidingDownBts::get_swipe_hints(qreal ydif)
         int newTotalDisplacement = totalSwipeDisplacement + ydif;
         if(newTotalDisplacement >= swipeLowerBound && newTotalDisplacement <= swipeUpperBound) {
             emit do_swipe(ydif);
-            qDebug() << "(in) total = " << totalSwipeDisplacement;
+//            qDebug() << "(in) total = " << totalSwipeDisplacement;
             totalSwipeDisplacement = newTotalDisplacement;
         } else {
-            qDebug() << "(out) total = " << totalSwipeDisplacement;
+//            qDebug() << "(out) total = " << totalSwipeDisplacement;
         }
     }
 }
@@ -169,7 +172,7 @@ void GraphicSlidingDownBts::entered_chooser()
 {
     totalSwipeDisplacement = 0;
     isOnChooser = true;
-    qDebug() << "On Choeser, reset!";
+//    qDebug() << "On Choeser, reset!";
     //start timer
 }
 

@@ -80,6 +80,7 @@ private:
     QVector<QState *> selectedStates;
     QState * rootState;
     QState * chooserState;
+    QState * optionsState;
     QStateMachine machine;
     QSignalMapper * selectedMapper;
 
