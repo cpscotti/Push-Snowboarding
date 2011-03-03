@@ -87,6 +87,7 @@ void GraphicSlidingDownBts::push_back(GraphicTextBt* newBt, QString val)
 
 void GraphicSlidingDownBts::construction_finished()
 {
+    const int btSpan = 60;
     int cnt = graphicBts.count();
     Q_ASSERT(cnt == selectedStates.count());
 
@@ -95,7 +96,7 @@ void GraphicSlidingDownBts::construction_finished()
         for(int j=0;j<cnt;j++)//each bt has its position
         {
             if(i!=j){
-                selectedStates[i]->assignProperty(graphicBts[j], "y", -60*(cnt-j));
+                selectedStates[i]->assignProperty(graphicBts[j], "y", -btSpan*(cnt-j));
             } else {
                 selectedStates[i]->assignProperty(graphicBts[j], "y", 0);
             }
@@ -104,7 +105,7 @@ void GraphicSlidingDownBts::construction_finished()
 
     for(int i=0;i < cnt;i++)
     {
-        chooserState->assignProperty(graphicBts[i], "y", 60*i);//chooser position for all bts (unfolded down)
+        chooserState->assignProperty(graphicBts[i], "y", btSpan*i);//chooser position for all bts (unfolded down)
         chooserState->addTransition(graphicBts[i], SIGNAL(released()), selectedStates[i]);
     }
 
@@ -118,6 +119,11 @@ void GraphicSlidingDownBts::construction_finished()
 
         rootState->setInitialState(startState);
     }
+
+
+    swipeLowerBound = -btSpan*((cnt-8)-1);
+    swipeUpperBound = 0;
+
 
     machine.start();
     this->update();
@@ -147,14 +153,23 @@ void GraphicSlidingDownBts::inn_selected(const QString& val)
 
 void GraphicSlidingDownBts::get_swipe_hints(qreal ydif)
 {
-//    if(isOnChooser) {
-//        emit do_swipe(ydif);
-//    }
+    if(isOnChooser) {
+        int newTotalDisplacement = totalSwipeDisplacement + ydif;
+        if(newTotalDisplacement >= swipeLowerBound && newTotalDisplacement <= swipeUpperBound) {
+            emit do_swipe(ydif);
+            qDebug() << "(in) total = " << totalSwipeDisplacement;
+            totalSwipeDisplacement = newTotalDisplacement;
+        } else {
+            qDebug() << "(out) total = " << totalSwipeDisplacement;
+        }
+    }
 }
 
 void GraphicSlidingDownBts::entered_chooser()
 {
+    totalSwipeDisplacement = 0;
     isOnChooser = true;
+    qDebug() << "On Choeser, reset!";
     //start timer
 }
 

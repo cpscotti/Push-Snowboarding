@@ -70,6 +70,9 @@ private:
     int initial_selection;
 
     bool isOnChooser;
+    qreal totalSwipeDisplacement;
+    qreal swipeLowerBound;
+    qreal swipeUpperBound;
 
     QRectF btsRect;
 
