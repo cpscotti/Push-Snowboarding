@@ -87,7 +87,7 @@ bool PushN8AbsNormFeetDevice::is_online()
 }
 
 
-void PushN8AbsNormFeetDevice::incomming_reading(NPushLogTick * gtick)
+void PushN8AbsNormFeetDevice::incoming_reading(NPushLogTick * gtick)
 {
     if(typeid(*gtick) == typeid(NPushFootTick)) {
         NPushFootTick * ftick = (NPushFootTick *)gtick;

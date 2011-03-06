@@ -28,7 +28,7 @@
 #include "pushn8airtimedetector.h"
 
 
-void PushN8AirTimeDetector::incomming_reading(NPushLogTick * gtick)
+void PushN8AirTimeDetector::incoming_reading(NPushLogTick * gtick)
 {
     bool runFuzzy = false;
     if(typeid(*gtick) == typeid(NPushNormFeetTick)) {

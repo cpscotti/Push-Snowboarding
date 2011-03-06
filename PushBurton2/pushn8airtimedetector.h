@@ -112,7 +112,7 @@ private:
     void handle_response_new(Response);
 
 public slots:
-    void incomming_reading(NPushLogTick *);
+    void incoming_reading(NPushLogTick *);
 
 };
 

@@ -72,7 +72,7 @@ bool PushN8SimpleReportsGenerator::end_run()
 }
 
 
-void PushN8SimpleReportsGenerator::incomming_reading(NPushLogTick * gtick)
+void PushN8SimpleReportsGenerator::incoming_reading(NPushLogTick * gtick)
 {
     if(typeid(*gtick) == typeid(NPushGSRTick)) {
         //handle gsr

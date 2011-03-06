@@ -71,7 +71,7 @@ public:
     quint64 lastAirborneTime;
 
 public slots:
-    void incomming_reading(NPushLogTick *);
+    void incoming_reading(NPushLogTick *);
 
 private:
     void reset_bounds();

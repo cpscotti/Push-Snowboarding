@@ -76,7 +76,7 @@ protected:
     bool end_run();
 
 public slots:
-    void incomming_reading(NPushLogTick *);
+    void incoming_reading(NPushLogTick *);
 
 
 };
