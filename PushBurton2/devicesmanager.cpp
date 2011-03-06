@@ -300,4 +300,7 @@ void DevicesManager::SetupAbstractDevices()
 
     PushN8SimpleReportsGenerator * reportGenerator = new PushN8SimpleReportsGenerator();
     configuredDevices->push_back(reportGenerator);
+
+    VirtualBrosDevice * virtualBros = new VirtualBrosDevice();
+    configuredDevices->push_back(virtualBros);
 }

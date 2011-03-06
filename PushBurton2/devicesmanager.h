@@ -63,6 +63,8 @@
 #include "pushn8airtimedetector.h"
 #include "pushn8simplereportsgenerator.h"
 
+#include "virtualbrosdevice.h"
+
 //#include "pushn8unprogdev.h"
 #include "pushn8simulationdevice.h"
 
