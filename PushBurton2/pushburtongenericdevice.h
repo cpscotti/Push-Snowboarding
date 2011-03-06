@@ -73,7 +73,7 @@ protected:
 
 
 public slots:
-    virtual void incomming_reading(NPushLogTick *);
+    virtual void incoming_reading(NPushLogTick *);
 
 signals:
     void reading_ready(NPushLogTick *);
