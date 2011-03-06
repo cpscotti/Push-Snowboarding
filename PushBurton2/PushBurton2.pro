@@ -26,8 +26,7 @@
 #-------------------------------------------------
 
 
-QT       += core gui
-QT      += xml
+QT       += core gui xml phonon
 
 TARGET = PushBurton2
 TEMPLATE = app
@@ -76,7 +75,8 @@ SOURCES += main.cpp\
     graphicsreportview.cpp \
     graphicslidingdownbts.cpp \
     liveview.cpp \
-    graphicssettings.cpp
+    graphicssettings.cpp \
+    virtualbrosdevice.cpp
 
 HEADERS  += mainwindow.h \
     graphicpixmapbt.h \
@@ -123,7 +123,8 @@ HEADERS  += mainwindow.h \
     graphicslidingdownbts.h \
     liveview.h \
     graphicssettings.h \
-    FilesystemConventions.h
+    FilesystemConventions.h \
+    virtualbrosdevice.h
 
 FORMS    += mainwindow.ui \
     liveview.ui
@@ -132,6 +133,9 @@ CONFIG   += mobility
 MOBILITY = location sensors
 
 #LIBS += -lQBluetooth
+soundFiles.sources = sounds/*.mp3
+DEPLOYMENT += soundFiles
+
 
 symbian {
     TARGET.UID3 = 0xece639d4
@@ -173,6 +177,7 @@ symbian {
 
     addFiles.sources = $(EPOCROOT)Epoc32/release/$(PLATFORM)/$(CFG)/QBluetooth.dll
     addFiles.path = /sys/bin
+
     DEPLOYMENT += addFiles
 
     isEmpty(ICON):ICON = images/burton_logo.svg
