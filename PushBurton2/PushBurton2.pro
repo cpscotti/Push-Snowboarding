@@ -120,7 +120,6 @@ HEADERS  += mainwindow.h \
     graphictextbt.h \
     graphicsreportview.h \
     graphicslidingdownbts.h \
-    graphicslidingdownbts.h \
     liveview.h \
     graphicssettings.h \
     FilesystemConventions.h
