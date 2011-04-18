@@ -62,7 +62,7 @@ bool PushBurtonGenericDevice::subscribesToAny()
     return false;
 }
 
-void PushBurtonGenericDevice::incomming_reading(NPushLogTick *)
+void PushBurtonGenericDevice::incoming_reading(NPushLogTick *)
 {
 
 }

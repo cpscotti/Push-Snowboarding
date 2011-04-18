@@ -92,7 +92,7 @@ void PushDevicesHolder::push_back(PushBurtonGenericDevice* ptr)
             //If new device subscribes to it //PS: This enables recursion!!
             if(ptr->subscribesTo(iptr) || typeid(*iptr) == typeid(PushN8SimulationDevice)) {
                 qDebug() << "Connected " << iptr->get_description() << "\'s output to " << ptr->get_description();
-                ptr->connect(iptr, SIGNAL(reading_ready(NPushLogTick*)), ptr, SLOT(incomming_reading(NPushLogTick*)), Qt::UniqueConnection);
+                ptr->connect(iptr, SIGNAL(reading_ready(NPushLogTick*)), ptr, SLOT(incoming_reading(NPushLogTick*)), Qt::UniqueConnection);
             }
         }
     }
@@ -103,7 +103,7 @@ void PushDevicesHolder::push_back(PushBurtonGenericDevice* ptr)
         if(iptr->subscribesToAny()) {
             if(iptr->subscribesTo(ptr)) {
                 qDebug() << "Connected " << ptr->get_description() << "\'s output to " << iptr->get_description();
-                iptr->connect(ptr, SIGNAL(reading_ready(NPushLogTick*)), iptr, SLOT(incomming_reading(NPushLogTick*)), Qt::UniqueConnection);
+                iptr->connect(ptr, SIGNAL(reading_ready(NPushLogTick*)), iptr, SLOT(incoming_reading(NPushLogTick*)), Qt::UniqueConnection);
             }
         }
     }
