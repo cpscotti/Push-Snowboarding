@@ -32,7 +32,7 @@ VirtualBrosDevice::~VirtualBrosDevice()
 
     if(applause) {
         applause->stop();
-        applause->deleteLater();
+//        applause->deleteLater();
     }
 }
 
