@@ -53,7 +53,7 @@ public slots:
 private:
     QQueue<NPushLogTick *> ticksQueue;
 
-    static const int maxQueueSize = 2000;
+    static const int maxQueueSize = 5000;//Oh shit.. not now!
 
 };
 

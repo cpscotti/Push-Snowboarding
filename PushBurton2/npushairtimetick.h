@@ -38,6 +38,7 @@ class NPushAirTimeTick : public NPushLogTick
 {
 public:
     NPushAirTimeTick(quint64 a_msecsInAir, bool a_landed, quint64 a_msecsToEpoch);
+    NPushAirTimeTick(quint64 a_msecsInAir, bool a_landed, quint64 a_msecsToEpoch, bool a_hint);
     ~NPushAirTimeTick();
 
     void append_to_xml(QDomDocument& doc, QDomElement& root) const;
@@ -45,6 +46,8 @@ public:
     QString get_pretty_print() const;
 
 public:
+
+    bool isOnlyHint;
 
     quint64 msecsToEpoch;
     quint64 msecsOnAir;

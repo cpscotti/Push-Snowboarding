@@ -153,7 +153,7 @@ NPushFootTick * PushN8SimulationDevice::readFootTick()
 
     QChar side = xml.attributes().value("side").toString().at(0);
 
-    qDebug() << "CAUTION!! Flipping to correct runs from yesterday (march 8th)";
+//    qDebug() << "CAUTION!! Flipping to correct runs from yesterday (march 8th)";
     //CAUTION!! Flipping to correct runs from yesterday (march 8th).
     int toes = xml.attributes().value("toes").toString().toInt();
     int heel = xml.attributes().value("heel").toString().toInt();

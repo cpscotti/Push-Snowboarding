@@ -64,6 +64,7 @@
 #include "pushn8simplereportsgenerator.h"
 
 #include "virtualbrosdevice.h"
+#include "spintowinkid.h"
 
 //#include "pushn8unprogdev.h"
 #include "pushn8simulationdevice.h"

@@ -114,6 +114,9 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
             takeOffTime = currentTstamp;
             lastAirborneTime = takeOffTime;
             qDebug() << "take off: " << takeOffTime;
+
+            //NOTE: To make SpinToWinKid possible
+            newTick = new NPushAirTimeTick(0, false, currentTstamp, true);
             break;
 
         default:
@@ -124,15 +127,15 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
         break;
 
     case CountingAir:
-        qDebug() << "CountingAir";
+//        qDebug() << "CountingAir";
         switch(resp) {
         case FlyingLikeAnEagle:
-            qDebug() << "Flying lika bitch";
+//            qDebug() << "Flying lika bitch";
             if(currentTstamp >= lastAirborneTime) {//Accounts for delayed timestamps
                 lastAirborneTime = currentTstamp;
 
                 quint64 airTime = (lastAirborneTime - takeOffTime);
-                qDebug() << "CountingAir: " << airTime;
+//                qDebug() << "CountingAir: " << airTime;
                 if( airTime > air_threshold) {
                     dynamic_state = IdleAir;
 
@@ -142,7 +145,7 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
             break;
 
          case SlidingDownLikeAPenguin:
-            qDebug() << "Sliding lika bitch";
+//            qDebug() << "Sliding lika bitch";
             if(lastAirborneTime >= takeOffTime) {
                 dynamic_state = IdleGround;
                 qDebug() << "IdleGround";
@@ -170,7 +173,7 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
             if(currentTstamp >= lastAirborneTime) {//Accounts for delayed timestamps
                 lastAirborneTime = currentTstamp;
                 quint64 airTime = (lastAirborneTime - takeOffTime);
-                qDebug() << "IdleAir: " << airTime;
+//                qDebug() << "IdleAir: " << airTime;
                 newTick = new NPushAirTimeTick(airTime, false, currentTstamp);
             }
 
@@ -197,7 +200,7 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
             //resume
             if(currentTstamp > touchDownTime && currentTstamp > lastAirborneTime) {
                 dynamic_state = IdleAir;
-                qDebug() << "IdleAir";
+//                qDebug() << "IdleAir";
 
                 lastAirborneTime = currentTstamp;
                 quint64 airTime = (lastAirborneTime - takeOffTime);
@@ -208,7 +211,7 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
         case SlidingDownLikeAPenguin:
             //count on
             if(currentTstamp > touchDownTime) {
-                qDebug() << "Counting ground: " << (currentTstamp - touchDownTime);
+//                qDebug() << "Counting ground: " << (currentTstamp - touchDownTime);
                 if((currentTstamp - touchDownTime) > ground_threshold) {
                     dynamic_state = IdleGround;
                     quint64 airTime = (lastAirborneTime - takeOffTime);
@@ -257,7 +260,7 @@ void PushN8AirTimeDetector::handle_response(Response resp)
         if(lastAirborneTime > takeOffTime && lastAirborneTime == currentTstamp) {
             quint64 airTime = lastAirborneTime-takeOffTime;
 
-            qDebug() << "Counting Air Time";
+//            qDebug() << "Counting Air Time";
 
             if(airTime > AIR_TIME_THRESHOLD) {
                 newTick = new NPushAirTimeTick(airTime, false, currentTstamp);

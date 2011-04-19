@@ -301,6 +301,9 @@ void DevicesManager::SetupAbstractDevices()
     PushN8SimpleReportsGenerator * reportGenerator = new PushN8SimpleReportsGenerator();
     configuredDevices->push_back(reportGenerator);
 
-    VirtualBrosDevice * virtualBros = new VirtualBrosDevice();
-    configuredDevices->push_back(virtualBros);
+    SpinToWinKid * spin2WinKid = new SpinToWinKid();
+    configuredDevices->push_back(spin2WinKid);
+
+//    VirtualBrosDevice * virtualBros = new VirtualBrosDevice();
+//    configuredDevices->push_back(virtualBros);
 }
