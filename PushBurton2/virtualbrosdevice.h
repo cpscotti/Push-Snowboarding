@@ -28,7 +28,8 @@
 #ifndef VIRTUALBROSDEVICE_H
 #define VIRTUALBROSDEVICE_H
 
-#include <Phonon/Phonon>
+#include <Phonon>
+//#include <Phonon/Phonon>
 #include <QString>
 #include <typeinfo> //needed by the subscribe mechanism
 

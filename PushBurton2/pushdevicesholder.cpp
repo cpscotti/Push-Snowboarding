@@ -36,13 +36,17 @@ PushDevicesHolder::~PushDevicesHolder()
 {
     for(int i=0;i<this->count();i++)
     {
+        qDebug() << "Calling delete for " << this->at(i)->get_description();
         this->at(i)->disconnect_from_backend();
-        this->at(i)->deleteLater();
+//        this->at(i)->deleteLater()
+        delete this->at(i);
+
     }
 
     if(tickDisposer) {
         qDebug() << "Calling delete later for tick disposer";
-        tickDisposer->deleteLater();
+//        tickDisposer->deleteLater();
+        delete tickDisposer;
     }
 }
 

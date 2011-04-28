@@ -17,22 +17,37 @@ VirtualBrosDevice::VirtualBrosDevice(QObject *parent) :
 
     applausePath = privatePathSymbian + "\\applause.mp3";
 #else
-    applausePath = "/applause.mp3";
+    applausePath = "applause.mp3";
+    QCoreApplication::setApplicationName(QString("PushSnowboarding"));
 #endif
 
     //This loads the file and leaves it in a "ready to play" state.
     //Note also that "createPlayer" is the simplest way to playing one sound using Phonon
     //and it basically "takes ownership" of the sound sink and that sort of thing so if we
     //wanted more sounds playing concurrently we would need to use the less minimalistic calls to phonon.
+
+    qDebug() << "Before creating media";
+
     applause = Phonon::createPlayer(Phonon::MusicCategory, Phonon::MediaSource(applausePath));
+
+    qDebug() << applause->totalTime();
+    qDebug() << applause->errorString();
+
+    if(applause->isValid()) {
+        qDebug() << "is valid";
+    } else {
+        qDebug() << "not valid";
+    }
+
+    qDebug() << "State is: " << applause->state();
+
 }
 
 VirtualBrosDevice::~VirtualBrosDevice()
 {
 
     if(applause) {
-        applause->stop();
-//        applause->deleteLater();
+        delete applause;
     }
 }
 

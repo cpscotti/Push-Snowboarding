@@ -56,7 +56,7 @@ PushN8SimulationDevice::PushN8SimulationDevice()
     digitalAcc = false;
 
     timerId = 0;
-    timerPeriod = 1;
+    timerPeriod = 20;
 }
 
 PushN8SimulationDevice::~PushN8SimulationDevice()

@@ -16,11 +16,12 @@ RotationCounter::RotationCounter(QObject *parent) : PushBurtonGenericDevice(pare
 
 RotationCounter::~RotationCounter()
 {
+    qDebug() << "RotationCounter\'s destructor";
 }
 
 QString RotationCounter::get_description()
 {
-    return QString("SpinToWinKid");
+    return QString("RotationCounter");
 }
 
 bool RotationCounter::is_online()

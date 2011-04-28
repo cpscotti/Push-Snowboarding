@@ -304,6 +304,6 @@ void DevicesManager::SetupAbstractDevices()
     RotationCounter * spin2WinKid = new RotationCounter();
     configuredDevices->push_back(spin2WinKid);
 
-//    VirtualBrosDevice * virtualBros = new VirtualBrosDevice();
-//    configuredDevices->push_back(virtualBros);
+    VirtualBrosDevice * virtualBros = new VirtualBrosDevice();
+    configuredDevices->push_back(virtualBros);
 }
