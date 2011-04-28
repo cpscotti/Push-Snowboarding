@@ -76,7 +76,9 @@ SOURCES += main.cpp\
     graphicslidingdownbts.cpp \
     liveview.cpp \
     graphicssettings.cpp \
-    virtualbrosdevice.cpp
+    virtualbrosdevice.cpp \
+    rotationcounter.cpp \
+    npushrotationstick.cpp
 
 HEADERS  += mainwindow.h \
     graphicpixmapbt.h \
@@ -120,11 +122,12 @@ HEADERS  += mainwindow.h \
     graphictextbt.h \
     graphicsreportview.h \
     graphicslidingdownbts.h \
-    graphicslidingdownbts.h \
     liveview.h \
     graphicssettings.h \
     FilesystemConventions.h \
-    virtualbrosdevice.h
+    virtualbrosdevice.h \
+    rotationcounter.h \
+    npushrotationstick.h
 
 FORMS    += mainwindow.ui \
     liveview.ui
