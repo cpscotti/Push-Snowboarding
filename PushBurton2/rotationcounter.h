@@ -10,16 +10,30 @@
 #include "npushairtimetick.h"
 #include "pushn8airtimedetector.h"
 
+#include "npushrotationstick.h"
+
 #include "pushn8imudevice.h"
 #include "npushimutick.h"
 
-class SpinToWinKid : public PushBurtonGenericDevice
+#define LAST_SPIN_BUFFER_SIZE 8
+
+#define NEXT_SPIN_ACC_LENGTH 6
+
+/*
+ Chip offset:
+ -121,114,-39
+ -144,107,-32
+ -150,110,-32
+
+ */
+
+class RotationCounter : public PushBurtonGenericDevice
 {
     Q_OBJECT
 public:
-    explicit SpinToWinKid(QObject *parent = 0);
+    explicit RotationCounter(QObject *parent = 0);
 
-    ~SpinToWinKid();
+    ~RotationCounter();
 
     QString get_description();
     bool is_online();
@@ -35,9 +49,19 @@ public slots:
     void incoming_reading(NPushLogTick *);
 
 private:
+
+    void integrateSpinAcc(double meas);
+
+    void emitRotTick();
+
     quint64 lastTstamp;
     double spinAcc;
     bool onAir;
+
+    int afterJumpDecCnter;
+
+    double pastSpinBuff[LAST_SPIN_BUFFER_SIZE];
+    unsigned int pastSpinBuffPt;
 
 
 };
