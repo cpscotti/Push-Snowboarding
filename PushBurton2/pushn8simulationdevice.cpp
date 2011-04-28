@@ -56,7 +56,7 @@ PushN8SimulationDevice::PushN8SimulationDevice()
     digitalAcc = false;
 
     timerId = 0;
-    timerPeriod = 5;
+    timerPeriod = 1;
 }
 
 PushN8SimulationDevice::~PushN8SimulationDevice()
@@ -78,7 +78,7 @@ bool PushN8SimulationDevice::is_online()
 
 void PushN8SimulationDevice::timerEvent(QTimerEvent *)
 {
-    while(!(xml.isEndElement() && xml.name() == "N8SensorsLog")) {
+//    while(!(xml.isEndElement() && xml.name() == "N8SensorsLog")) {
 
         bool reachedEnd = false;
         while(xml.readNextStartElement())
@@ -129,11 +129,7 @@ void PushN8SimulationDevice::timerEvent(QTimerEvent *)
             qDebug() << "Simulation Ended!!";
             this->stop_readings();
         }
-    }
-
-//    qDebug() << "On Simulation QDateTime::currentMSecs " << QDateTime::currentMSecsSinceEpoch();
-//    qDebug() << "On Simulation timerEvent(); " << QTime::currentTime().msec();
-
+//    }
 }
 
 NPushAccTick * PushN8SimulationDevice::readAccTick()

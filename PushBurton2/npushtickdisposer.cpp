@@ -31,6 +31,7 @@ NPushTickDisposer::NPushTickDisposer(QObject *parent) :
     QObject(parent)
 {
     qDebug() << "Tick Disposer initialized";
+    tickcount = 0;
 }
 
 NPushTickDisposer::~NPushTickDisposer()
@@ -52,14 +53,13 @@ void NPushTickDisposer::log_ticks_sink(NPushLogTick * tick)
 
 void NPushTickDisposer::perform_maintenance()
 {
-    static int msgCnt = 0;
     while(ticksQueue.count() > maxQueueSize) {
         NPushLogTick * dyingTick = ticksQueue.dequeue();
         delete dyingTick;
-
-        if(msgCnt == 0) {
+        tickcount++;
+//        qDebug() << "Deleting tick = " << tickcount;
+        if(tickcount == 1) {
             qDebug() << "Cleaning up";
-            msgCnt++;
         }
     }
 }
