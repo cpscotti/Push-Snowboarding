@@ -6,6 +6,7 @@ NPushRotationsTick::NPushRotationsTick(double a_rawDegs, quint64 a_msecsToEpoch)
     rawDegs = a_rawDegs;
 
     updateCleanDegs();
+    qDebug() << "Landed a " << cleanDegs;
 }
 
 NPushRotationsTick::~NPushRotationsTick()

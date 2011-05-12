@@ -38,9 +38,6 @@ void PushN8AirTimeDetector::incoming_reading(NPushLogTick * gtick)
         currentTstamp = ftick->msecsToEpoch;
 
         runFuzzy = true;
-//        if(fp < 2000) {
-//            qDebug() << "Got air here";
-//        }
 
 
 //        qDebug() << "Got Sum: " << ftick->pdata.totalRawSum;
@@ -108,12 +105,11 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
     case IdleGround:
         switch(resp) {
         case FlyingLikeAnEagle:
-            qDebug() << "Going to Counting Air";
             dynamic_state = CountingAir;
 
             takeOffTime = currentTstamp;
             lastAirborneTime = takeOffTime;
-            qDebug() << "take off: " << takeOffTime;
+//            qDebug() << "take off: " << takeOffTime;
 
             //NOTE: To make SpinToWinKid possible
             newTick = new NPushAirTimeTick(0, false, currentTstamp, true);
@@ -148,7 +144,6 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
 //            qDebug() << "Sliding lika bitch";
             if(lastAirborneTime >= takeOffTime) {
                 dynamic_state = IdleGround;
-                qDebug() << "IdleGround";
             }
             break;
 
@@ -182,7 +177,7 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
         case SlidingDownLikeAPenguin:
             if(lastAirborneTime >= takeOffTime) {
                 dynamic_state = CountingGround;
-                qDebug() << "CountingGround";
+//                qDebug() << "CountingGround";
                 touchDownTime = currentTstamp;
             }
             break;

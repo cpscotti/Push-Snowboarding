@@ -48,6 +48,8 @@ UbiqLogSaver::UbiqLogSaver(uint a_start_time)
 
     runEnd = false;
     this->start();
+
+    tickcount = 0;
 }
 
 UbiqLogSaver::~UbiqLogSaver()
@@ -75,6 +77,8 @@ void UbiqLogSaver::run()
             tick->dump_to_xml(xml);
             dataFile->flush();
             ticksLock.lock();
+            tickcount++;
+//            qDebug() << "saving tick = " << tickcount;
         }
         ticksLock.unlock();
 
@@ -112,7 +116,7 @@ void UbiqLogSaver::run_end()
     xml.writeEndElement();//N8SensorsLog
     xml.writeEndDocument();
     dataFile->close();
-    qDebug() << "File closed";
+    qDebug() << "File closed, dumped " << tickcount << " ticks";
 }
 
 void UbiqLogSaver::CreateRunDir()
