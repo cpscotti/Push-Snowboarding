@@ -90,7 +90,7 @@ void NPushFootTick::dump_to_xml(QXmlStreamWriter& xml) const
 
 QString NPushFootTick::get_pretty_print() const
 {
-    return QString("Foot: [%1;%2;%3]")
+    return QString("Foot: [%1;T:%2;H:%3]")
             .arg(QString(side))
             .arg(QString::number(toes))
             .arg(QString::number(heel));

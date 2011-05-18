@@ -61,8 +61,11 @@ void PushN8FootDevice::gotDataReceived(QString data)
     QStringList params;
     if(getPackage(data, params))
     {
-        int ntoes = params[1].toInt();
-        int nheel = params[2].toInt();
+//        int ntoes = params[1].toInt();//Want to flip, this is it!
+//        int nheel = params[2].toInt();// THIS IS THE OLD SETUP
+
+        int ntoes = params[2].toInt();//Want to flip, this is it!
+        int nheel = params[1].toInt();// THIS IS THE NEW SETUP for the v3 boxes
 
         NPushFootTick * newFootTick = new NPushFootTick(side, ntoes, nheel);
 
