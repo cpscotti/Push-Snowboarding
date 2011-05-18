@@ -75,6 +75,8 @@ void RunManager::stop_logging()
     ubiqSaver = 0;
 
     UpdateDataStreamConnections();
+
+    emit dataSaved();
 }
 
 void RunManager::UpdateDataStreamConnections()

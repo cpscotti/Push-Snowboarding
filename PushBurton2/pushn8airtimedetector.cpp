@@ -32,12 +32,12 @@ void PushN8AirTimeDetector::incoming_reading(NPushLogTick * gtick)
 {
     bool runFuzzy = false;
     if(typeid(*gtick) == typeid(NPushNormFeetTick)) {
-        NPushNormFeetTick * ftick = (NPushNormFeetTick *)gtick;
+//        NPushNormFeetTick * ftick = (NPushNormFeetTick *)gtick;
 
-        fp = ftick->pdata.totalRawSum;
-        currentTstamp = ftick->msecsToEpoch;
+//        fp = ftick->pdata.totalRawSum;
+//        currentTstamp = ftick->msecsToEpoch;
 
-        runFuzzy = true;
+//        runFuzzy = true;
 
 
 //        qDebug() << "Got Sum: " << ftick->pdata.totalRawSum;
