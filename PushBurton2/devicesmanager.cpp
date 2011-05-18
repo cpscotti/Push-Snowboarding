@@ -209,13 +209,13 @@ void DevicesManager::stop_bt_search()
 #endif
 }
 
-void DevicesManager::switch_to_simulation_device()
+void DevicesManager::switch_to_simulation_device(const QString& fname)
 {
     //TODO
     qDebug() << "Switched to simulation device!";
     configuredDevices->deleteAllAndClear();
 
-    PushN8SimulationDevice * simulationDevice = new PushN8SimulationDevice();
+    PushN8SimulationDevice * simulationDevice = new PushN8SimulationDevice(fname);
     configuredDevices->push_back(simulationDevice);
 
     SetupAbstractDevices();
@@ -227,12 +227,8 @@ void DevicesManager::switch_to_simulation_device()
     emit device_connected(QString("Location"));
     emit device_connected(QString("Heart"));
 
-//    emit foot_l_connected();
-//    emit foot_r_connected();
-//    emit motion_box_connected();
-//    emit heart_connected();
-//    emit gsr_connected();
-//    emit phone_gps_connected();
+    emit request_run_start();
+    connect(simulationDevice, SIGNAL(simulationEnded()), this, SIGNAL(request_run_end()));
 
 }
 
@@ -304,6 +300,6 @@ void DevicesManager::SetupAbstractDevices()
     RotationCounter * spin2WinKid = new RotationCounter();
     configuredDevices->push_back(spin2WinKid);
 
-    VirtualBrosDevice * virtualBros = new VirtualBrosDevice();
-    configuredDevices->push_back(virtualBros);
+//    VirtualBrosDevice * virtualBros = new VirtualBrosDevice();
+//    configuredDevices->push_back(virtualBros);
 }

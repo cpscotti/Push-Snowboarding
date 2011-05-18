@@ -75,6 +75,8 @@ private:
 
     QFile* dataFile;
     QXmlStreamWriter xml;
+
+    int tickcount;
 };
 
 #endif // UBIQLOGSAVER_H

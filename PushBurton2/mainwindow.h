@@ -71,7 +71,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(const QString& simulationData = "", QWidget *parent = 0);
     ~MainWindow();
 
     //Control modules

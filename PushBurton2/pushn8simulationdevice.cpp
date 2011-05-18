@@ -27,13 +27,16 @@
 
 #include "pushn8simulationdevice.h"
 
-PushN8SimulationDevice::PushN8SimulationDevice()
+PushN8SimulationDevice::PushN8SimulationDevice(const QString& fname)
 {
+    simulationFile = fname;
+    if(simulationFile == "")
+        simulationFile = QFileDialog::getOpenFileName(0, "Select where to read the log from", FSC_RUNS_FOLDERS_ROOT, "Log Files (RawLog.xml)");
 
-    QString simulationFile = QFileDialog::getOpenFileName(0, "Select where to read the log from", FSC_RUNS_FOLDERS_ROOT, "Log Files (RawLog.xml)");
     if(simulationFile == "") {
         simulationFile = "E:/sample_input.xml";
     }
+
     qDebug() << "Simulation input stream is: " << simulationFile;
 
     data_input = new QFile(simulationFile, this);
@@ -56,7 +59,7 @@ PushN8SimulationDevice::PushN8SimulationDevice()
     digitalAcc = false;
 
     timerId = 0;
-    timerPeriod = 20;
+    timerPeriod = 10;
 }
 
 PushN8SimulationDevice::~PushN8SimulationDevice()
@@ -127,6 +130,7 @@ void PushN8SimulationDevice::timerEvent(QTimerEvent *)
 
         if(xml.isEndElement() && xml.name() == "N8SensorsLog") {
             qDebug() << "Simulation Ended!!";
+            emit simulationEnded();
             this->stop_readings();
         }
 //    }

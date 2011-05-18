@@ -83,26 +83,29 @@ signals:
     void device_connected(const QString&);
     void device_disconnected(const QString&);
 
+    void request_run_start();
+    void request_run_end();
+
     //This may seem abusive at first look
     //  but makes complete sense since they are just routed from
     //  signals comming from different objects and well.. at some point you need to break into!
-    void phone_gps_connecting();
-    void phone_gps_connected();
+//    void phone_gps_connecting();
+//    void phone_gps_connected();
 
-    void motion_box_connecting();
-    void motion_box_connected();
+//    void motion_box_connecting();
+//    void motion_box_connected();
 
-    void heart_connecting();
-    void heart_connected();
+//    void heart_connecting();
+//    void heart_connected();
 
-    void gsr_connecting();
-    void gsr_connected();
+//    void gsr_connecting();
+//    void gsr_connected();
 
-    void foot_l_connecting();
-    void foot_l_connected();
+//    void foot_l_connecting();
+//    void foot_l_connected();
 
-    void foot_r_connecting();
-    void foot_r_connected();
+//    void foot_r_connecting();
+//    void foot_r_connected();
 
 
 public slots:
@@ -116,7 +119,7 @@ public slots:
     void start_bt_search();
     void stop_bt_search();
     void kit_selected(int);
-    void switch_to_simulation_device();
+    void switch_to_simulation_device(const QString& fname = "");
 
 
 private:

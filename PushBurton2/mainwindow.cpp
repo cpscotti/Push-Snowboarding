@@ -30,7 +30,7 @@
 
 #include <QWidget>
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(const QString& simulationData, QWidget *parent) :
     QMainWindow(parent),
     devicesManager(&devicesHolder,parent),
     runManager(&devicesHolder,parent),
@@ -89,6 +89,17 @@ MainWindow::MainWindow(QWidget *parent) :
 //    connect(homeUsrState, SIGNAL(entered()), this, SLOT(scheduleSshot()));
     menuBar->addAction(takeScreenshotAc);
     setMenuBar(menuBar);
+
+    if(simulationData != "") {
+        //If simulation file was passed bo main window (via command line arg, for example)
+
+        connect(&devicesManager, SIGNAL(request_run_start()), &runManager, SLOT(start_logging()));
+        connect(&devicesManager, SIGNAL(request_run_end()), &runManager, SLOT(stop_logging()));
+
+        connect(&runManager, SIGNAL(dataSaved()), this, SLOT(close()));
+
+        devicesManager.switch_to_simulation_device(simulationData);
+    }
 }
 
 void MainWindow::fillStatesProperties()

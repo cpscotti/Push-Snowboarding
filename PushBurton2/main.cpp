@@ -29,6 +29,7 @@
 #include "mainwindow.h"
 
 #include <QDebug>
+#include <QString>
 
 #ifdef Q_OS_SYMBIAN
 #include <eikenv.h>
@@ -51,7 +52,13 @@ int main(int argc, char *argv[])
 
 #endif
 
-    MainWindow w;
+    QString simulationFname;
+    if(argc > 1) {
+        simulationFname = argv[1];
+        qDebug() << "Simulating: " << simulationFname;
+    }
+
+    MainWindow w(simulationFname);
 #if defined(Q_WS_S60)
     w.showMaximized();
 //    w.showFullScreen();

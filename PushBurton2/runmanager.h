@@ -45,6 +45,7 @@ public:
     ~RunManager();
 
 signals:
+    void dataSaved();
 
 public slots:
     void start_logging();

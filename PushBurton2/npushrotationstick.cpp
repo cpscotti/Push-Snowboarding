@@ -6,6 +6,7 @@ NPushRotationsTick::NPushRotationsTick(double a_rawDegs, quint64 a_msecsToEpoch)
     rawDegs = a_rawDegs;
 
     updateCleanDegs();
+    qDebug() << "Landed a " << cleanDegs;
 }
 
 NPushRotationsTick::~NPushRotationsTick()
@@ -14,6 +15,8 @@ NPushRotationsTick::~NPushRotationsTick()
 
 void NPushRotationsTick::append_to_xml(QDomDocument& doc, QDomElement& root) const
 {
+    Q_UNUSED(doc);
+    Q_UNUSED(root);
     //Not necessary. Append is deprecated
 }
 

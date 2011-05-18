@@ -55,7 +55,7 @@ void RotationCounter::incoming_reading(NPushLogTick * tick)
 
         if(airTimeTick->isOnlyHint && afterJumpDecCnter == 0) {
 //            qDebug() << "SpinToWinKid got hint";
-            //This hint points to a possible airTime starting now. But it'll only be confirmed with the landed=true
+            //This 'hint' points to a possible airTime starting now. But it'll only be confirmed with the landed=true
             onAir = true;
             spinAcc = 0.0;
             afterJumpDecCnter = 0;
@@ -71,7 +71,7 @@ void RotationCounter::incoming_reading(NPushLogTick * tick)
 
             lastTstamp = airTimeTick->msecsToEpoch;
         } else if(airTimeTick->landed) {
-//            qDebug() << "Landed Trick; SpinAcc = " << spinAcc;
+//                qDebug() << "Landed Trick; SpinAcc = " << spinAcc;
             onAir = false;
             afterJumpDecCnter = NEXT_SPIN_ACC_LENGTH;
         }
