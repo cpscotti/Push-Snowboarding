@@ -165,6 +165,7 @@ void MainWindow::fillStatesProperties()
     settingsView = new GraphicsSettings(&devicesHolder, this);
     settingsView->setPos(10,-450);
     scene->addItem(settingsView);
+    settingsView->initForm();
     settingsUsrState->assignProperty(settingsView,"y", 5);
     machine.addDefaultAnimation(new PushBurtonAnimation(settingsView, "y", settingsView));
     settingsUsrState->addTransition(settingsView, SIGNAL(home_bt_clicked()), homeUsrState);

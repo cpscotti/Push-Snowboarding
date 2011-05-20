@@ -41,6 +41,11 @@ GraphicsSettings::GraphicsSettings(PushDevicesHolder* devs, QObject* parent=0) :
     startLiveViewBt = new GraphicTextBt("LIVE VIEW (DEBUG)", this);
     startLiveViewBt->setPos(110+5,0);
     connect(startLiveViewBt, SIGNAL(activated()), this, SLOT(start_live_view()));
+
+    userNameField = 0;
+    proxy2edit = 0;
+    connect(this, SIGNAL(yChanged()), this, SLOT(panelPosUpdate()));
+
 }
 
 GraphicsSettings::~GraphicsSettings()
@@ -94,4 +99,30 @@ void GraphicsSettings::end_live_view()
 //    }
     liveView->deleteLater();
     liveView = 0;
+}
+
+void GraphicsSettings::initForm()
+{
+    userNameField = new QLineEdit("Username");
+    if(this->scene()){
+        proxy2edit = this->scene()->addWidget(userNameField);
+        userNameField->setGeometry(0,0,150, 20);
+        proxy2edit->setVisible(true);
+        proxy2edit->setZValue(2);
+        proxy2edit->setPos(this->pos());
+        qDebug() << "Added line edit to scene! hahaha";
+    } else {
+        qDebug() << "no scene!";
+        delete userNameField;
+    }
+
+}
+
+
+void GraphicsSettings::panelPosUpdate()
+{
+    if(userNameField) {
+        proxy2edit->setPos(this->x()+40, this->y()+120);
+        qDebug() << "Set position to " << proxy2edit->pos().y();
+    }
 }

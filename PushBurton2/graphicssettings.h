@@ -35,6 +35,10 @@
 
 #include <QDebug>
 
+#include <QLineEdit>
+#include <QGraphicsProxyWidget>
+#include <QGraphicsScene>
+
 #include "pushdevicesholder.h"
 
 //Gambiarra, xunxo, workaround... (LiveView)
@@ -50,11 +54,16 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *,QWidget *);
 
+    void initForm();
+
 private:
     GraphicTextBt * startLiveViewBt;
     GraphicPixmapBt * homeBt;
     LiveView * liveView;
     PushDevicesHolder * configuredDevices;
+
+    QLineEdit * userNameField;
+    QGraphicsProxyWidget * proxy2edit;
 
 signals:
     void home_bt_clicked();
@@ -62,6 +71,8 @@ signals:
 private slots:
     void start_live_view();
     void end_live_view();
+
+    void panelPosUpdate();
 };
 
 #endif // GRAPHICSSETTINGS_H
