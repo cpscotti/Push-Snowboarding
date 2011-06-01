@@ -41,6 +41,24 @@ GraphicsSettings::GraphicsSettings(PushDevicesHolder* devs, QObject* parent=0) :
     startLiveViewBt = new GraphicTextBt("LIVE VIEW (DEBUG)", this);
     startLiveViewBt->setPos(110+5,0);
     connect(startLiveViewBt, SIGNAL(activated()), this, SLOT(start_live_view()));
+
+    userNameField = 0;
+    proxy2edit = 0;
+
+
+    userNameField = new QLineEdit("Username");
+    userNameField->setStyleSheet("color: blue;"
+                                 "background-color: transparent;"
+                                 "border-color: blue;"
+                                 "border-style: solid;"
+                                 "border-width: 1px;");
+
+    proxy2edit = new QGraphicsProxyWidget(this);
+    proxy2edit->setWidget(userNameField);
+    userNameField->setGeometry(0,0,150, 30);
+    proxy2edit->setVisible(true);
+    proxy2edit->setZValue(2);
+    proxy2edit->setPos(40, 120);
 }
 
 GraphicsSettings::~GraphicsSettings()

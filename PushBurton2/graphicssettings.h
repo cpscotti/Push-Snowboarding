@@ -35,6 +35,10 @@
 
 #include <QDebug>
 
+#include <QLineEdit>
+#include <QGraphicsProxyWidget>
+#include <QGraphicsScene>
+
 #include "pushdevicesholder.h"
 
 //Gambiarra, xunxo, workaround... (LiveView)
@@ -56,12 +60,16 @@ private:
     LiveView * liveView;
     PushDevicesHolder * configuredDevices;
 
+    QLineEdit * userNameField;
+    QGraphicsProxyWidget * proxy2edit;
+
 signals:
     void home_bt_clicked();
 
 private slots:
     void start_live_view();
     void end_live_view();
+
 };
 
 #endif // GRAPHICSSETTINGS_H
