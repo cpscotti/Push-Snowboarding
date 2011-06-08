@@ -63,6 +63,7 @@ public:
     //This function will return true when the given device is a AirTimeDetector
     bool subscribesTo(PushBurtonGenericDevice* deviceType);
 
+    bool getEnabled();
 
 signals:
 
@@ -71,9 +72,13 @@ public slots:
     //"judge" it and stream sounds accordingly
     void incoming_reading(NPushLogTick *);
 
+    void setEnabled(bool en);
+
 private:
     //pointer that will hold the sound ready to be "played"
     Phonon::MediaObject *applause;
+
+    bool enabled;
 
 };
 

@@ -54,16 +54,18 @@ FuzzyDetector::FuzzyDetector()
 
     ia_onAir.push_back(Relation(-10.0, 0.0));
     ia_onAir.push_back(Relation(-0.5, 0.0));
+    ia_onAir.push_back(Relation(-0.4, 0.6));
     ia_onAir.push_back(Relation(0.0, 1.0));
     ia_onAir.push_back(Relation(1.0, 1.0));
     ia_onAir.push_back(Relation(1.5, 0.0));
     ia_onAir.push_back(Relation(10.0, 0.0));
 
     ia_onGrnd.push_back(Relation(-10.0, 1.0));
-    ia_onGrnd.push_back(Relation(-3.0, 1.0));
-    ia_onGrnd.push_back(Relation(-1.0, 0.6));
-    ia_onGrnd.push_back(Relation(-0.3, 0.0));
-    ia_onGrnd.push_back(Relation(10.0, 0.0));
+    ia_onGrnd.push_back(Relation(-1.5, 1.0));
+    ia_onGrnd.push_back(Relation(-1.0, 0.8));
+    ia_onGrnd.push_back(Relation(-0.6, 0.0));
+    ia_onGrnd.push_back(Relation(1.0, 0.0));
+    ia_onGrnd.push_back(Relation(3.0, 1.0));
 
 //    bpa_onGrnd.push_back(Relation(0.0, 0.0));
 //    bpa_onGrnd.push_back(Relation(0.85, 0.0));
@@ -102,14 +104,6 @@ Response FuzzyDetector::FuzzyficateToAirOrGround(double fp, double pa, double ia
         og_ia = ia_onGrnd.fuzificate(ia);
     }
 
-//    if(!isnan(bpa)) {
-//        og_bpa = bpa_onGrnd.fuzificate(bpa);
-//    }
-
-    //Most certain dictates all
-//    double onAir = std::max(oa_fp, std::max(oa_pa, oa_ia));
-//    double onGround = std::max(og_fp, std::max(og_pa, og_ia));
-
     //Sum of all votes
     double onAir = (oa_fp+oa_pa+oa_ia)/3.0;
     double onGround = (og_fp+og_pa+og_ia)/3.0;//+og_bpa)/3.0;
@@ -130,22 +124,6 @@ Response FuzzyDetector::FuzzyficateToAirOrGround(double fp, double pa, double ia
     } else {
         resp = CantHelpYouOnThisOne;
     }
-
-//    QString sresp;
-//    if(resp == FlyingLikeAnEagle) {
-//        sresp = " AIR ";
-//    } else if(resp == SlidingDownLikeAPenguin) {
-//        sresp = " GROUND ";
-//    } else {
-//        sresp = " UNKNOWN ";
-//    }
-
-//    qDebug() << sresp << ": onAir (" << onAir << ") " << oa_fp <<"(fp)/"
-//            << oa_pa <<"(pa)/"
-//            << oa_ia << "(ia), onGround (" << onGround << ")"
-//            << og_fp <<"(fp)/"
-//            << og_pa <<"(pa)/"
-//            << og_ia << "ia";
 
     return resp;
 }

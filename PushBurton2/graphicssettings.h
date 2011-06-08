@@ -36,8 +36,13 @@
 #include <QDebug>
 
 #include <QLineEdit>
+#include <QCheckBox>
+#include <QPushButton>
 #include <QGraphicsProxyWidget>
 #include <QGraphicsScene>
+
+#include "virtualbrosdevice.h"
+#include "broadcasterdevice.h"
 
 #include "pushdevicesholder.h"
 
@@ -55,6 +60,10 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *,QWidget *);
 
 private:
+
+    void buildForm();
+    bool get_soundEffects();
+
     GraphicTextBt * startLiveViewBt;
     GraphicPixmapBt * homeBt;
     LiveView * liveView;
@@ -63,8 +72,26 @@ private:
     QLineEdit * userNameField;
     QGraphicsProxyWidget * proxy2edit;
 
+    QCheckBox * soundEffectsCheck;
+    QGraphicsProxyWidget * proxy2soundEffects;
+
+    QLineEdit * serverAddress;
+    QGraphicsProxyWidget * proxy2Addr;
+    QLineEdit * serverPort;
+    QGraphicsProxyWidget * proxy2Port;
+    QPushButton * connectPushBt;
+    QGraphicsProxyWidget * proxy2connect;
+
+private slots:
+    void update_soundEffects(bool checked);
+
+public slots:
+    void connectBroadcaster();
+    void updateConnectionState(bool connected);
+
 signals:
     void home_bt_clicked();
+
 
 private slots:
     void start_live_view();
