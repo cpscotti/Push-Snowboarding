@@ -59,6 +59,8 @@
 #include "pushn8phonegps.h"
 #include "pushn8phonemag.h"
 
+#include "broadcasterdevice.h"
+
 #include "pushn8absnormfeetdevice.h"
 #include "pushn8airtimedetector.h"
 #include "pushn8simplereportsgenerator.h"

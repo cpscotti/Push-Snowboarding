@@ -15,9 +15,9 @@
 #include "pushn8imudevice.h"
 #include "npushimutick.h"
 
-#define LAST_SPIN_BUFFER_SIZE 8
+#define PRE_SPIN_BUFFER_SIZE 2
 
-#define NEXT_SPIN_ACC_LENGTH 6
+#define POS_SPIN_BUFFER_SIZE 2
 
 /*
  Chip offset:
@@ -60,9 +60,8 @@ private:
 
     int afterJumpDecCnter;
 
-    double pastSpinBuff[LAST_SPIN_BUFFER_SIZE];
+    double pastSpinBuff[PRE_SPIN_BUFFER_SIZE];
     unsigned int pastSpinBuffPt;
-
 
 };
 

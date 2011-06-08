@@ -92,7 +92,7 @@ private:
 
     static const quint64 air_threshold = 200;//how big an air needs to be to be even considered
 
-    static const quint64 ground_threshold = 200;//for how long the rider needs to be on the
+    static const quint64 ground_threshold = 80;//for how long the rider needs to be on the
     //ground to count as landing
 
     quint64 currentTstamp;//always running

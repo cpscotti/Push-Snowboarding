@@ -282,8 +282,6 @@ void DevicesManager::SetupPhoneDevices()
     connect(phoneGPS, SIGNAL(disconnected()), &disconnectedMapper, SLOT(map()));
     disconnectedMapper.setMapping(phoneGPS, "Location");
 
-//    emit phone_gps_connecting();
-//    connect(phoneGPS, SIGNAL(connected()), this, SIGNAL(phone_gps_connected()));
 }
 
 void DevicesManager::SetupAbstractDevices()
@@ -300,6 +298,9 @@ void DevicesManager::SetupAbstractDevices()
     RotationCounter * spin2WinKid = new RotationCounter();
     configuredDevices->push_back(spin2WinKid);
 
-//    VirtualBrosDevice * virtualBros = new VirtualBrosDevice();
-//    configuredDevices->push_back(virtualBros);
+    VirtualBrosDevice * virtualBros = new VirtualBrosDevice();
+    configuredDevices->push_back(virtualBros);
+
+    BroadcasterDevice * brodDevice = new BroadcasterDevice();
+    configuredDevices->push_back(brodDevice);
 }

@@ -26,7 +26,7 @@
 #-------------------------------------------------
 
 
-QT       += core gui xml phonon
+QT       += core gui xml phonon network
 
 TARGET = PushBurton2
 TEMPLATE = app
@@ -78,7 +78,8 @@ SOURCES += main.cpp\
     graphicssettings.cpp \
     virtualbrosdevice.cpp \
     rotationcounter.cpp \
-    npushrotationstick.cpp
+    npushrotationstick.cpp \
+    broadcasterdevice.cpp
 
 HEADERS  += mainwindow.h \
     graphicpixmapbt.h \
@@ -127,7 +128,8 @@ HEADERS  += mainwindow.h \
     FilesystemConventions.h \
     virtualbrosdevice.h \
     rotationcounter.h \
-    npushrotationstick.h
+    npushrotationstick.h \
+    broadcasterdevice.h
 
 FORMS    += mainwindow.ui \
     liveview.ui

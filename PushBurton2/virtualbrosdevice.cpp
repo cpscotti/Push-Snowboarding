@@ -5,6 +5,7 @@ VirtualBrosDevice::VirtualBrosDevice(QObject *parent) :
 {
     applause = 0;
 
+    enabled = false;
 
     QString applausePath;
 
@@ -84,6 +85,8 @@ bool VirtualBrosDevice::subscribesTo(PushBurtonGenericDevice* deviceType)
 
 void VirtualBrosDevice::incoming_reading(NPushLogTick * tick)
 {
+    if(!enabled)
+        return;
     //Checking if input tick is a AirTimeTick
     if(typeid(*tick) == typeid(NPushAirTimeTick)) {
         NPushAirTimeTick * airTimeTick = (NPushAirTimeTick *)tick;
@@ -106,4 +109,15 @@ void VirtualBrosDevice::incoming_reading(NPushLogTick * tick)
         //the air time was.
 
     }
+}
+
+void VirtualBrosDevice::setEnabled(bool en)
+{
+    qDebug() << "Setting VirtualBrosDevice sound effects " << en;
+    enabled = en;
+}
+
+bool VirtualBrosDevice::getEnabled()
+{
+    return enabled;
 }

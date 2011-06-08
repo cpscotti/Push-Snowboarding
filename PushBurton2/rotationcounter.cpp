@@ -8,7 +8,7 @@ RotationCounter::RotationCounter(QObject *parent) : PushBurtonGenericDevice(pare
 
     afterJumpDecCnter = 0;
 
-    for(int i=0;i<LAST_SPIN_BUFFER_SIZE;i++)
+    for(int i=0;i<PRE_SPIN_BUFFER_SIZE;i++)
         pastSpinBuff[i] = 0.0;
 }
 
@@ -60,7 +60,7 @@ void RotationCounter::incoming_reading(NPushLogTick * tick)
             spinAcc = 0.0;
             afterJumpDecCnter = 0;
 
-            for(int i=0;i<LAST_SPIN_BUFFER_SIZE;i++){
+            for(int i=0;i<PRE_SPIN_BUFFER_SIZE;i++){
 
 //                spinAcc += pastSpinBuff[i];
                 integrateSpinAcc(pastSpinBuff[i]);
@@ -73,7 +73,7 @@ void RotationCounter::incoming_reading(NPushLogTick * tick)
         } else if(airTimeTick->landed) {
 //                qDebug() << "Landed Trick; SpinAcc = " << spinAcc;
             onAir = false;
-            afterJumpDecCnter = NEXT_SPIN_ACC_LENGTH;
+            afterJumpDecCnter = POS_SPIN_BUFFER_SIZE;
         }
     } else if(typeid(*tick) == typeid(NPushIMUTick)) {
 //        && onAir){
@@ -108,7 +108,7 @@ void RotationCounter::incoming_reading(NPushLogTick * tick)
             }
         } else {
             pastSpinBuffPt++;
-            pastSpinBuffPt %= LAST_SPIN_BUFFER_SIZE;
+            pastSpinBuffPt %= PRE_SPIN_BUFFER_SIZE;
             pastSpinBuff[pastSpinBuffPt] = spinInc;
         }
     }

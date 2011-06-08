@@ -32,6 +32,8 @@ void PushN8AirTimeDetector::incoming_reading(NPushLogTick * gtick)
 {
     bool runFuzzy = false;
     if(typeid(*gtick) == typeid(NPushNormFeetTick)) {
+
+        //removing feet pressure
 //        NPushNormFeetTick * ftick = (NPushNormFeetTick *)gtick;
 
 //        fp = ftick->pdata.totalRawSum;
