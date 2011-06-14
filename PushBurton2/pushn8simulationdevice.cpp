@@ -27,13 +27,16 @@
 
 #include "pushn8simulationdevice.h"
 
-PushN8SimulationDevice::PushN8SimulationDevice()
+PushN8SimulationDevice::PushN8SimulationDevice(const QString& fname)
 {
+    simulationFile = fname;
+    if(simulationFile == "")
+        simulationFile = QFileDialog::getOpenFileName(0, "Select where to read the log from", FSC_RUNS_FOLDERS_ROOT, "Log Files (RawLog.xml)");
 
-    QString simulationFile = QFileDialog::getOpenFileName(0, "Select where to read the log from", FSC_RUNS_FOLDERS_ROOT, "Log Files (RawLog.xml)");
     if(simulationFile == "") {
         simulationFile = "E:/sample_input.xml";
     }
+
     qDebug() << "Simulation input stream is: " << simulationFile;
 
     data_input = new QFile(simulationFile, this);
@@ -56,7 +59,12 @@ PushN8SimulationDevice::PushN8SimulationDevice()
     digitalAcc = false;
 
     timerId = 0;
-    timerPeriod = 5;
+#ifdef Q_OS_LINUX
+    timerPeriod = 0;
+#else
+    timerPeriod = 10;
+#endif
+
 }
 
 PushN8SimulationDevice::~PushN8SimulationDevice()
@@ -66,9 +74,9 @@ PushN8SimulationDevice::~PushN8SimulationDevice()
     delete data_input;
 }
 
-QString PushN8SimulationDevice::get_description()
+QString PushN8SimulationDevice::getName()
 {
-    return QString("Devices Simulation Stream");
+    return QString("push.simulation");
 }
 
 bool PushN8SimulationDevice::is_online()
@@ -78,7 +86,7 @@ bool PushN8SimulationDevice::is_online()
 
 void PushN8SimulationDevice::timerEvent(QTimerEvent *)
 {
-    while(!(xml.isEndElement() && xml.name() == "N8SensorsLog")) {
+//    while(!(xml.isEndElement() && xml.name() == "N8SensorsLog")) {
 
         bool reachedEnd = false;
         while(xml.readNextStartElement())
@@ -127,13 +135,10 @@ void PushN8SimulationDevice::timerEvent(QTimerEvent *)
 
         if(xml.isEndElement() && xml.name() == "N8SensorsLog") {
             qDebug() << "Simulation Ended!!";
+            emit simulationEnded();
             this->stop_readings();
         }
-    }
-
-//    qDebug() << "On Simulation QDateTime::currentMSecs " << QDateTime::currentMSecsSinceEpoch();
-//    qDebug() << "On Simulation timerEvent(); " << QTime::currentTime().msec();
-
+//    }
 }
 
 NPushAccTick * PushN8SimulationDevice::readAccTick()
@@ -152,8 +157,11 @@ NPushFootTick * PushN8SimulationDevice::readFootTick()
 {
 
     QChar side = xml.attributes().value("side").toString().at(0);
-    int heel = xml.attributes().value("heel").toString().toInt();
+
+//    qDebug() << "CAUTION!! Flipping to correct runs from yesterday (march 8th)";
+    //CAUTION!! Flipping to correct runs from yesterday (march 8th).
     int toes = xml.attributes().value("toes").toString().toInt();
+    int heel = xml.attributes().value("heel").toString().toInt();
 
     quint64 tstamp = (quint64)((double)xml.attributes().value("tstamp").toString().toDouble()*1000.0);
 
@@ -172,7 +180,7 @@ NPushGpsTick * PushN8SimulationDevice::readGpsTick()
     fakeCoord.setLatitude(xml.attributes().value("latitude").toString().toDouble());
     fakeCoord.setLongitude(xml.attributes().value("longitude").toString().toDouble());
 
-    tstamp = QDateTime::fromTime_t(floor(xml.attributes().value("tstamp").toString().toDouble()));//-3600.0));
+    tstamp = QDateTime::fromTime_t(floor(xml.attributes().value("tstamp").toString().toDouble()));//+3600.0));
 
     fake.setTimestamp(tstamp);
     fake.setCoordinate(fakeCoord);

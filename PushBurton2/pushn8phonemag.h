@@ -42,7 +42,7 @@ public:
     PushN8PhoneMag();
     ~PushN8PhoneMag();
 
-    QString get_description();
+    QString getName();
 
     bool is_online();
 

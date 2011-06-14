@@ -58,7 +58,7 @@ public:
 
     ~PushN8PhoneGPS();
 
-    QString get_description();
+    QString getName();
 
     bool is_online();
 

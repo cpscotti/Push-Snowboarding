@@ -30,6 +30,8 @@
 
 #include <QtXml>
 
+#include <QString>
+
 #include <QDebug>
 #include <QFile>
 #include <QFileDialog>
@@ -55,14 +57,21 @@ class PushN8SimulationDevice : public PushBurtonGenericDevice
 {
     Q_OBJECT
 public:
-    PushN8SimulationDevice();
+    PushN8SimulationDevice(const QString& fname = "");
     ~PushN8SimulationDevice();
 
-    QString get_description();
+    QString getName();
 
     bool is_online();
 
+
+signals:
+    void simulationEnded();
+
 private:
+
+    QString simulationFile;
+
     QFile * data_input;
     QXmlStreamReader xml;
 

@@ -41,6 +41,21 @@
     * Adds QObject basic functionality for all devices (emit/slots/signals)
     * Periodic timer for sensor pooling (subclasses assign period value to timerPeriod variable)
     * defines the common interface for all sensors
+
+ * Devices name should follow:
+ All devices: push.*
+    -> n8 specific devices: push.n8.*
+        -> bt specific devices: push.n8.bt.*
+    -> qt specific devices/sensors: push.qt.*
+    -> abstract devices: push.abstract.*
+        -> trick detectors: push.abstract.snowb.*
+    -> report generators: push.report.
+    -> network devices: push.network.*
+
+    -> (TEMP) saver (yeh.. this'll be a device!): push.logsaver
+    -> (TEMP) auto run manager (yes... we should have that!): push.runmanager.
+
+
  */
 class PushBurtonGenericDevice : public QObject
 {
@@ -51,7 +66,7 @@ public:
 
     virtual ~PushBurtonGenericDevice() = 0;
 
-    virtual QString get_description() = 0;
+    virtual QString getName() = 0;
 
     virtual void start_readings();
     virtual void stop_readings();

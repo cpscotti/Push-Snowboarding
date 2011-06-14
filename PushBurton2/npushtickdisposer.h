@@ -55,6 +55,8 @@ private:
 
     static const int maxQueueSize = 2000;
 
+    int tickcount;
+
 };
 
 #endif // NPUSHTICKDISPOSER_H

@@ -66,9 +66,9 @@ bool PushN8AbsNormFeetDevice::subscribesTo(PushBurtonGenericDevice* deviceType)
     }
 }
 
-QString PushN8AbsNormFeetDevice::get_description()
+QString PushN8AbsNormFeetDevice::getName()
 {
-    return "NormalizedFeetAnalizer";
+    return "push.abstract.normfeet";
 }
 
 void PushN8AbsNormFeetDevice::start_readings()

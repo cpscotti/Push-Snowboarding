@@ -9,6 +9,12 @@
  *
  */
 
+/*
+ * Arduino responds to char 'A' from the serial port.
+ * Replies with:
+ * FOOT,<value heel>,<value toes>,END;
+ */
+
 //FOOT, arduino pro mini 3.3v connected to FSRs in divider with 1.5K resistor talking to bluetooth at 115200 Baud on a bluetooth mate.
 
 void setup()

@@ -73,9 +73,9 @@ void PushN8PhoneGPS::timerEvent(QTimerEvent *)
 
 }
 
-QString PushN8PhoneGPS::get_description()
+QString PushN8PhoneGPS::getName()
 {
-    return QString("Phone's Internal Gps");
+    return QString("push.qt.gps");
 }
 
 bool PushN8PhoneGPS::is_online()

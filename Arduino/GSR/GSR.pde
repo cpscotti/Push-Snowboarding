@@ -9,6 +9,12 @@
  *
  */
 
+/*
+ * Arduino responds to char 'A' from the serial port.
+ * Replies with:
+ * GSR,<value>,END;
+ */
+
 //GSR, arduino pro mini 3.3v connected to analog in port 3 with a 300K resistor tied to ground talking to bluetooth at 115200 Baud on a bluetooth mate.
 
 void setup()

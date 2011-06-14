@@ -56,9 +56,9 @@ PushN8PhoneMag::~PushN8PhoneMag()
         delete magSensor;
 }
 
-QString PushN8PhoneMag::get_description()
+QString PushN8PhoneMag::getName()
 {
-    return QString("Phone Internal Magnetometer");
+    return QString("push.qt.mag");
 }
 
 bool PushN8PhoneMag::is_online()

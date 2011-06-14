@@ -32,15 +32,14 @@ void PushN8AirTimeDetector::incoming_reading(NPushLogTick * gtick)
 {
     bool runFuzzy = false;
     if(typeid(*gtick) == typeid(NPushNormFeetTick)) {
-        NPushNormFeetTick * ftick = (NPushNormFeetTick *)gtick;
 
-        fp = ftick->pdata.totalRawSum;
-        currentTstamp = ftick->msecsToEpoch;
+        //removing feet pressure
+//        NPushNormFeetTick * ftick = (NPushNormFeetTick *)gtick;
 
-        runFuzzy = true;
-//        if(fp < 2000) {
-//            qDebug() << "Got air here";
-//        }
+//        fp = ftick->pdata.totalRawSum;
+//        currentTstamp = ftick->msecsToEpoch;
+
+//        runFuzzy = true;
 
 
 //        qDebug() << "Got Sum: " << ftick->pdata.totalRawSum;
@@ -96,24 +95,29 @@ void PushN8AirTimeDetector::incoming_reading(NPushLogTick * gtick)
 
 //        handle_response(resp);
 
-        handle_response_new(resp);
+        handle_response(resp);
 
     }
 }
 
-void PushN8AirTimeDetector::handle_response_new(Response resp)
+void PushN8AirTimeDetector::handle_response(Response resp)
 {
     NPushAirTimeTick * newTick = 0;
     switch(dynamic_state) {
     case IdleGround:
         switch(resp) {
         case FlyingLikeAnEagle:
-            qDebug() << "Going to Counting Air";
             dynamic_state = CountingAir;
 
             takeOffTime = currentTstamp;
-            lastAirborneTime = takeOffTime;
-            qDebug() << "take off: " << takeOffTime;
+            lastAirborneTime = currentTstamp;
+
+            nOfSamplesInAir = 1;//Just started
+
+//            qDebug() << "take off: " << takeOffTime;
+
+            //NOTE: To make SpinToWinKid possible
+            newTick = new NPushAirTimeTick(0, false, currentTstamp, nOfSamplesInAir,true);
             break;
 
         default:
@@ -124,36 +128,37 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
         break;
 
     case CountingAir:
-        qDebug() << "CountingAir";
+//        qDebug() << "CountingAir";
         switch(resp) {
         case FlyingLikeAnEagle:
-            qDebug() << "Flying lika bitch";
+//            qDebug() << "Flying lika bitch";
             if(currentTstamp >= lastAirborneTime) {//Accounts for delayed timestamps
                 lastAirborneTime = currentTstamp;
 
+                nOfSamplesInAir++;
+
                 quint64 airTime = (lastAirborneTime - takeOffTime);
-                qDebug() << "CountingAir: " << airTime;
+//                qDebug() << "CountingAir: " << airTime;
                 if( airTime > air_threshold) {
                     dynamic_state = IdleAir;
 
-                    newTick = new NPushAirTimeTick(airTime, false, currentTstamp);
+                    newTick = new NPushAirTimeTick(airTime, false, currentTstamp, nOfSamplesInAir);
                 }
             }
             break;
 
          case SlidingDownLikeAPenguin:
-            qDebug() << "Sliding lika bitch";
+//            qDebug() << "Sliding lika bitch";
             if(lastAirborneTime >= takeOffTime) {
                 dynamic_state = IdleGround;
-                qDebug() << "IdleGround";
             }
             break;
 
          case CantHelpYouOnThisOne:
-            qDebug() << "Whooo knows, last:" << lastAirborneTime << " take off: " << takeOffTime;
+//            qDebug() << "Whooo knows, last:" << lastAirborneTime << " take off: " << takeOffTime;
             if(lastAirborneTime >= takeOffTime) {
                 dynamic_state = IdleGround;
-                qDebug() << "IdleGround";
+//                qDebug() << "IdleGround";
             }
             break;
 
@@ -170,8 +175,11 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
             if(currentTstamp >= lastAirborneTime) {//Accounts for delayed timestamps
                 lastAirborneTime = currentTstamp;
                 quint64 airTime = (lastAirborneTime - takeOffTime);
-                qDebug() << "IdleAir: " << airTime;
-                newTick = new NPushAirTimeTick(airTime, false, currentTstamp);
+
+                nOfSamplesInAir++;
+
+//                qDebug() << "IdleAir: " << airTime;
+                newTick = new NPushAirTimeTick(airTime, false, currentTstamp, nOfSamplesInAir);
             }
 
             break;
@@ -179,7 +187,7 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
         case SlidingDownLikeAPenguin:
             if(lastAirborneTime >= takeOffTime) {
                 dynamic_state = CountingGround;
-                qDebug() << "CountingGround";
+//                qDebug() << "CountingGround";
                 touchDownTime = currentTstamp;
             }
             break;
@@ -197,23 +205,27 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
             //resume
             if(currentTstamp > touchDownTime && currentTstamp > lastAirborneTime) {
                 dynamic_state = IdleAir;
-                qDebug() << "IdleAir";
+//                qDebug() << "IdleAir";
 
                 lastAirborneTime = currentTstamp;
                 quint64 airTime = (lastAirborneTime - takeOffTime);
-                newTick = new NPushAirTimeTick(airTime, false, currentTstamp);
+
+                nOfSamplesInAir++;
+
+                newTick = new NPushAirTimeTick(airTime, false, currentTstamp, nOfSamplesInAir);
             }
             break;
 
         case SlidingDownLikeAPenguin:
             //count on
             if(currentTstamp > touchDownTime) {
-                qDebug() << "Counting ground: " << (currentTstamp - touchDownTime);
+//                qDebug() << "Counting ground: " << (currentTstamp - touchDownTime);
                 if((currentTstamp - touchDownTime) > ground_threshold) {
                     dynamic_state = IdleGround;
                     quint64 airTime = (lastAirborneTime - takeOffTime);
+
                     qDebug() << "IdleGround, final aT is " << airTime << "@" << takeOffTime;
-                    newTick = new NPushAirTimeTick(airTime, true, lastAirborneTime);
+                    newTick = new NPushAirTimeTick(airTime, true, lastAirborneTime, nOfSamplesInAir);
                     atReport->append_air(airTime, takeOffTime);
                 }
             }
@@ -224,58 +236,6 @@ void PushN8AirTimeDetector::handle_response_new(Response resp)
         }
 
         break;
-    }
-
-    if(newTick != 0) {
-        if(receivers(SIGNAL(reading_ready(NPushLogTick*))) > 0)
-        {
-            emit reading_ready(newTick);
-        } else {
-            delete newTick;
-        }
-    }
-}
-
-void PushN8AirTimeDetector::handle_response(Response resp)
-{
-
-    NPushAirTimeTick * newTick = 0;
-    if(resp == FlyingLikeAnEagle) {
-
-//        qDebug() << currentTstamp;
-
-        if(!flying) {
-            takeOffTime = currentTstamp;
-            lastAirborneTime = takeOffTime;
-            flying = true;
-        } else {
-            if(currentTstamp > lastAirborneTime) {
-                lastAirborneTime = currentTstamp;
-            }
-        }
-
-        if(lastAirborneTime > takeOffTime && lastAirborneTime == currentTstamp) {
-            quint64 airTime = lastAirborneTime-takeOffTime;
-
-            qDebug() << "Counting Air Time";
-
-            if(airTime > AIR_TIME_THRESHOLD) {
-                newTick = new NPushAirTimeTick(airTime, false, currentTstamp);
-            }
-        }
-    } else if(resp == SlidingDownLikeAPenguin) {
-        if(flying) {
-
-            if(lastAirborneTime > takeOffTime) {
-                quint64 airTime = lastAirborneTime-takeOffTime;
-                qDebug() << "Landed Air Time: " << airTime;
-                if(airTime > AIR_TIME_THRESHOLD) {
-                    newTick = new NPushAirTimeTick(airTime, true, std::max(currentTstamp, lastAirborneTime));
-                    atReport->append_air(airTime, takeOffTime);
-                }
-            }
-            flying = false;
-        }
     }
 
     if(newTick != 0) {
@@ -294,6 +254,8 @@ PushN8AirTimeDetector::PushN8AirTimeDetector()
     flying = false;
     lastAirborneTime = 0;
     takeOffTime = 0;
+
+    nOfSamplesInAir = 0;
 
     dynamic_state = IdleGround;
 
@@ -325,9 +287,9 @@ bool PushN8AirTimeDetector::subscribesTo(PushBurtonGenericDevice* deviceType)
     }
 }
 
-QString PushN8AirTimeDetector::get_description()
+QString PushN8AirTimeDetector::getName()
 {
-    return "Air Time Detector";
+    return "push.abstract.snowb.airtime";
 }
 
 void PushN8AirTimeDetector::start_readings()

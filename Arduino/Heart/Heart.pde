@@ -10,6 +10,12 @@
  *
  */
 
+/*
+ * Arduino responds to char 'A' from the serial port.
+ * Replies with:
+ * HRM,<average last 32 beats>,<average last 16 beats>,<average last beat>,END;
+ */
+
 volatile boolean inService = false;
 long timeArray[] ={
   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};

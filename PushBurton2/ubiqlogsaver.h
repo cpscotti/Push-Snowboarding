@@ -58,14 +58,22 @@ public slots:
 
 private:
     void CreateRunDir();
+
+    void dumpBuffers();
+
     QQueue<NPushLogTick*> ticksBuffer;
     QQueue<NPushGenReport*> reportBuffer;
+
+    //See maxQueueSize in npushtickdisposer (needs to be smaller!)
+    static const int maxBufferSize = 1500;
 
     uint start_time;
     bool saving_ticks;
 
     QMutex ticksLock;
     QMutex reportsLock;
+
+    QMutex dumpBuffersLock;
 
     QWaitCondition runControlSignal;
     QMutex runControlLock;
@@ -75,6 +83,8 @@ private:
 
     QFile* dataFile;
     QXmlStreamWriter xml;
+
+    int tickcount;
 };
 
 #endif // UBIQLOGSAVER_H
