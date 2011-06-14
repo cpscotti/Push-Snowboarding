@@ -83,3 +83,8 @@ char PushN8FootDevice::get_side()
 {
     return side;
 }
+
+QString PushN8FootDevice::getName()
+{
+    return "push.n8.bt.foot";
+}

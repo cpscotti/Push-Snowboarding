@@ -59,7 +59,7 @@ public:
 
     QString getDetails();
 
-    QString get_description();
+    virtual QString getName();
 
     bool is_online();
 

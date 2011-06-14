@@ -66,3 +66,8 @@ void PushN8HeartDevice::gotDataReceived(QString data)
         }
     }
 }
+
+QString PushN8HeartDevice::getName()
+{
+    return "push.n8.bt.heart";
+}

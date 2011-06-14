@@ -43,6 +43,8 @@ public:
 
     ~PushN8GSRDevice();
 
+    virtual QString getName();
+
 public slots:
     void gotDataReceived(QString);
 #endif

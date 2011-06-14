@@ -66,3 +66,8 @@ void PushN8GSRDevice::gotDataReceived(QString data)
     }
 //    qDebug() << "Data received: " << data;
 }
+
+QString PushN8GSRDevice::getName()
+{
+    return "push.n8.bt.gsr";
+}

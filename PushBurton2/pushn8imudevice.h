@@ -43,6 +43,8 @@ public:
 
     ~PushN8IMUDevice();
 
+    virtual QString getName();
+
 public slots:
     void gotDataReceived(QString);
 
