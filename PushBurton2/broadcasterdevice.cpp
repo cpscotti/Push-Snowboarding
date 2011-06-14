@@ -13,7 +13,7 @@ BroadcasterDevice::BroadcasterDevice(QObject *parent) :
 
 
 
-    serverAddress = QHostAddress("192.168.0.3");
+    serverAddress = QHostAddress("192.168.0.3");//91.125.187.95
 
     serverPort = 45454;
 

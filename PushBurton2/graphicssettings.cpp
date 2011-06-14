@@ -180,7 +180,7 @@ void GraphicsSettings::buildForm()
     connect(soundEffectsCheck, SIGNAL(toggled(bool)), this, SLOT(update_soundEffects(bool)));
 
     //Address and Port line edits
-    serverAddress = new QLineEdit("Address");
+    serverAddress = new QLineEdit("91.125.187.95");//Address");
     serverAddress->setStyleSheet(widStyle);
     proxy2Addr = new QGraphicsProxyWidget(this);
     proxy2Addr->setWidget(serverAddress);
@@ -189,7 +189,7 @@ void GraphicsSettings::buildForm()
     proxy2Addr->setZValue(2);
     proxy2Addr->setPos(40,200);
 
-    serverPort = new QLineEdit("Port");
+    serverPort = new QLineEdit("45454");//Port");
     serverPort->setStyleSheet(widStyle);
     proxy2Port = new QGraphicsProxyWidget(this);
     proxy2Port->setWidget(serverPort);
