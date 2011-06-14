@@ -103,7 +103,7 @@ void LiveView::UpdateConnectedList()
     ui->connectedDevicesList->clear();
     for(int i=0; i < configuredDevices->count(); i++)
     {
-        QListWidgetItem * devItem = new QListWidgetItem(configuredDevices->at(i)->get_description(), ui->connectedDevicesList);
+        QListWidgetItem * devItem = new QListWidgetItem(configuredDevices->at(i)->getName(), ui->connectedDevicesList);
         if(configuredDevices->at(i)->is_online())
             devItem->setIcon(QIcon(":/main_menu/icon/images/online.png"));
         else

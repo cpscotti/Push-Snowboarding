@@ -28,8 +28,6 @@
 #ifndef PUSHN8AIRTIMEDETECTOR_H
 #define PUSHN8AIRTIMEDETECTOR_H
 
-#define AIR_TIME_THRESHOLD 220
-
 #include <typeinfo>
 
 #include "npushlogtick.h"
@@ -64,7 +62,7 @@ public:
     bool subscribesToAny();
     bool subscribesTo(PushBurtonGenericDevice* deviceType);
 
-    QString get_description();
+    QString getName();
 
     void start_readings();
     void stop_readings();
@@ -81,6 +79,7 @@ protected:
 
 private:
     void handle_response(Response);
+//    void handle_response(Response);
     bool flying;
 
     FuzzyDetector fuzzyDetector;
@@ -90,9 +89,11 @@ private:
 
     double fp,pa,ia,bpa;
 
+    static const quint64 small_airtime_threshold = 220;
+
     static const quint64 air_threshold = 200;//how big an air needs to be to be even considered
 
-    static const quint64 ground_threshold = 80;//for how long the rider needs to be on the
+    static const quint64 ground_threshold = 40;//80;//for how long the rider needs to be on the
     //ground to count as landing
 
     quint64 currentTstamp;//always running
@@ -101,6 +102,8 @@ private:
 
     quint64 lastAirborneTime;
 
+    int nOfSamplesInAir;
+
     enum AirDetectorDynState
     {
         IdleGround = 42,
@@ -108,8 +111,6 @@ private:
         IdleAir,
         CountingGround
     } dynamic_state;
-
-    void handle_response_new(Response);
 
 public slots:
     void incoming_reading(NPushLogTick *);

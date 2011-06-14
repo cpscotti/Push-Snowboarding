@@ -59,7 +59,12 @@ PushN8SimulationDevice::PushN8SimulationDevice(const QString& fname)
     digitalAcc = false;
 
     timerId = 0;
+#ifdef Q_OS_LINUX
+    timerPeriod = 0;
+#else
     timerPeriod = 10;
+#endif
+
 }
 
 PushN8SimulationDevice::~PushN8SimulationDevice()
@@ -69,9 +74,9 @@ PushN8SimulationDevice::~PushN8SimulationDevice()
     delete data_input;
 }
 
-QString PushN8SimulationDevice::get_description()
+QString PushN8SimulationDevice::getName()
 {
-    return QString("Devices Simulation Stream");
+    return QString("push.simulation");
 }
 
 bool PushN8SimulationDevice::is_online()
@@ -175,7 +180,7 @@ NPushGpsTick * PushN8SimulationDevice::readGpsTick()
     fakeCoord.setLatitude(xml.attributes().value("latitude").toString().toDouble());
     fakeCoord.setLongitude(xml.attributes().value("longitude").toString().toDouble());
 
-    tstamp = QDateTime::fromTime_t(floor(xml.attributes().value("tstamp").toString().toDouble()));//-3600.0));
+    tstamp = QDateTime::fromTime_t(floor(xml.attributes().value("tstamp").toString().toDouble()));//+3600.0));
 
     fake.setTimestamp(tstamp);
     fake.setCoordinate(fakeCoord);

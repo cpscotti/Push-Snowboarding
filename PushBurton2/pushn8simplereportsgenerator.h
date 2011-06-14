@@ -58,7 +58,7 @@ public:
     bool subscribesToAny();
     bool subscribesTo(PushBurtonGenericDevice* deviceType);
 
-    QString get_description();
+    QString getName();
 
     void start_readings();
     void stop_readings();

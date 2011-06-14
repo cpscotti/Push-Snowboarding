@@ -52,7 +52,7 @@ public:
     //The following two functions are Pure Virtual functions on PushBurtonGenericDevice
     //you have to implement them - there's no implementation on the baseclass
     //(Watch the =0 at the end of their declarations there!!)
-    QString get_description();
+    QString getName();
     bool is_online();
 
     //Our device subscribes to other devices so we need to reimplement these 2 functions

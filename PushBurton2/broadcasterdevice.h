@@ -20,7 +20,7 @@ public:
     ~BroadcasterDevice();
 
 
-    QString get_description();
+    QString getName();
     bool is_online() {
         return true;
     }

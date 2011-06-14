@@ -55,9 +55,9 @@ PushN8PhoneAcc::~PushN8PhoneAcc()
         delete accSensor;
 }
 
-QString PushN8PhoneAcc::get_description()
+QString PushN8PhoneAcc::getName()
 {
-    return QString("Phone Internal Accelerometer");
+    return QString("push.qt.acc");
 }
 
 bool PushN8PhoneAcc::is_online()

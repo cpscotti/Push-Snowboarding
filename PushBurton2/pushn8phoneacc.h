@@ -42,7 +42,7 @@ public:
     PushN8PhoneAcc();
     ~PushN8PhoneAcc();
 
-    QString get_description();
+    QString getName();
 
     bool is_online();
 

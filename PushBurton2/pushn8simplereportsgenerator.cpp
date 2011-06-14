@@ -95,9 +95,9 @@ void PushN8SimpleReportsGenerator::incoming_reading(NPushLogTick * gtick)
     }
 }
 
-QString PushN8SimpleReportsGenerator::get_description()
+QString PushN8SimpleReportsGenerator::getName()
 {
-    return "Simple Reports Generator";
+    return "push.report.simple";
 }
 
 void PushN8SimpleReportsGenerator::start_readings()

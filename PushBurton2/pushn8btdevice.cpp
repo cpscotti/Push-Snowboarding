@@ -63,9 +63,9 @@ QString PushN8BtDevice::getDeviceName()
     return device.getName();
 }
 
-QString PushN8BtDevice::get_description()
+QString PushN8BtDevice::getName()
 {
-    return device.getName();
+    return "push.n8.bt.*";
 }
 
 void PushN8BtDevice::timerEvent(QTimerEvent * event)

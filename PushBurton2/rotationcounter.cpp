@@ -19,9 +19,9 @@ RotationCounter::~RotationCounter()
     qDebug() << "RotationCounter\'s destructor";
 }
 
-QString RotationCounter::get_description()
+QString RotationCounter::getName()
 {
-    return QString("RotationCounter");
+    return QString("push.abstract.snowb.rotation");
 }
 
 bool RotationCounter::is_online()

@@ -29,18 +29,18 @@ VirtualBrosDevice::VirtualBrosDevice(QObject *parent) :
 
     qDebug() << "Before creating media";
 
+#ifndef Q_OS_LINUX
     applause = Phonon::createPlayer(Phonon::MusicCategory, Phonon::MediaSource(applausePath));
+#endif
 
-    qDebug() << applause->totalTime();
-    qDebug() << applause->errorString();
-
-    if(applause->isValid()) {
+    if(applause && applause->isValid()) {
         qDebug() << "is valid";
     } else {
         qDebug() << "not valid";
     }
 
-    qDebug() << "State is: " << applause->state();
+    if(applause)
+        qDebug() << "State is: " << applause->state();
 
 }
 
@@ -52,10 +52,10 @@ VirtualBrosDevice::~VirtualBrosDevice()
     }
 }
 
-QString VirtualBrosDevice::get_description()
+QString VirtualBrosDevice::getName()
 {
     //Just giving it a name for sake of id
-    return "VirtualBros";
+    return "push.abstract.virtualbros";
 }
 
 bool VirtualBrosDevice::is_online()
@@ -95,8 +95,10 @@ void VirtualBrosDevice::incoming_reading(NPushLogTick * tick)
         //jump/airtime. For example, it'll tell you if the rider just
         //landed a jump through the bool "landed"
         if(airTimeTick->landed) {
-            applause->seek(0);
-            applause->play();
+            if(applause && applause->isValid()) {
+                applause->seek(0);
+                applause->play();
+            }
         }
 
         //The airTimeTick also brings airTimeTick->msecsOnAir which

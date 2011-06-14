@@ -69,36 +69,43 @@ void UbiqLogSaver::run()
             leaving = true;
         runControlLock.unlock();
 
-
-        ticksLock.lock();
-        while(ticksBuffer.count() > 0){
-            NPushLogTick * tick = ticksBuffer.dequeue();
-            ticksLock.unlock();
-            tick->dump_to_xml(xml);
-            dataFile->flush();
-            ticksLock.lock();
-            tickcount++;
-//            qDebug() << "saving tick = " << tickcount;
-        }
-        ticksLock.unlock();
-
-        reportsLock.lock();
-        while(reportBuffer.count() > 0){
-            qDebug() << "report being dumped";
-            NPushGenReport * repr = reportBuffer.dequeue();
-
-            reportsLock.unlock();
-            repr->save_to_dir(dirName);
-            reportsLock.lock();
-        }
-        reportsLock.unlock();
-
+        dumpBuffers();
 
         if(leaving){
             break;
         }
     }
     exit(0);
+}
+
+void UbiqLogSaver::dumpBuffers()
+{
+    QMutexLocker onlyOneAtATime(&dumpBuffersLock);
+    Q_UNUSED(onlyOneAtATime);
+
+    ticksLock.lock();
+    while(ticksBuffer.count() > 0){
+        NPushLogTick * tick = ticksBuffer.dequeue();
+        ticksLock.unlock();
+
+        tick->dump_to_xml(xml);
+        dataFile->flush();
+        ticksLock.lock();
+        tickcount++;
+//            qDebug() << "saving tick = " << tickcount;
+    }
+    ticksLock.unlock();
+
+    reportsLock.lock();
+    while(reportBuffer.count() > 0){
+        qDebug() << "report being dumped";
+        NPushGenReport * repr = reportBuffer.dequeue();
+
+        reportsLock.unlock();
+        repr->save_to_dir(dirName);
+        reportsLock.lock();
+    }
+    reportsLock.unlock();
 }
 
 void UbiqLogSaver::run_end()
@@ -136,7 +143,13 @@ void UbiqLogSaver::log_tick_in(NPushLogTick* tick)
     ticksLock.lock();
     ticksBuffer.enqueue(tick);
     ticksLock.unlock();
+
+    if(ticksBuffer.count() > maxBufferSize) {
+        dumpBuffers();
+    }
+
     runControlSignal.wakeAll();
+
 }
 
 void UbiqLogSaver::report_in(NPushGenReport* rep)
@@ -144,5 +157,10 @@ void UbiqLogSaver::report_in(NPushGenReport* rep)
     reportsLock.lock();
     reportBuffer.enqueue(rep);
     reportsLock.unlock();
+
+    if(reportBuffer.count() > maxBufferSize) {
+        dumpBuffers();
+    }
+
     runControlSignal.wakeAll();
 }

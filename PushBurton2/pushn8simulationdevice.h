@@ -60,7 +60,7 @@ public:
     PushN8SimulationDevice(const QString& fname = "");
     ~PushN8SimulationDevice();
 
-    QString get_description();
+    QString getName();
 
     bool is_online();
 

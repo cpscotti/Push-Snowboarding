@@ -91,24 +91,6 @@ signals:
     //This may seem abusive at first look
     //  but makes complete sense since they are just routed from
     //  signals comming from different objects and well.. at some point you need to break into!
-//    void phone_gps_connecting();
-//    void phone_gps_connected();
-
-//    void motion_box_connecting();
-//    void motion_box_connected();
-
-//    void heart_connecting();
-//    void heart_connected();
-
-//    void gsr_connecting();
-//    void gsr_connected();
-
-//    void foot_l_connecting();
-//    void foot_l_connected();
-
-//    void foot_r_connecting();
-//    void foot_r_connected();
-
 
 public slots:
 

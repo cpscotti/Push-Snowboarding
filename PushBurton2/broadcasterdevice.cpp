@@ -27,9 +27,10 @@ BroadcasterDevice::~BroadcasterDevice()
 }
 
 
-QString BroadcasterDevice::get_description()
+QString BroadcasterDevice::getName()
 {
-    return QString("push.n8.broadcaster");
+
+    return QString("push.network.broadcaster");
 }
 
 

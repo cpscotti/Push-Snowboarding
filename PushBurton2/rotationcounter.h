@@ -35,7 +35,7 @@ public:
 
     ~RotationCounter();
 
-    QString get_description();
+    QString getName();
     bool is_online();
 
     bool subscribesToAny();//returns true..

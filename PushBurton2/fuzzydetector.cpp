@@ -46,8 +46,11 @@ FuzzyDetector::FuzzyDetector()
     pa_onAir.push_back(Relation(50.0, 0.0));//hell no!
 
     pa_onGrnd.push_back(Relation(0.0, 0.0));//no gravity, hell no
-    pa_onGrnd.push_back(Relation(7.0, 0.0));
-    pa_onGrnd.push_back(Relation(9.0, 0.5));
+    pa_onGrnd.push_back(Relation(8.0, 0.0));
+    pa_onGrnd.push_back(Relation(8.4, 1.0));
+    pa_onGrnd.push_back(Relation(8.9, 1.0));
+    pa_onGrnd.push_back(Relation(9.3, 1.0));
+    pa_onGrnd.push_back(Relation(9.5, 0.0));
     pa_onGrnd.push_back(Relation(15.0, 1.0));//definitely on ground
     pa_onGrnd.push_back(Relation(50.0, 1.0));//definitely on ground
 

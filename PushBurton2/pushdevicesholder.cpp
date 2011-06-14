@@ -36,7 +36,7 @@ PushDevicesHolder::~PushDevicesHolder()
 {
     for(int i=0;i<this->count();i++)
     {
-        qDebug() << "Calling delete for " << this->at(i)->get_description();
+        qDebug() << "Calling delete for " << this->at(i)->getName();
         this->at(i)->disconnect_from_backend();
 //        this->at(i)->deleteLater()
         delete this->at(i);
@@ -95,7 +95,7 @@ void PushDevicesHolder::push_back(PushBurtonGenericDevice* ptr)
             PushBurtonGenericDevice* iptr = this->at(i);
             //If new device subscribes to it //PS: This enables recursion!!
             if(ptr->subscribesTo(iptr) || typeid(*iptr) == typeid(PushN8SimulationDevice)) {
-                qDebug() << "Connected " << iptr->get_description() << "\'s output to " << ptr->get_description();
+                qDebug() << "Connected " << iptr->getName() << "\'s output to " << ptr->getName();
                 ptr->connect(iptr, SIGNAL(reading_ready(NPushLogTick*)), ptr, SLOT(incoming_reading(NPushLogTick*)), Qt::UniqueConnection);
             }
         }
@@ -106,7 +106,7 @@ void PushDevicesHolder::push_back(PushBurtonGenericDevice* ptr)
         PushBurtonGenericDevice* iptr = this->at(i);
         if(iptr->subscribesToAny()) {
             if(iptr->subscribesTo(ptr)) {
-                qDebug() << "Connected " << ptr->get_description() << "\'s output to " << iptr->get_description();
+                qDebug() << "Connected " << ptr->getName() << "\'s output to " << iptr->getName();
                 iptr->connect(ptr, SIGNAL(reading_ready(NPushLogTick*)), iptr, SLOT(incoming_reading(NPushLogTick*)), Qt::UniqueConnection);
             }
         }
