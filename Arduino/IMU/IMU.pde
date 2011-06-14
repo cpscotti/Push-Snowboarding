@@ -1,4 +1,22 @@
 
+
+/*
+ * Copyright (c) 2011 Nokia Corporation
+ *
+ * This file is part of the Push Snowboarding Project, More info at:
+ * http://pushsnowboarding.com/tech/developer-centre/
+ *
+ * This file is under the GPLv3 License, more details at:
+ * http://www.gnu.org/licenses/
+ *
+ */
+
+/*
+ * Arduino responds to char 'A' from the serial port.
+ * Replies with:
+ * IMU,<gyro's x>,<gyro's y>,<gyro's z>,<acc's x>,<acc's y>,<acc's z>,<mag's x>,<mag's y>,<mag's z>,END;
+ */
+
 #include <Wire.h>
 
 int XGyro, YGyro, ZGyro;
