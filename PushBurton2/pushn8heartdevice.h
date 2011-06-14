@@ -44,6 +44,8 @@ public:
 
     ~PushN8HeartDevice();
 
+    virtual QString getName();
+
 public slots:
     void gotDataReceived(QString);
 #endif

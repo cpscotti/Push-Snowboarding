@@ -45,6 +45,8 @@ public:
 
     char get_side();
 
+    virtual QString getName();
+
 private:
     char side;
 

@@ -79,3 +79,8 @@ void PushN8IMUDevice::gotDataReceived(QString data)
 
 }
 
+
+QString PushN8IMUDevice::getName()
+{
+    return "push.n8.bt.imu";
+}
