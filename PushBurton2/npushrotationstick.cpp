@@ -13,13 +13,6 @@ NPushRotationsTick::~NPushRotationsTick()
 {
 }
 
-void NPushRotationsTick::append_to_xml(QDomDocument& doc, QDomElement& root) const
-{
-    Q_UNUSED(doc);
-    Q_UNUSED(root);
-    //Not necessary. Append is deprecated
-}
-
 void NPushRotationsTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("rot_count");

@@ -59,14 +59,6 @@ NPushGSRTick::~NPushGSRTick()
 
 }
 
-void NPushGSRTick::append_to_xml(QDomDocument& doc, QDomElement& root) const
-{
-    QDomElement tickDom = doc.createElement("gsr_data");
-    tickDom.setAttribute("reading", QString::number(reading));
-    tickDom.setAttribute("tstamp", (double)(msecsToEpoch*0.001));
-    root.appendChild(tickDom);
-}
-
 void NPushGSRTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("gsr_data");

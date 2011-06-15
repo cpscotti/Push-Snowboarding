@@ -64,18 +64,6 @@ NPushHeartTick::~NPushHeartTick()
 {
 }
 
-void NPushHeartTick::append_to_xml(QDomDocument& doc, QDomElement& root) const
-{
-    QDomElement tickDom = doc.createElement("heart_data");
-    tickDom.setAttribute("last32", QString::number(hr_3));
-    tickDom.setAttribute("last16", QString::number(hr_2));
-    tickDom.setAttribute("lastBeat", QString::number(hr_1));
-
-    tickDom.setAttribute("tstamp", (double)(msecsToEpoch*0.001));
-
-    root.appendChild(tickDom);
-}
-
 void NPushHeartTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("heart_data");

@@ -39,17 +39,6 @@ NPushGpsTick::~NPushGpsTick()
 {
 }
 
-void NPushGpsTick::append_to_xml(QDomDocument& doc, QDomElement& root) const
-{
-    QDomElement tickDom = doc.createElement("gps_data");
-    tickDom.setAttribute("tstamp", tick.timestamp().toTime_t());
-    tickDom.setAttribute("longitude", QString::number(tick.coordinate().longitude()));
-    tickDom.setAttribute("latitude", QString::number(tick.coordinate().latitude()));
-    tickDom.setAttribute("altitude", QString::number(tick.coordinate().altitude()));
-    tickDom.setAttribute("ground_speed", QString::number(tick.attribute(QGeoPositionInfo::GroundSpeed)));
-    root.appendChild(tickDom);
-}
-
 void NPushGpsTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("gps_data");

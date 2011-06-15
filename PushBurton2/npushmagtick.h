@@ -42,7 +42,6 @@ public:
     NPushMagTick(QMagnetometerReading * reading, quint64 a_msecsToEpoch);
     ~NPushMagTick();
 
-    void append_to_xml(QDomDocument& doc, QDomElement& root) const;
     void dump_to_xml(QXmlStreamWriter& xml) const;
 
     QString get_pretty_print() const;

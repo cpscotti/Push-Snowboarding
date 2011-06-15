@@ -84,40 +84,6 @@ NPushIMUTick::~NPushIMUTick()
 
 }
 
-void NPushIMUTick::append_to_xml(QDomDocument& doc, QDomElement& root) const
-{
-    QDomElement tickDom = doc.createElement("imu_data");
-
-    QDomNode gyroNode = doc.createElement("gyro");
-    QDomText gyroText = doc.createTextNode(QString("%1,%2,%3")
-                                           .arg(QString::number(gyro[0]))
-                                           .arg(QString::number(gyro[1]))
-                                           .arg(QString::number(gyro[2])));
-    gyroNode.appendChild(gyroText);
-    tickDom.appendChild(gyroNode);
-
-    QDomNode accNode = doc.createElement("acc");
-    QDomText accText = doc.createTextNode(QString("%1,%2,%3")
-                                          .arg(QString::number(accel[0]))
-                                          .arg(QString::number(accel[1]))
-                                          .arg(QString::number(accel[2])));
-
-    accNode.appendChild(accText);
-    tickDom.appendChild(accNode);
-
-    QDomNode magNode = doc.createElement("mag");
-    QDomText magText = doc.createTextNode(QString("%1,%2,%3")
-                                          .arg(QString::number(mag[0]))
-                                          .arg(QString::number(mag[1]))
-                                          .arg(QString::number(mag[2])));
-
-    magNode.appendChild(magText);
-    tickDom.appendChild(magNode);
-
-    tickDom.setAttribute("tstamp", (double)(msecsToEpoch*0.001));
-    root.appendChild(tickDom);
-}
-
 void NPushIMUTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("imu_data");

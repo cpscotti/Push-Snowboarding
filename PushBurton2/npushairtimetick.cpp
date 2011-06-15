@@ -43,20 +43,6 @@ NPushAirTimeTick::~NPushAirTimeTick()
 {
 }
 
-
-void NPushAirTimeTick::append_to_xml(QDomDocument& doc, QDomElement& root) const
-{
-    if(!isOnlyHint) {
-        QDomElement tickDom = doc.createElement("air_time");
-        tickDom.setAttribute("tstamp", (double)(msecsToEpoch*0.001));
-        tickDom.setAttribute("in_air", (double)(msecsOnAir*0.001));
-        tickDom.setAttribute("data_points", nOfDataPoints);
-        tickDom.setAttribute("landed", ((landed)?"true":"false") );
-
-        root.appendChild(tickDom);
-    }
-}
-
 void NPushAirTimeTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     if(!isOnlyHint) {

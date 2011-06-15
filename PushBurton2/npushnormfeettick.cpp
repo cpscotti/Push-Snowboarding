@@ -39,15 +39,6 @@ NPushNormFeetTick::~NPushNormFeetTick()
 
 }
 
-void NPushNormFeetTick::append_to_xml(QDomDocument& doc, QDomElement& root) const
-{
-    QDomElement tickDom = doc.createElement("feet_sum");
-    tickDom.setAttribute("tstamp", (double)(msecsToEpoch*0.001));
-    tickDom.setAttribute("sum", pdata.totalRawSum);
-
-    root.appendChild(tickDom);
-}
-
 void NPushNormFeetTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("feet_sum");

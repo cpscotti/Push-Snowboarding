@@ -59,20 +59,6 @@ NPushMagTick::~NPushMagTick()
 {
 }
 
-void NPushMagTick::append_to_xml(QDomDocument& doc, QDomElement& root) const
-{
-    QDomElement tickDom = doc.createElement("mag_data");
-    tickDom.setAttribute("x", QString::number(tick.x()*1000.0,'f',5));
-    tickDom.setAttribute("y", QString::number(tick.y()*1000.0,'f',5));
-    tickDom.setAttribute("z", QString::number(tick.z()*1000.0,'f',5));
-    tickDom.setAttribute("r", QString::number(qSqrt(tick.x()*tick.x()+
-                                                    tick.y()*tick.y()+
-                                                    tick.z()*tick.z())*1000.0,'f',5));
-    tickDom.setAttribute("tstamp", (double)(msecsToEpoch*0.001));
-
-    root.appendChild(tickDom);
-}
-
 void NPushMagTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("mag_data");

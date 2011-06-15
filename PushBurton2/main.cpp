@@ -26,7 +26,7 @@
  */
 
 #include <QtGui/QApplication>
-#include "mainwindow.h"
+#include "UI/mainwindow.h"
 
 #include <QDebug>
 #include <QString>

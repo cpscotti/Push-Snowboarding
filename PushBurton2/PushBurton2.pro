@@ -32,18 +32,14 @@ TARGET = PushBurton2
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    graphicpixmapbt.cpp \
-    graphicsdeviceinfo.cpp \
-    pushburtonanimation.cpp \
-    graphicsconnmenu.cpp \
+SOURCES += \
+    main.cpp\
     devicesmanager.cpp \
     pushdevicesholder.cpp \
     pushburtongenericdevice.cpp \
     npushtickdisposer.cpp \
-    npushlogtick.cpp \
     pushn8simulationdevice.cpp \
+    npushlogtick.cpp \
     npushnormfeettick.cpp \
     npushmagtick.cpp \
     npushimutick.cpp \
@@ -67,31 +63,32 @@ SOURCES += main.cpp\
     npushreportairtime.cpp \
     fuzzydetector.cpp \
     selfshrinkinglist.cpp \
-    runcontroldialog.cpp \
     runmanager.cpp \
     ubiqlogsaver.cpp \
-    graphicvarplot.cpp \
-    graphictextbt.cpp \
-    graphicsreportview.cpp \
-    graphicslidingdownbts.cpp \
-    liveview.cpp \
-    graphicssettings.cpp \
+    UI/runcontroldialog.cpp \
+    UI/graphicvarplot.cpp \
+    UI/graphictextbt.cpp \
+    UI/graphicsreportview.cpp \
+    UI/graphicslidingdownbts.cpp \
+    UI/liveview.cpp \
+    UI/graphicssettings.cpp \
+    UI/mainwindow.cpp \
+    UI/graphicpixmapbt.cpp \
+    UI/graphicsdeviceinfo.cpp \
+    UI/graphicsconnmenu.cpp \
+    UI/pushburtonanimation.cpp \
     virtualbrosdevice.cpp \
     rotationcounter.cpp \
     npushrotationstick.cpp \
     broadcasterdevice.cpp
 
-HEADERS  += mainwindow.h \
-    graphicpixmapbt.h \
-    graphicsdeviceinfo.h \
-    pushburtonanimation.h \
-    graphicsconnmenu.h \
+HEADERS  += \
     devicesmanager.h \
     pushdevicesholder.h \
     pushburtongenericdevice.h \
     npushtickdisposer.h \
-    npushlogtick.h \
     pushn8simulationdevice.h \
+    npushlogtick.h \
     npushnormfeettick.h \
     npushmagtick.h \
     npushimutick.h \
@@ -116,23 +113,29 @@ HEADERS  += mainwindow.h \
     npushreportairtime.h \
     fuzzydetector.h \
     selfshrinkinglist.h \
-    runcontroldialog.h \
     runmanager.h \
     ubiqlogsaver.h \
-    graphicvarplot.h \
-    graphictextbt.h \
-    graphicsreportview.h \
-    graphicslidingdownbts.h \
-    liveview.h \
-    graphicssettings.h \
     FilesystemConventions.h \
     virtualbrosdevice.h \
     rotationcounter.h \
     npushrotationstick.h \
+    UI/mainwindow.h \
+    UI/graphicpixmapbt.h \
+    UI/graphicsdeviceinfo.h \
+    UI/graphicsconnmenu.h \
+    UI/runcontroldialog.h \
+    UI/graphicvarplot.h \
+    UI/graphictextbt.h \
+    UI/graphicsreportview.h \
+    UI/graphicslidingdownbts.h \
+    UI/liveview.h \
+    UI/graphicssettings.h \
+    UI/pushburtonanimation.h \
     broadcasterdevice.h
 
-FORMS    += mainwindow.ui \
-    liveview.ui
+FORMS    += \
+    UI/mainwindow.ui \
+    UI/liveview.ui
 
 CONFIG   += mobility
 MOBILITY = location sensors

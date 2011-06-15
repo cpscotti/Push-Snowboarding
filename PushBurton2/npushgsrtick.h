@@ -41,7 +41,6 @@ public:
     NPushGSRTick(int a_reading, quint64 a_msecsToEpoch);
     ~NPushGSRTick();
 
-    void append_to_xml(QDomDocument& doc, QDomElement& root) const;
     void dump_to_xml(QXmlStreamWriter& xml) const;
 
     QString get_pretty_print() const;

@@ -65,17 +65,6 @@ NPushFootTick::~NPushFootTick()
 
 }
 
-void NPushFootTick::append_to_xml(QDomDocument& doc, QDomElement& root) const
-{
-    QDomElement tickDom = doc.createElement("foot_data");
-    tickDom.setAttribute("side", QString(side));
-    tickDom.setAttribute("toes", QString::number(toes));
-    tickDom.setAttribute("heel", QString::number(heel));
-    tickDom.setAttribute("tstamp", (double)(msecsToEpoch*0.001));
-
-    root.appendChild(tickDom);
-}
-
 void NPushFootTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("foot_data");

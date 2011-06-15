@@ -67,24 +67,6 @@ NPushAccTick::~NPushAccTick()
 {
 }
 
-void NPushAccTick::append_to_xml(QDomDocument& doc, QDomElement& root) const
-{
-    QDomElement tickDom = doc.createElement("acc_data");
-    tickDom.setAttribute("x", QString::number(tick.x()));
-    tickDom.setAttribute("y", QString::number(tick.y()));
-    tickDom.setAttribute("z", QString::number(tick.z()));
-    tickDom.setAttribute("r", QString::number(pAccAbsMag));
-
-    tickDom.setAttribute("tstamp", (double)(msecsToEpoch*0.001));
-
-    if(pAccAbsMag < freefall_threshold)
-    {
-        tickDom.setAttribute("free_fall", "true");
-    }
-
-    root.appendChild(tickDom);
-}
-
 void NPushAccTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("acc_data");
