@@ -135,3 +135,8 @@ void BroadcasterDevice::tryToDisconnect()
 
     emit connectionUpdate(false);
 }
+
+bool BroadcasterDevice::subscribesTo(PushBurtonGenericDevice * dev)
+{
+    return dev->getName().contains(QRegExp("push.(n8|qt)"));
+}

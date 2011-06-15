@@ -36,12 +36,13 @@ class NPushNormFeetTick : public NPushLogTick
 {
 public:
     NPushNormFeetTick(SnowboradPressureData, quint64);
-    ~NPushNormFeetTick();
 
+    virtual ~NPushNormFeetTick();
 
-    void dump_to_xml(QXmlStreamWriter& xml) const;
+    virtual void read_from_xml( QXmlStreamReader& xml);
+    virtual void dump_to_xml(QXmlStreamWriter& xml) const;
 
-    QString get_pretty_print() const;
+    virtual QString get_pretty_print() const;
 
 public:
 

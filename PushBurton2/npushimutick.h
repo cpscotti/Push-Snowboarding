@@ -36,14 +36,20 @@
 class NPushIMUTick : public NPushLogTick
 {
 public:
+
+    NPushIMUTick() {}
+
     NPushIMUTick(QStringList& values);
     NPushIMUTick(QStringList &values, quint64 a_msecsToEpoch);
-    ~NPushIMUTick();
+
+    virtual ~NPushIMUTick();
+
+    virtual void read_from_xml( QXmlStreamReader& xml);
+    virtual void dump_to_xml(QXmlStreamWriter& xml) const;
+
+    virtual QString get_pretty_print() const;
 
     void ParseValues(QStringList& values);
-
-    void dump_to_xml(QXmlStreamWriter& xml) const;
-    QString get_pretty_print() const;
 
     int gyro[3];
     int accel[3];
@@ -51,7 +57,16 @@ public:
 
     quint64 msecsToEpoch;
 
-    bool digitalAcc;
+    /*
+     *  black magic!!
+     *
+     *  So far we still have to cope with old, analog, accelerometers.
+     *  Using this static flag, we make sure that after the sensor type
+     *  is determined, app will handle it correctly throughout runtime
+     *
+     *  (Same happens in simulation)
+     */
+    static bool digitalAcc; //initialized to false
 };
 
 #endif // NPUSHIMUTICK_H

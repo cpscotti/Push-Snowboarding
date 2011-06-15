@@ -59,6 +59,12 @@ NPushGSRTick::~NPushGSRTick()
 
 }
 
+void NPushGSRTick::read_from_xml( QXmlStreamReader& xml)
+{
+    reading = xml.attributes().value("reading").toString().toInt();
+    msecsToEpoch = (quint64)((double)xml.attributes().value("tstamp").toString().toDouble()*1000.0);
+}
+
 void NPushGSRTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("gsr_data");

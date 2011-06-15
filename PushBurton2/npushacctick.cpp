@@ -67,6 +67,25 @@ NPushAccTick::~NPushAccTick()
 {
 }
 
+void NPushAccTick::read_from_xml( QXmlStreamReader& xml)
+{
+    //    if(xml.attributes().hasAttribute("x"))
+    tick.setX(xml.attributes().value("x").toString().toFloat());
+
+    //    if(xml.attributes().hasAttribute("y"))
+    tick.setY(xml.attributes().value("y").toString().toFloat());
+
+    //    if(xml.attributes().hasAttribute("z"))
+    tick.setZ(xml.attributes().value("z").toString().toFloat());
+
+    pAccAbsMag = qSqrt(tick.x()*tick.x()+
+                        tick.y()*tick.y()+
+                        tick.z()*tick.z());
+
+    //    if(xml.attributes().hasAttribute("tstamp"))
+    msecsToEpoch = (quint64)((double)xml.attributes().value("tstamp").toString().toDouble()*1000.0);
+}
+
 void NPushAccTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("acc_data");

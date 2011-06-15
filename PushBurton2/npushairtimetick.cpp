@@ -43,6 +43,15 @@ NPushAirTimeTick::~NPushAirTimeTick()
 {
 }
 
+void NPushAirTimeTick::read_from_xml( QXmlStreamReader& xml)
+{
+    landed = (xml.attributes().value("landed").toString() == "true");
+    nOfDataPoints = xml.attributes().value("data_points").toString().toInt();
+    msecsOnAir = (quint64)((double)xml.attributes().value("in_air").toString().toDouble()*1000.0);
+    msecsToEpoch = (quint64)((double)xml.attributes().value("tstamp").toString().toDouble()*1000.0);
+    isOnlyHint = false;
+}
+
 void NPushAirTimeTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     if(!isOnlyHint) {

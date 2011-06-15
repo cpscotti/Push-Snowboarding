@@ -75,16 +75,6 @@ private:
     QFile * data_input;
     QXmlStreamReader xml;
 
-    NPushAccTick * readAccTick();
-    NPushFootTick * readFootTick();
-    NPushGpsTick * readGpsTick();
-    NPushGSRTick * readGsrTick();
-    NPushHeartTick * readHeartTick();
-    NPushIMUTick * readImuTick();
-    NPushMagTick * readMagTick();
-
-    bool digitalAcc;
-
 protected:
     void timerEvent(QTimerEvent *);
 };

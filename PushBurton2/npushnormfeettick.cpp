@@ -39,6 +39,11 @@ NPushNormFeetTick::~NPushNormFeetTick()
 
 }
 
+void NPushNormFeetTick::read_from_xml( QXmlStreamReader& xml)
+{
+    Q_UNUSED(xml);
+}
+
 void NPushNormFeetTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("feet_sum");

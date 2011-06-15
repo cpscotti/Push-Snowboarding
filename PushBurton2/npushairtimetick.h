@@ -38,10 +38,13 @@ class NPushAirTimeTick : public NPushLogTick
 {
 public:
     NPushAirTimeTick(quint64 a_msecsInAir, bool a_landed, quint64 a_msecsToEpoch, int nDataPts=0, bool a_hint=false);
-    ~NPushAirTimeTick();
 
-    void dump_to_xml(QXmlStreamWriter& xml) const;
-    QString get_pretty_print() const;
+    virtual ~NPushAirTimeTick();
+
+    virtual void read_from_xml( QXmlStreamReader& xml);
+    virtual void dump_to_xml(QXmlStreamWriter& xml) const;
+
+    virtual QString get_pretty_print() const;
 
 public:
 

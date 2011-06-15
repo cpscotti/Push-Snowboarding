@@ -48,9 +48,6 @@ public:
 public slots:
     void gotDataReceived(QString);
 
-private:
-    bool digitalAcc;
-
 #endif
 };
 

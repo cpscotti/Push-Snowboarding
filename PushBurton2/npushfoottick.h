@@ -37,12 +37,16 @@
 class NPushFootTick : public NPushLogTick
 {
 public:
+    NPushFootTick() {}
     NPushFootTick(char a_side, int a_toes, int a_heel);
     NPushFootTick(char a_side, int a_toes, int a_heel, quint64 a_msecsToEpoch);
-    ~NPushFootTick();
 
-    void dump_to_xml(QXmlStreamWriter& xml) const;
-    QString get_pretty_print() const;
+    virtual ~NPushFootTick();
+
+    virtual void read_from_xml( QXmlStreamReader& xml);
+    virtual void dump_to_xml(QXmlStreamWriter& xml) const;
+
+    virtual QString get_pretty_print() const;
 
 public:
 

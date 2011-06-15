@@ -27,6 +27,11 @@
 
 #include "npushlogtick.h"
 
+NPushLogTick::NPushLogTick()
+{
+
+}
+
 NPushLogTick::~NPushLogTick()
 {
 }

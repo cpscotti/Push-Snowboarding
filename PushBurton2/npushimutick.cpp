@@ -27,6 +27,8 @@
 
 #include "npushimutick.h"
 
+bool NPushIMUTick::digitalAcc = false;
+
 NPushIMUTick::NPushIMUTick(QStringList& values)
 {
     uint secs_to_epoch;
@@ -43,13 +45,9 @@ NPushIMUTick::NPushIMUTick(QStringList& values)
         secs_to_epoch = aft;
     }
 
-    digitalAcc = false;
-
     ParseValues(values);
 
     msecsToEpoch = (quint64)((double)secs_to_epoch*1000.0+(double)msecs);
-
-//    NPushIMUTick(values, );
 }
 
 
@@ -77,11 +75,68 @@ void NPushIMUTick::ParseValues(QStringList& values)
         else if(i < 10)
             mag[i-7] = values[i].toInt();
     }
+
+    /*
+      black magic warning! See .h
+      */
+
+    if(!digitalAcc) {
+        if(accel[0] < 0 ||
+           accel[1] < 0 ||
+           accel[2] < 0) {
+            digitalAcc = true;
+        }
+    }
 }
 
 NPushIMUTick::~NPushIMUTick()
 {
 
+}
+
+void NPushIMUTick::read_from_xml( QXmlStreamReader& xml)
+{
+    msecsToEpoch = (quint64)((double)xml.attributes().value("tstamp").toString().toDouble()*1000.0);
+
+    xml.readNextStartElement();
+    while(!(xml.isEndElement())) {
+        if(xml.name() == "acc") {
+
+            QStringList vals = xml.readElementText().split(",");
+            accel[0] = vals.at(0).toInt();
+            accel[1] = vals.at(1).toInt();
+            accel[2] = vals.at(2).toInt();
+
+        } else if(xml.name() == "gyro") {
+
+            QStringList vals = xml.readElementText().split(",");
+            gyro[0] = vals.at(0).toInt();
+            gyro[1] = vals.at(1).toInt();
+            gyro[2] = vals.at(2).toInt();
+
+        } else if(xml.name() == "mag") {
+
+            QStringList vals = xml.readElementText().split(",");
+            mag[0] = vals.at(0).toInt();
+            mag[1] = vals.at(1).toInt();
+            mag[2] = vals.at(2).toInt();
+
+        }
+
+        xml.readNextStartElement();
+    }
+
+    /*
+      black magic warning! See .h
+      */
+
+    if(!digitalAcc) {
+        if(accel[0] < 0 ||
+           accel[1] < 0 ||
+           accel[2] < 0) {
+            digitalAcc = true;
+        }
+    }
 }
 
 void NPushIMUTick::dump_to_xml(QXmlStreamWriter& xml) const

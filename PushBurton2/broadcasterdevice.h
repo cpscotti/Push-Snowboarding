@@ -9,6 +9,8 @@
 #include <QXmlStreamWriter>
 #include <QIODevice>
 
+#include <QRegExp>
+
 #include <QDebug>
 
 class BroadcasterDevice : public PushBurtonGenericDevice
@@ -31,7 +33,7 @@ public:
     bool subscribesToAny() { return true; }
 
     //This function will return true when the given device is a AirTimeDetector
-    bool subscribesTo(PushBurtonGenericDevice*) { return true; }
+    bool subscribesTo(PushBurtonGenericDevice*);
 
     bool start_run();
     bool end_run();

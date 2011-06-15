@@ -39,6 +39,24 @@ NPushGpsTick::~NPushGpsTick()
 {
 }
 
+void NPushGpsTick::read_from_xml( QXmlStreamReader& xml)
+{
+    QDateTime tstamp;
+    QGeoCoordinate fakeCoord;
+
+    fakeCoord.setAltitude(xml.attributes().value("altitude").toString().toDouble());
+    fakeCoord.setLatitude(xml.attributes().value("latitude").toString().toDouble());
+    fakeCoord.setLongitude(xml.attributes().value("longitude").toString().toDouble());
+
+    tstamp = QDateTime::fromTime_t(floor(xml.attributes().value("tstamp").toString().toDouble()));//+3600.0));
+
+    tick.setTimestamp(tstamp);
+    tick.setCoordinate(fakeCoord);
+
+    tick.setAttribute(QGeoPositionInfo::GroundSpeed, xml.attributes().value("ground_speed").toString().toFloat());
+
+}
+
 void NPushGpsTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("gps_data");

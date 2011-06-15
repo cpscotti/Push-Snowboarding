@@ -42,12 +42,15 @@ QTM_USE_NAMESPACE
 class NPushGpsTick : public NPushLogTick
 {
 public:
+    NPushGpsTick() {}
     NPushGpsTick(const QGeoPositionInfo &info);
-    ~NPushGpsTick();
 
-    void dump_to_xml(QXmlStreamWriter& xml) const;
+    virtual ~NPushGpsTick();
 
-    QString get_pretty_print() const;
+    virtual void read_from_xml( QXmlStreamReader& xml);
+    virtual void dump_to_xml(QXmlStreamWriter& xml) const;
+
+    virtual QString get_pretty_print() const;
 
     QGeoPositionInfo tick;
 };

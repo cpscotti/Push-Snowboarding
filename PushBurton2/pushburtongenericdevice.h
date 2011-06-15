@@ -43,17 +43,19 @@
     * defines the common interface for all sensors
 
  * Devices name should follow:
- All devices: push.*
+ * All devices: push.*
     -> n8 specific devices: push.n8.*
         -> bt specific devices: push.n8.bt.*
     -> qt specific devices/sensors: push.qt.*
     -> abstract devices: push.abstract.*
-        -> trick detectors: push.abstract.snowb.*
+        -> trick detectors: push.abstract.snowb.* (things that only make sense in the snowboarding world)
     -> report generators: push.report.
     -> network devices: push.network.*
 
     -> (TEMP) saver (yeh.. this'll be a device!): push.logsaver
     -> (TEMP) auto run manager (yes... we should have that!): push.runmanager.
+
+ * push.(device|framework|abstract|report).
 
 
  */
@@ -78,7 +80,27 @@ public:
     virtual bool start_run();
     virtual bool end_run();
 
+    //Just speeds up the connection.. preventing any checks if this is false!
     virtual bool subscribesToAny();
+
+    /*
+     * Devices can subscribe to others
+     * by either checking the device type (via RTTI typeid() )
+     *      -> specific (implm) device
+     *      -> the subscribing design will cast the publisher
+     * or by checking the device name via getName();
+     *      -> subscribing to a "class" of devices
+     *      -> implementation independent subscribing
+                    e.g.: subscribing to QRegExp("push.(\w|.)*.imu")
+                        QString s1 = "push.n8.bt.imu";
+                        QString s2 = "push.n9.nw.imu";
+
+                        qDebug() << "a: " << s1.contains(QRegExp("push.(_*|.)*.imu")); //true
+                        qDebug() << "b: " << s2.contains(QRegExp("push.(_*|.)*.imu")); //true
+
+        Note that ALL devices transparently subscribe to the simulation device.
+
+     */
     virtual bool subscribesTo(PushBurtonGenericDevice* deviceType);
 
 protected:

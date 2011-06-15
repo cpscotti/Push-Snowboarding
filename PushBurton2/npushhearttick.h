@@ -36,15 +36,19 @@
 class NPushHeartTick : public NPushLogTick
 {
 public:
+
+    NPushHeartTick() {}
+
     NPushHeartTick(int a_hr_3, int a_hr_2, int a_hr_1);
 
     NPushHeartTick(int a_hr_3, int a_hr_2, int a_hr_1, quint64 a_msecsToEpoch);
 
-    ~NPushHeartTick();
+    virtual ~NPushHeartTick();
 
-    void dump_to_xml(QXmlStreamWriter& xml) const;
+    virtual void read_from_xml( QXmlStreamReader& xml);
+    virtual void dump_to_xml(QXmlStreamWriter& xml) const;
 
-    QString get_pretty_print() const;
+    virtual QString get_pretty_print() const;
 
     int hr_3;
     int hr_2;

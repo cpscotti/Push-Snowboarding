@@ -38,13 +38,16 @@ QTM_USE_NAMESPACE
 class NPushAccTick : public NPushLogTick
 {
 public:
+    NPushAccTick() {}
     NPushAccTick(QAccelerometerReading * reading);
     NPushAccTick(QAccelerometerReading * reading, quint64 a_msecsToEpoch);
-    ~NPushAccTick();
 
-    void dump_to_xml(QXmlStreamWriter& xml) const;
+    virtual ~NPushAccTick();
 
-    QString get_pretty_print() const;
+    virtual void read_from_xml( QXmlStreamReader& xml);
+    virtual void dump_to_xml(QXmlStreamWriter& xml) const;
+
+    virtual QString get_pretty_print() const;
 
     QAccelerometerReading tick;
     qreal pAccAbsMag;

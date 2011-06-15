@@ -59,6 +59,15 @@ NPushMagTick::~NPushMagTick()
 {
 }
 
+void NPushMagTick::read_from_xml( QXmlStreamReader& xml)
+{
+    tick.setX(xml.attributes().value("x").toString().toFloat()*0.001);
+    tick.setY(xml.attributes().value("y").toString().toFloat()*0.001);
+    tick.setZ(xml.attributes().value("z").toString().toFloat()*0.001);
+
+    msecsToEpoch = (quint64)((double)xml.attributes().value("tstamp").toString().toDouble()*1000.0);
+}
+
 void NPushMagTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("mag_data");

@@ -13,10 +13,12 @@ class NPushRotationsTick : public NPushLogTick
 public:
     NPushRotationsTick(double a_rawDegs, quint64 a_msecsToEpoch);
 
-    ~NPushRotationsTick();
+    virtual ~NPushRotationsTick();
 
-    void dump_to_xml(QXmlStreamWriter& xml) const;
-    QString get_pretty_print() const;
+    virtual void read_from_xml( QXmlStreamReader& xml);
+    virtual void dump_to_xml(QXmlStreamWriter& xml) const;
+
+    virtual QString get_pretty_print() const;
 
 
 public:

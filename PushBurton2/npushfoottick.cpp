@@ -65,6 +65,16 @@ NPushFootTick::~NPushFootTick()
 
 }
 
+void NPushFootTick::read_from_xml( QXmlStreamReader& xml)
+{
+    side = xml.attributes().value("side").toString().at(0).toLatin1();
+
+    toes = xml.attributes().value("toes").toString().toInt();
+    heel = xml.attributes().value("heel").toString().toInt();
+
+    msecsToEpoch = (quint64)((double)xml.attributes().value("tstamp").toString().toDouble()*1000.0);
+}
+
 void NPushFootTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("foot_data");

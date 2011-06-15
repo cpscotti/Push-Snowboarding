@@ -37,13 +37,17 @@
 class NPushGSRTick : public NPushLogTick
 {
 public:
+    NPushGSRTick() {}
+
     NPushGSRTick(int a_reading);
     NPushGSRTick(int a_reading, quint64 a_msecsToEpoch);
-    ~NPushGSRTick();
 
-    void dump_to_xml(QXmlStreamWriter& xml) const;
+    virtual ~NPushGSRTick();
 
-    QString get_pretty_print() const;
+    virtual void read_from_xml( QXmlStreamReader& xml);
+    virtual void dump_to_xml(QXmlStreamWriter& xml) const;
+
+    virtual QString get_pretty_print() const;
 
     int reading;
 

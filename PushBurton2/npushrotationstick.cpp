@@ -13,6 +13,11 @@ NPushRotationsTick::~NPushRotationsTick()
 {
 }
 
+void NPushRotationsTick::read_from_xml( QXmlStreamReader& xml)
+{
+    Q_UNUSED(xml);
+}
+
 void NPushRotationsTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("rot_count");

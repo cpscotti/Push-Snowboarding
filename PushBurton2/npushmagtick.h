@@ -38,13 +38,17 @@ QTM_USE_NAMESPACE
 class NPushMagTick : public NPushLogTick
 {
 public:
+    NPushMagTick() {}
+
     NPushMagTick(QMagnetometerReading * reading);
     NPushMagTick(QMagnetometerReading * reading, quint64 a_msecsToEpoch);
-    ~NPushMagTick();
 
-    void dump_to_xml(QXmlStreamWriter& xml) const;
+    virtual ~NPushMagTick();
 
-    QString get_pretty_print() const;
+    virtual void read_from_xml( QXmlStreamReader& xml);
+    virtual void dump_to_xml(QXmlStreamWriter& xml) const;
+
+    virtual QString get_pretty_print() const;
 
 
     QMagnetometerReading tick;

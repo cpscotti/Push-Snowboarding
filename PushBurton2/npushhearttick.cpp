@@ -64,6 +64,15 @@ NPushHeartTick::~NPushHeartTick()
 {
 }
 
+void NPushHeartTick::read_from_xml( QXmlStreamReader& xml)
+{
+    hr_3 = xml.attributes().value("last32").toString().toInt();
+    hr_2= xml.attributes().value("last16").toString().toInt();
+    hr_1 = xml.attributes().value("lastBeat").toString().toInt();
+
+    msecsToEpoch = (quint64)((double)xml.attributes().value("tstamp").toString().toDouble()*1000.0);
+}
+
 void NPushHeartTick::dump_to_xml(QXmlStreamWriter& xml) const
 {
     xml.writeStartElement("heart_data");
