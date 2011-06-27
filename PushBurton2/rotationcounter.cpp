@@ -49,6 +49,7 @@ bool RotationCounter::subscribesTo(PushBurtonGenericDevice* deviceType)
 
 void RotationCounter::incoming_reading(NPushLogTick * tick)
 {
+    static double lastMeas = 0.0;
     if(typeid(*tick) == typeid(NPushAirTimeTick)) {
 
         NPushAirTimeTick * airTimeTick = (NPushAirTimeTick *)tick;
@@ -61,10 +62,7 @@ void RotationCounter::incoming_reading(NPushLogTick * tick)
             afterJumpDecCnter = 0;
 
             for(int i=0;i<PRE_SPIN_BUFFER_SIZE;i++){
-
-//                spinAcc += pastSpinBuff[i];
-                integrateSpinAcc(pastSpinBuff[i]);
-
+                spinAcc += pastSpinBuff[i];
             }
 
 //            qDebug() << "Starting at; SpinAcc = " << spinAcc;
@@ -84,8 +82,12 @@ void RotationCounter::incoming_reading(NPushLogTick * tick)
 
             //Which axis are we lookin?
             spinInc = ((double)imuTick->gyro[2])/14.375;
-            spinInc *= (imuTick->msecsToEpoch - lastTstamp)*0.001;
 
+            //interpolation
+            spinInc = (spinInc+lastMeas)/2.00;
+            lastMeas = spinInc;
+
+            spinInc *= (imuTick->msecsToEpoch - lastTstamp)*0.001;
 
         }
 
@@ -93,14 +95,12 @@ void RotationCounter::incoming_reading(NPushLogTick * tick)
 
 
         if(onAir) {
-//            spinAcc += spinInc;
-            integrateSpinAcc(spinInc);
+            spinAcc += spinInc;
 
             //emit intermediary rotation tick? if so, emit here.
         }
         if(afterJumpDecCnter > 0) {
-//            spinAcc += spinInc;
-            integrateSpinAcc(spinInc);
+            spinAcc += spinInc;
 
             afterJumpDecCnter--;
             if(afterJumpDecCnter == 0) {
@@ -112,13 +112,6 @@ void RotationCounter::incoming_reading(NPushLogTick * tick)
             pastSpinBuff[pastSpinBuffPt] = spinInc;
         }
     }
-}
-
-void RotationCounter::integrateSpinAcc(double meas)
-{
-    static double lastMeas = 0.0;
-    spinAcc += (meas + lastMeas)/2;
-    lastMeas = meas;
 }
 
 void RotationCounter::emitRotTick()

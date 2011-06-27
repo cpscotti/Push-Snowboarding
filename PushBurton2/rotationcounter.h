@@ -50,8 +50,6 @@ public slots:
 
 private:
 
-    void integrateSpinAcc(double meas);
-
     void emitRotTick();
 
     quint64 lastTstamp;

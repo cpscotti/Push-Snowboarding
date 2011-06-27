@@ -35,6 +35,13 @@ QString NPushRotationsTick::get_pretty_print() const
 
 void NPushRotationsTick::updateCleanDegs()
 {
+
+//    if(rawDegs > 0) {
+//        rawDegs *= 1.3;
+//    } else {
+//        rawDegs *= 1.4;
+//    }
+
     if(fabs(rawDegs) > 90.0) {
         if(rawDegs > 0)
             cleanDegs = ceil(rawDegs/180.0);
