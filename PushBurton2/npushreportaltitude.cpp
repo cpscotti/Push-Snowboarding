@@ -166,8 +166,12 @@ bool NPushReportAltitude::load_from_dir(QString &dirName)
         {
             if(xml.name() == "stats")
             {
-                Altitude_max = xml.attributes().value("max").toString().toDouble();
-                Altitude_min = xml.attributes().value("min").toString().toDouble();
+                if(xml.attributes().value("max").toString() != "nan")
+                    Altitude_max = xml.attributes().value("max").toString().toDouble();
+
+                if(xml.attributes().value("min").toString() != "nan")
+                    Altitude_min = xml.attributes().value("min").toString().toDouble();
+
             } else if(xml.name() == "graph") {
                 read_points_from_xml(xml);
             } else {
@@ -186,7 +190,8 @@ void NPushReportAltitude::read_points_from_xml(QXmlStreamReader& xml)
     {
         while(xml.readNextStartElement()) {
             if(xml.name() == "point") {
-                graphPoints.push_back(xml.attributes().value("val").toString().toDouble());
+                if(xml.attributes().value("val").toString() != "nan")
+                    graphPoints.push_back(xml.attributes().value("val").toString().toDouble());
             } else {
                 xml.skipCurrentElement();
             }

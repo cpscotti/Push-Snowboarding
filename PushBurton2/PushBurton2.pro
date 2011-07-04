@@ -137,8 +137,13 @@ FORMS    += \
     UI/mainwindow.ui \
     UI/liveview.ui
 
-CONFIG   += mobility
 MOBILITY = location sensors
+maemo5 {
+  CONFIG += mobility12
+  MOBILITY += connectivity
+} else {
+  CONFIG += mobility
+}
 
 #LIBS += -lQBluetooth
 soundFiles.sources = sounds/*.mp3
@@ -196,3 +201,8 @@ RESOURCES += \
 
 #OTHER_FILES += \
 #    ClassDiagram.txt
+
+maemo5 {
+    target.path = /opt/PushBurton2/bin
+    INSTALLS += target
+}

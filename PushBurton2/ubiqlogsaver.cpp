@@ -130,11 +130,19 @@ void UbiqLogSaver::CreateRunDir()
 {
     dirName = QString(FSC_RUNS_FOLDERS_ROOT)+QString(FSC_RUNS_PREFIX);
 
+#ifdef Q_WS_MAEMO_5
+    qDebug() << "In Maemo home = " << QDir::homePath();
+    dirName = QDir::homePath() + QString("/PushSnowboarding/") + QString(FSC_RUNS_PREFIX);
+#endif
+
     dirName += QString::number(start_time);
     dirName += QDateTime::fromTime_t(start_time).toString("_hhmm");
     QFSFileEngine fse;
-    if(!fse.mkdir(dirName, false))
+    qDebug() << "Trying to create: " << dirName;
+    if(!fse.mkdir(dirName, false)) {
         qDebug() << "Could not create run directory";
+        QCoreApplication::exit();
+    }
 }
 
 

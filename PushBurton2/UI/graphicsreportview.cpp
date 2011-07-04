@@ -115,7 +115,12 @@ void GraphicsReportView::refresh_dirs_graphs()
     for(int i=0;i<avDirectories.count();i++)
     {
 
+#ifdef Q_WS_MAEMO_5
+        qDebug() << "In Maemo home = " << QDir::homePath();
+        dirName = QDir::homePath() + QString("/PushSnowboarding/");
+#else
         dirName = FSC_RUNS_FOLDERS_ROOT;
+#endif
 
         if(avDirectories[i].length() == 16) // old format
         {
@@ -284,7 +289,16 @@ void GraphicsReportView::load_graphs(QString dir)
 
 void GraphicsReportView::load_avDirectories_directories()
 {
-    QDir dirIf(FSC_RUNS_FOLDERS_ROOT);
+    QString dirName;
+
+#ifdef Q_WS_MAEMO_5
+        qDebug() << "In Maemo home = " << QDir::homePath();
+        dirName = QDir::homePath() + QString("/PushSnowboarding/");
+#else
+        dirName = FSC_RUNS_FOLDERS_ROOT;
+#endif
+
+    QDir dirIf(dirName);
 
     QStringList fileFilter;
     fileFilter << FSC_RUNS_FILTER;
@@ -335,6 +349,7 @@ QString GraphicsReportView::name_from_old_format(const QString& inStr)
 
 QString GraphicsReportView::name_from_new_format(const QString& inStr)
 {
+    qDebug() << "Name from new format: " << inStr.left(16).right(10);
     uint utime = inStr.left(16).right(10).toUInt();
     return QDateTime::fromTime_t(utime).toString("hh:mm, ddd, d/M/yy");
 }

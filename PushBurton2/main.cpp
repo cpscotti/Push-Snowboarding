@@ -49,7 +49,6 @@ int main(int argc, char *argv[])
     if(appUi) {
         TRAP_IGNORE(appUi->SetOrientationL((CAknAppUi::TAppUiOrientation)CAknAppUi::EAppOrientationPortrait);)
     }
-
 #endif
 
     QString simulationFname;
@@ -59,6 +58,11 @@ int main(int argc, char *argv[])
     }
 
     MainWindow w(simulationFname);
+
+#if defined(Q_WS_MAEMO_5)
+    w.setAttribute(static_cast<Qt::WidgetAttribute>(128), true);
+#endif
+
 #if defined(Q_WS_S60)
     w.showMaximized();
 //    w.showFullScreen();

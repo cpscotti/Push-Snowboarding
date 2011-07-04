@@ -199,6 +199,12 @@ void GraphicVarPlot::generate_graph_path()
     {
         if(*it != invalidOrdValue)
             path->lineTo(gWidGraphOffset+i*horTransform, (vertMax-(*it))*vertTransform+gYOffset);
+
+
+//        qDebug() << QString("(x,y) = (%1,%2)").arg(
+//                        QString::number(gWidGraphOffset+i*horTransform),
+//                        QString::number((vertMax-(*it))*vertTransform+gYOffset));
+
         ++it;
         i++;
     }

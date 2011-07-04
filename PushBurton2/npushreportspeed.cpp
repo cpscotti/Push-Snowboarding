@@ -191,7 +191,9 @@ void NPushReportSpeed::read_points_from_xml(QXmlStreamReader& xml)
     {
         while(xml.readNextStartElement()) {
             if(xml.name() == "point") {
-                graphPoints.push_back(xml.attributes().value("val").toString().toDouble());
+                double val = xml.attributes().value("val").toString().toDouble();
+                if(val != -1.0)
+                    graphPoints.push_back(val);
             } else {
                 xml.skipCurrentElement();
             }
