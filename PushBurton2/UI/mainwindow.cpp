@@ -58,6 +58,11 @@ MainWindow::MainWindow(const QString& simulationData, QWidget *parent) :
     ui->graphicsView->showMaximized();
     ui->graphicsView->show();
 
+//    ui->graphicsView->fitInView(QRectF(0,0,36,48));
+#ifdef Q_WS_MAEMO_5
+    ui->graphicsView->scale(1.35,1.55);
+#endif
+
     //Building state machine hierarchy (no connections)
 
     rootState = new QState();
@@ -136,6 +141,7 @@ void MainWindow::fillStatesProperties()
     connect(connMenu, SIGNAL(startSearch_bt_clicked()), &devicesManager, SLOT(start_bt_search()));
     connect(connMenu, SIGNAL(stopSearch_bt_clicked()), &devicesManager, SLOT(stop_bt_search()));
     connect(connMenu, SIGNAL(kit_selected(int)), &devicesManager, SLOT(kit_selected(int)));
+    connect(&devicesManager, SIGNAL(allDiscoveryFinished()), connMenu, SIGNAL(searchFinished()));
     connMenu->setPos(10, -180);
     scene->addItem(connMenu);
     connectUsrState->assignProperty(connMenu, "y", 5);

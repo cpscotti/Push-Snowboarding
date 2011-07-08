@@ -52,6 +52,7 @@ signals:
     void startSearch_bt_clicked();
     void stopSearch_bt_clicked();
     void kit_selected(int n);
+    void searchFinished();
 
 private slots:
     void kit_selected(QString kit_selected);

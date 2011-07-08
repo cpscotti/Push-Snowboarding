@@ -31,29 +31,20 @@
 #include <QObject>
 #include <QDebug>
 
-//Headers only necessary when bluetooth is available/on symbian device
-#ifdef Q_OS_SYMBIAN
-#include <QBluetooth/QBtDevice.h>
-#include <QBluetooth/QBtService.h>
-#include <QBluetooth/QBtConstants.h>
-#include <QBluetooth/QBluetooth.h>
-#include <QBluetooth/QBtDeviceDiscoverer.h>
-#include <QBluetooth/QBtServiceDiscoverer.h>
-#include <QBluetooth/QBtSerialPortClient.h>
-#include <QBluetooth/QBtLocalDevice.h>
-#endif
 
 #include <QSignalMapper>
 
 #include "pushdevicesholder.h"
 
-#ifdef Q_OS_SYMBIAN
-#include "pushn8btdevice.h"
-#include "pushn8footdevice.h"
-#include "pushn8gsrdevice.h"
-#include "pushn8imudevice.h"
-#include "pushn8heartdevice.h"
-#endif
+#include <QBluetoothAddress>
+#include <QBluetoothDeviceDiscoveryAgent>
+#include <QBluetoothServiceDiscoveryAgent>
+#include <QBluetoothDeviceInfo>
+#include <QBluetoothLocalDevice>
+
+#include <QMap>
+
+#include "qtmpushdevice.h"
 
 #include "pushn8phoneacc.h"
 #include "pushn8phonegps.h"
@@ -88,16 +79,22 @@ signals:
     void request_run_start();
     void request_run_end();
 
+    void allDiscoveryFinished();
+
     //This may seem abusive at first look
     //  but makes complete sense since they are just routed from
     //  signals comming from different objects and well.. at some point you need to break into!
 
 public slots:
 
-    //inner mechanisms
-#ifdef Q_OS_SYMBIAN
-    void deviceFound(QBtDevice);
-#endif
+    void serviceDiscovered(QBluetoothServiceInfo info);
+    void srvcDiscErrorDetected(QBluetoothServiceDiscoveryAgent::Error error);
+    void srvcDiscoveryAgentFinished();
+
+    void deviceDiscovered(QBluetoothDeviceInfo info);
+    void deviceDiscErrorDetected(QBluetoothDeviceDiscoveryAgent::Error);
+    void deviceDiscoveryAgentFinished();
+
 
     //comm with user app
     void start_bt_search();
@@ -109,6 +106,11 @@ public slots:
 private:
     PushDevicesHolder * configuredDevices;
 
+    QBluetoothDeviceDiscoveryAgent * devDiscoveryAgent;
+    QBluetoothLocalDevice * localDevice;
+
+    QMap<QBluetoothAddress, QString> knownBtDevices;
+
     bool searching;
     bool auto_connect;
     int auto_connect_to_kit;
@@ -118,14 +120,6 @@ private:
 
     QSignalMapper connectedMapper;
     QSignalMapper disconnectedMapper;
-
-#ifdef Q_OS_SYMBIAN
-    QVector<QBtDevice> unknownFoundDevices;
-    QBtDeviceDiscoverer * deviceDiscoverer;
-
-    bool SetupDevice(QBtDevice);
-    bool IsDeviceNovell(QBtDevice);
-#endif
 
     void SetupPhoneDevices();
     void SetupAbstractDevices();

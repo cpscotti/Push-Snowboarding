@@ -27,14 +27,12 @@
 
 #include "devicesmanager.h"
 
+#include <QBluetoothLocalDevice>
+
 DevicesManager::DevicesManager(PushDevicesHolder * aDevHolder, QObject *parent) :
-    QObject(parent), configuredDevices(aDevHolder)
+    QObject(parent), configuredDevices(aDevHolder),
+    devDiscoveryAgent(new QBluetoothDeviceDiscoveryAgent(this))
 {
-
-#ifdef Q_OS_SYMBIAN
-    deviceDiscoverer = 0;
-#endif
-
     searching = false;
 
     auto_connect = true;
@@ -47,37 +45,119 @@ DevicesManager::DevicesManager(PushDevicesHolder * aDevHolder, QObject *parent) 
 
     SetupPhoneDevices();
     SetupAbstractDevices();
+
+
+    // start Bluetooth if not started
+    localDevice = new QBluetoothLocalDevice();
+
+    qDebug() << "device pointer is:" << localDevice;
+
+    if(localDevice)
+    {
+        localDevice->powerOn();
+        delete localDevice;
+        localDevice = 0;
+    }
+
+    connect(devDiscoveryAgent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)),
+            this, SLOT(deviceDiscovered(QBluetoothDeviceInfo)));
+    connect(devDiscoveryAgent, SIGNAL(error(QBluetoothDeviceDiscoveryAgent::Error)),
+            this, SLOT(deviceDiscErrorDetected(QBluetoothDeviceDiscoveryAgent::Error)));
+    connect(devDiscoveryAgent, SIGNAL(finished()),
+            this, SLOT(deviceDiscoveryAgentFinished()));
+    connect(devDiscoveryAgent, SIGNAL(finished()),
+            this, SIGNAL(allDiscoveryFinished()));
+
+
+
 }
 
 DevicesManager::~DevicesManager()
 {
-#ifdef Q_OS_SYMBIAN
-    if(deviceDiscoverer)
-        delete deviceDiscoverer;
-    unknownFoundDevices.clear();
-#endif
+
 }
 
 void DevicesManager::start_bt_search()
 {
-#ifdef Q_OS_SYMBIAN
-    if(!searching)
+
+    if(devDiscoveryAgent)
     {
-        searching = true;
-        QBtLocalDevice::askUserTurnOnBtPower();
-        unknownFoundDevices.clear();
-        if(deviceDiscoverer) delete deviceDiscoverer;
-        deviceDiscoverer = new QBtDeviceDiscoverer(this);
-
-        connect(deviceDiscoverer , SIGNAL(newDeviceFound (QBtDevice)), this, SLOT(deviceFound(QBtDevice)));
-
-        deviceDiscoverer->startDiscovery();
-        qDebug() << "Bluetooth Discovery started";
+        devDiscoveryAgent->start();
     }
-#endif
+
+    qDebug() << "DevDiscovery Started";
 }
 
-#ifdef Q_OS_SYMBIAN
+void DevicesManager::deviceDiscovered(QtMobility::QBluetoothDeviceInfo info)
+{
+    qDebug() << "Device found: " << info.name();
+    if(info.name().contains("PUSHN8_") > 0)
+    {
+
+        //saving device name for further lookup inside service found
+        if(!knownBtDevices.contains(info.address()))
+        {
+            knownBtDevices[info.address()] = info.name();
+        }
+
+        qDebug() << "Starting service discovery";
+        QBluetoothServiceDiscoveryAgent * tSrvcDiscoveryAgent = new QBluetoothServiceDiscoveryAgent(info.address(),this);
+
+        connect(tSrvcDiscoveryAgent, SIGNAL(serviceDiscovered(QBluetoothServiceInfo)),
+                this, SLOT(serviceDiscovered(QBluetoothServiceInfo)));
+        connect(tSrvcDiscoveryAgent, SIGNAL(finished()),
+                this, SLOT(srvcDiscoveryAgentFinished()));
+        connect(tSrvcDiscoveryAgent, SIGNAL(error(QBluetoothServiceDiscoveryAgent::Error)),
+                this, SLOT(srvcDiscErrorDetected(QBluetoothServiceDiscoveryAgent::Error)));
+
+        tSrvcDiscoveryAgent->start();
+    }
+}
+
+void DevicesManager::deviceDiscoveryAgentFinished()
+{
+    qDebug() << "DevDiscovery Ended";
+}
+
+void DevicesManager::serviceDiscovered(QtMobility::QBluetoothServiceInfo info)
+{
+    qDebug() << "Service Found for " << knownBtDevices[info.device().address()];
+
+    if(knownBtDevices[info.device().address()].contains("PUSHN8_MOTION") > 0)
+    {
+        //Adding to configuredDevices
+        QtmPushDevice * qtmDevice = new QtmPushDevice(info);
+
+        configuredDevices->push_back(qtmDevice);
+
+        emit device_connecting(QString("Board"));
+
+        connect(qtmDevice, SIGNAL(connected()), &connectedMapper, SLOT(map()));
+        connectedMapper.setMapping(qtmDevice, QString("Board"));
+        connect(qtmDevice, SIGNAL(disconnected()), &disconnectedMapper, SLOT(map()));
+        disconnectedMapper.setMapping(qtmDevice, QString("Board"));
+
+    }
+}
+
+void DevicesManager::srvcDiscoveryAgentFinished()
+{
+    qDebug() << "A SrvcDiscovery Finished";
+    sender()->deleteLater();
+}
+
+void DevicesManager::srvcDiscErrorDetected(QBluetoothServiceDiscoveryAgent::Error error)
+{
+    qDebug() << "Service Discovery Got Error:" << error;
+}
+
+
+void DevicesManager::deviceDiscErrorDetected(QBluetoothDeviceDiscoveryAgent::Error error)
+{
+    qDebug() << "Device Discovery Got Error:" << error;
+}
+
+#if 0
 void DevicesManager::deviceFound(QBtDevice newDevice)
 {
     QString devName = newDevice.getName();
@@ -200,13 +280,14 @@ bool DevicesManager::IsDeviceNovell(QBtDevice dev)
 
 void DevicesManager::stop_bt_search()
 {
-#ifdef Q_OS_SYMBIAN
-    if(searching)
+    if(devDiscoveryAgent)
     {
-        searching = false;
-        deviceDiscoverer->stopDiscovery();
+        if(devDiscoveryAgent->isActive())
+        {
+            devDiscoveryAgent->stop();
+            qDebug() << "DevDiscovery Stopped";
+        }
     }
-#endif
 }
 
 void DevicesManager::switch_to_simulation_device(const QString& fname)
@@ -304,3 +385,4 @@ void DevicesManager::SetupAbstractDevices()
     BroadcasterDevice * brodDevice = new BroadcasterDevice();
     configuredDevices->push_back(brodDevice);
 }
+

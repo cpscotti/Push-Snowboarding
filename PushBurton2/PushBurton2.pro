@@ -80,7 +80,8 @@ SOURCES += \
     virtualbrosdevice.cpp \
     rotationcounter.cpp \
     npushrotationstick.cpp \
-    broadcasterdevice.cpp
+    broadcasterdevice.cpp \
+    qtmpushdevice.cpp
 
 HEADERS  += \
     devicesmanager.h \
@@ -131,7 +132,8 @@ HEADERS  += \
     UI/liveview.h \
     UI/graphicssettings.h \
     UI/pushburtonanimation.h \
-    broadcasterdevice.h
+    broadcasterdevice.h \
+    qtmpushdevice.h
 
 FORMS    += \
     UI/mainwindow.ui \
@@ -174,22 +176,22 @@ symbian {
         WriteUserData \
         Location
 
-    HEADERS  += \
-        pushn8btdevice.h \
-        pushn8imudevice.h \
-        pushn8heartdevice.h \
-        pushn8gsrdevice.h \
-        pushn8footdevice.h
+#    HEADERS  += \
+#        pushn8btdevice.h \
+#        pushn8imudevice.h \
+#        pushn8heartdevice.h \
+#        pushn8gsrdevice.h \
+#        pushn8footdevice.h
 
-    SOURCES  += \
-        pushn8btdevice.cpp \
-        pushn8imudevice.cpp \
-        pushn8heartdevice.cpp \
-        pushn8gsrdevice.cpp \
-        pushn8footdevice.cpp
+#    SOURCES  += \
+#        pushn8btdevice.cpp \
+#        pushn8imudevice.cpp \
+#        pushn8heartdevice.cpp \
+#        pushn8gsrdevice.cpp \
+#        pushn8footdevice.cpp
 
-    addFiles.sources = $(EPOCROOT)Epoc32/release/$(PLATFORM)/$(CFG)/QBluetooth.dll
-    addFiles.path = /sys/bin
+#    addFiles.sources = $(EPOCROOT)Epoc32/release/$(PLATFORM)/$(CFG)/QBluetooth.dll
+#    addFiles.path = /sys/bin
 
     DEPLOYMENT += addFiles
 

@@ -90,6 +90,7 @@ void GraphicsConnMenu::setupStateMachine()
         btState->setInitialState(btStandBy);
         btStandBy->addTransition(startBt, SIGNAL(activated()), btSearching);
         btSearching->addTransition(stopBt, SIGNAL(activated()), btStandBy);
+        btSearching->addTransition(this, SIGNAL(searchFinished()), btStandBy);
         btSearching->assignProperty(startBt, "y", -60);
         btSearching->assignProperty(stopBt, "y", 0);
         btStandBy->assignProperty(startBt, "y", 0);
@@ -113,4 +114,3 @@ void GraphicsConnMenu::kit_selected(QString selKit)
     emit kit_selected(kitN);
     qDebug() << "Kit " << kitN << " selected";
 }
-
